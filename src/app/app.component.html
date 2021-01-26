@@ -1,0 +1,52 @@
+<div class="main">
+  <router-outlet></router-outlet>
+</div>
+
+<nav class="navegacion bg-white">
+  <ul class="d-flex flex-row justify-content-between">
+    <li class="opcion-item">
+      <a
+        matRipple
+        [matRippleCentered]="true"
+        [matRippleColor]="'#ff5a6026'"
+        routerLink="inicio"
+        routerLinkActive="active"
+      >
+        <mat-icon>home</mat-icon>
+      </a>
+    </li>
+    <li class="opcion-item">
+      <a
+        matRipple
+        [matRippleCentered]="true"
+        [matRippleColor]="'#ff5a6026'"
+        routerLink="ventas"
+        routerLinkActive="active"
+      >
+        <mat-icon>monetization_on</mat-icon>
+      </a>
+    </li>
+    <li class="opcion-item">
+      <a
+        matRipple
+        [matRippleCentered]="true"
+        [matRippleColor]="'#ff5a6026'"
+        routerLink="inventario"
+        routerLinkActive="active"
+      >
+        <mat-icon>store</mat-icon>
+      </a>
+    </li>
+    <li class="opcion-item">
+      <a
+        matRipple
+        [matRippleCentered]="true"
+        [matRippleColor]="'#ff5a6026'"
+        routerLink="analiticas"
+        routerLinkActive="active"
+      >
+        <mat-icon>bar_chart</mat-icon>
+      </a>
+    </li>
+  </ul>
+</nav>

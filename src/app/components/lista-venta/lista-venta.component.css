@@ -1,0 +1,37 @@
+.venta {
+  border-bottom: 1px solid #e5e3ed;
+  padding: 10px 20px;
+}
+
+.venta .venta-icono {
+  height: 58px;
+  width: 58px;
+  background-color: #10e7d926;
+  color: #08c0d8;
+  margin-right: 8px;
+  border-radius: 10px;
+}
+.venta .venta-icono .mat-icon {
+  transform: scale(1.5);
+}
+
+.venta .venta-detalles .descripcion {
+  color: #1c0e5e;
+  font-weight: 700;
+}
+
+.venta .venta-detalles .fecha {
+  color: #adacb1;
+  font-weight: 600;
+  font-size: 12px;
+}
+
+.venta .venta-total {
+  margin-left: auto;
+  color: #1c0e5e;
+  font-size: 24px;
+}
+
+.venta .venta-acciones {
+  margin-left: auto;
+}

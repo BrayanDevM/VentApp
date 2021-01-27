@@ -5,9 +5,10 @@
 
 // Fuentes
 @import url("https://fonts.googleapis.com/css2?family=Montserrat:wght@600;700&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Lato:wght@400;700&display=swap");
 
 :root {
-  --color-titulos: #1c0e5e;
+  --color-texto: #1c0e5e;
 }
 
 html,
@@ -16,8 +17,9 @@ body {
 }
 body {
   margin: 0;
-  font-family: Roboto, "Helvetica Neue", sans-serif;
+  font-family: "Lato", "Roboto", "Helvetica Neue", sans-serif;
   background-color: #f9f8ff;
+  color: var(--color-texto);
 }
 
 h1,
@@ -32,19 +34,38 @@ h6 {
 h1 {
   font-weight: 700; // Bold
   font-size: 48px;
-  color: var(--color-titulos);
+  color: var(--color-texto);
+  margin-bottom: 24px;
 }
 
 .main {
-  padding: 32px 16px;
+  height: 100%;
+  padding-bottom: calc(64px + 3rem);
+  overflow-y: scroll;
+  background-color: #f9f8ff;
+}
+
+.contenedor {
+  padding: 25px 20px;
 }
 
 .mat-icon {
   font-family: "Material Icons Outlined";
 }
 
+.w-100 {
+  width: 100%;
+}
+
+.mat-dialog-title {
+  font-family: Lato, sans-serif;
+  font-weight: 700;
+  color: var(--color-texto);
+}
+
 .navegacion {
-  position: absolute;
+  position: fixed;
+  z-index: 100;
   width: 100%;
   bottom: 0;
   left: 0;
@@ -75,4 +96,40 @@ h1 {
 
 .navegacion .opcion-item a.active {
   color: #ff5a5f;
+}
+
+.boton-macro {
+  background-color: #4524a8;
+  border-radius: 28px;
+  color: #fff;
+  padding: 1rem;
+}
+
+.boton-macro .boton-titulo {
+  font-size: 1.2rem;
+  font-weight: 700;
+}
+
+.boton-macro .boton-desc {
+  font-size: 0.8rem;
+}
+
+.boton-macro button.mat-flat-button {
+  height: 64px;
+  width: 64px;
+  border-radius: 20px;
+}
+
+.seccion {
+  height: 64px;
+  line-height: 64px;
+  border-top: 1px solid #eee;
+  border-bottom: 1px solid #eee;
+  text-transform: uppercase;
+  font-family: "Montserrat", sans-serif;
+  font-size: 24px;
+  color: #c8c8c8;
+  font-weight: 700;
+  background-color: #fff;
+  padding: 0 10px;
 }

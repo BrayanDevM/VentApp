@@ -1,0 +1,62 @@
+<form [formGroup]="formVenta" (ngSubmit)="guardarVenta()">
+  <h2 mat-dialog-title>Nueva venta</h2>
+  <mat-dialog-content>
+    <!-- ****************** SELECCIÓN DE PRODUCTO ****************** -->
+    <mat-form-field class="w-100 mb-3" appearance="outline">
+      <mat-label>Producto</mat-label>
+      <mat-select
+        (selectionChange)="obtenerPrecio()"
+        formControlName="producto"
+        name="producto"
+      >
+        <mat-option *ngFor="let prod of productos" [value]="prod.nombre">
+          {{ prod.nombre }}
+        </mat-option>
+      </mat-select>
+      <mat-icon matSuffix>sports_bar</mat-icon>
+      <mat-hint *ngIf="fv.producto"
+        >Precio: {{ fv.precio | currency }}</mat-hint
+      >
+    </mat-form-field>
+
+    <!-- ****************** SELECCIÓN DE CANTIDAD ****************** -->
+    <mat-form-field class="w-100" appearance="outline">
+      <mat-label>Cliente</mat-label>
+      <mat-select formControlName="cliente" name="cliente">
+        <mat-option value="Cliente 1">Cliente 1</mat-option>
+        <mat-option value="Cliente 2">Cliente 2</mat-option>
+        <mat-option value="Cliente 3">Cliente 3</mat-option>
+      </mat-select>
+      <mat-icon matSuffix>person</mat-icon>
+      <!-- <mat-hint>Hint</mat-hint> -->
+    </mat-form-field>
+
+    <!-- ****************** SELECCIÓN DE CANTIDAD ****************** -->
+    <mat-form-field class="w-100" appearance="outline">
+      <mat-label>Cantidad</mat-label>
+      <input
+        type="number"
+        formControlName="cantidad"
+        name="cantidad"
+        matInput
+      />
+      <!-- <mat-icon matSuffix>sports_bar</mat-icon> -->
+      <!-- <mat-hint>Hint</mat-hint> -->
+    </mat-form-field>
+
+    <mat-slide-toggle class="mb-3" formControlName="paga" name="paga">
+      Paga: {{ fv.paga ? "Si" : "No" }}
+    </mat-slide-toggle>
+
+    <div class="text-muted mb-3">
+      Fecha: {{ fv.fecha | date: "d/M/yy, h:mm a" }}
+    </div>
+    <h3 *ngIf="formVenta.valid">
+      Total: ${{ fv.precio * fv.cantidad | number }}
+    </h3>
+  </mat-dialog-content>
+  <mat-dialog-actions align="end">
+    <button mat-button mat-dialog-close>Cancelar</button>
+    <button mat-button type="submit">Guardar</button>
+  </mat-dialog-actions>
+</form>

@@ -1,0 +1,22 @@
+.contador {
+  /* border: 1px solid red; */
+  margin-right: 1rem;
+}
+
+.contador .contador-estado {
+  width: 15px;
+  height: 15px;
+  border-radius: 4px;
+}
+
+.contador .contador-numero {
+  font-size: 1.6rem;
+  margin-top: -5px;
+  margin-left: 3px;
+}
+
+.contador-desc {
+  margin-top: -8px;
+  font-size: 0.85rem;
+  color: #9c99a8;
+}

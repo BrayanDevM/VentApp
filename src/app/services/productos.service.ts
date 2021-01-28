@@ -1,35 +1,80 @@
-import { Injectable } from '@angular/core';
+import { EventEmitter, Injectable } from '@angular/core';
 
 @Injectable({
   providedIn: 'root',
 })
 export class ProductosService {
-  productos = [
-    {
-      nombre: 'Poker',
-      precio: 2500,
-      img: '',
-    },
-    {
-      nombre: 'Poker 750ml',
-      precio: 4000,
-      img: '',
-    },
-    {
-      nombre: 'Águila Light',
-      precio: 2500,
-      img: '',
-    },
-    {
-      nombre: 'Club Colombia',
-      precio: 2500,
-      img: '',
-    },
-  ];
+  productos: Producto[] = [];
 
-  constructor() {}
+  productoNuevo$ = new EventEmitter<Producto>();
+  productoEliminado$ = new EventEmitter<string>();
+  productoActualizado$ = new EventEmitter<Producto>();
+
+  constructor() {
+    this.cargarLS();
+  }
 
   async obtenerProductos(): Promise<any[]> {
     return this.productos;
   }
+
+  async guardarProducto(producto: Producto) {
+    producto.id = this.crearIdProducto();
+    this.productos.unshift(producto);
+    console.log(this.productos);
+
+    this.almacenarEnLS();
+    return producto;
+  }
+
+  async editarProducto(producto: Producto) {
+    const i = this.productos.findIndex((v: Producto) => (v.id = producto.id));
+    this.productos.splice(i, 1, producto);
+    this.almacenarEnLS();
+    return true;
+  }
+
+  async eliminarProducto(id: string): Promise<boolean> {
+    const i = this.productos.findIndex(
+      (producto: Producto) => producto.id === id
+    );
+    if (i >= 0) {
+      this.productos.splice(i, 1);
+      this.almacenarEnLS();
+      return true;
+    } else {
+      return false;
+    }
+  }
+
+  crearIdProducto(longitud = 18) {
+    let resultado = '';
+    const caracteres =
+      'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstvwxyz0123456789';
+    const caracteresLength = caracteres.length;
+    for (let i = 0; i < longitud; i++) {
+      resultado += caracteres.charAt(
+        Math.floor(Math.random() * caracteresLength)
+      );
+    }
+    return resultado;
+  }
+
+  almacenarEnLS() {
+    localStorage.setItem('productos', JSON.stringify(this.productos));
+  }
+
+  cargarLS() {
+    if (localStorage.getItem('productos')) {
+      this.productos = JSON.parse(localStorage.getItem('productos') + '');
+    }
+  }
+}
+
+export interface Producto {
+  id: string;
+  nombre: string;
+  precioVenta: number;
+  precioCompra: number;
+  img: string;
 }

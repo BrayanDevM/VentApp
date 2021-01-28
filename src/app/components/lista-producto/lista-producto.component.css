@@ -1,0 +1,43 @@
+.producto {
+  border-bottom: 1px solid #e5e3ed;
+  padding: 10px 20px;
+}
+
+.producto .producto-img {
+  height: 58px;
+  width: 58px;
+  margin-right: 8px;
+  border-radius: 10px;
+  overflow: hidden;
+  background-color: #fff;
+}
+
+.producto .producto-img img {
+  height: 48px;
+  width: 48px;
+}
+
+.producto .producto-icono .mat-icon {
+  transform: scale(1.5);
+}
+
+.producto .producto-detalles .descripcion {
+  color: #1c0e5e;
+  font-weight: 700;
+}
+
+.producto .producto-detalles .fecha {
+  color: #adacb1;
+  font-weight: 600;
+  font-size: 12px;
+}
+
+.producto .producto-total {
+  margin-left: auto;
+  color: #1c0e5e;
+  font-size: 24px;
+}
+
+.producto .producto-acciones {
+  margin-left: auto;
+}

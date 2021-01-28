@@ -1,0 +1,50 @@
+<form [formGroup]="formProducto" (ngSubmit)="guardarProducto()">
+  <h2 mat-dialog-title>Nuevo producto</h2>
+  <mat-dialog-content>
+    <!-- ****************** ESTABLECER PRODUCTO ****************** -->
+    <mat-form-field class="w-100 mb-1" appearance="outline">
+      <mat-label>Nombre</mat-label>
+      <input type="text" formControlName="nombre" name="nombre" matInput />
+      <mat-icon matSuffix>sports_bar</mat-icon>
+      <mat-error>Debes seleccionar un producto</mat-error>
+    </mat-form-field>
+
+    <!-- ****************** ESTABLECER PRECIO COMPRA ****************** -->
+    <mat-form-field class="w-100 mb-1" appearance="outline">
+      <mat-label>Precio compra</mat-label>
+      <input
+        type="number"
+        formControlName="precioCompra"
+        name="precioCompra"
+        matInput
+      />
+      <mat-error>Debes indicar el precio</mat-error>
+    </mat-form-field>
+
+    <!-- ****************** ESTABLECER PRECIO VENTA ****************** -->
+    <mat-form-field class="w-100 mb-1" appearance="outline">
+      <mat-label>Precio venta</mat-label>
+      <input
+        type="number"
+        formControlName="precioVenta"
+        name="precioVenta"
+        matInput
+      />
+      <mat-hint
+        >Utilidad: $ {{ fv.precioVenta - fv.precioCompra | number }}</mat-hint
+      >
+      <mat-error>Debes indicar el precio</mat-error>
+    </mat-form-field>
+
+    <!-- ****************** ESTABLECER IMG ****************** -->
+    <mat-form-field class="w-100 mb-1" appearance="outline">
+      <mat-label>Imagen</mat-label>
+      <input type="text" formControlName="img" name="img" matInput />
+      <mat-hint>Es opcional</mat-hint>
+    </mat-form-field>
+  </mat-dialog-content>
+  <mat-dialog-actions align="end">
+    <button mat-button mat-dialog-close>Cancelar</button>
+    <button mat-button type="submit">Guardar</button>
+  </mat-dialog-actions>
+</form>

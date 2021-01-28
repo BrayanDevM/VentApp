@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { Venta } from 'src/app/services/ventas.service';
 
 @Component({
@@ -17,7 +17,18 @@ export class ListaVentaComponent implements OnInit {
     paga: true,
   };
 
+  @Output() eliminarVenta$ = new EventEmitter<Venta>();
+  @Output() editarVenta$ = new EventEmitter<Venta>();
+
   constructor() {}
 
   ngOnInit(): void {}
+
+  editarVenta(venta: Venta) {
+    this.editarVenta$.emit(venta);
+  }
+
+  eliminarVenta(venta: Venta) {
+    this.eliminarVenta$.emit(venta);
+  }
 }

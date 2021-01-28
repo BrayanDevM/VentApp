@@ -19,10 +19,15 @@
       <mat-chip *ngIf="!venta.paga" color="accent" selected>Debe</mat-chip>
     </mat-chip-list>
     <div class="venta-acciones">
-      <button mat-stroked-button>
+      <button (click)="editarVenta(venta)" mat-stroked-button>
         <mat-icon>edit</mat-icon>
       </button>
-      <button class="ms-2" mat-stroked-button color="warn">
+      <button
+        (click)="eliminarVenta(venta)"
+        class="ms-2"
+        mat-stroked-button
+        color="warn"
+      >
         <mat-icon>delete</mat-icon>
       </button>
     </div>

@@ -2,7 +2,7 @@
   <h2 mat-dialog-title>Nueva venta</h2>
   <mat-dialog-content>
     <!-- ****************** SELECCIÓN DE PRODUCTO ****************** -->
-    <mat-form-field class="w-100 mb-3" appearance="outline">
+    <mat-form-field class="w-100 mb-2" appearance="outline">
       <mat-label>Producto</mat-label>
       <mat-select
         (selectionChange)="obtenerPrecio()"
@@ -14,13 +14,14 @@
         </mat-option>
       </mat-select>
       <mat-icon matSuffix>sports_bar</mat-icon>
-      <mat-hint *ngIf="fv.producto"
-        >Precio: {{ fv.precio | currency }}</mat-hint
-      >
+      <mat-hint *ngIf="fv.producto">
+        Precio: {{ fv.precio | currency }}
+      </mat-hint>
+      <mat-error>Debes seleccionar un producto</mat-error>
     </mat-form-field>
 
     <!-- ****************** SELECCIÓN DE CANTIDAD ****************** -->
-    <mat-form-field class="w-100" appearance="outline">
+    <mat-form-field class="w-100 mb-2" appearance="outline">
       <mat-label>Cliente</mat-label>
       <mat-select formControlName="cliente" name="cliente">
         <mat-option value="Cliente 1">Cliente 1</mat-option>
@@ -28,11 +29,11 @@
         <mat-option value="Cliente 3">Cliente 3</mat-option>
       </mat-select>
       <mat-icon matSuffix>person</mat-icon>
-      <!-- <mat-hint>Hint</mat-hint> -->
+      <mat-error>Debes seleccionar un cliente</mat-error>
     </mat-form-field>
 
     <!-- ****************** SELECCIÓN DE CANTIDAD ****************** -->
-    <mat-form-field class="w-100" appearance="outline">
+    <mat-form-field class="w-100 mb-2" appearance="outline">
       <mat-label>Cantidad</mat-label>
       <input
         type="number"
@@ -40,10 +41,10 @@
         name="cantidad"
         matInput
       />
-      <!-- <mat-icon matSuffix>sports_bar</mat-icon> -->
-      <!-- <mat-hint>Hint</mat-hint> -->
+      <mat-error>Debes indicar la cantidad</mat-error>
     </mat-form-field>
 
+    <!-- ****************** INDICADOR DE PAGO ****************** -->
     <mat-slide-toggle class="mb-3" formControlName="paga" name="paga">
       Paga: {{ fv.paga ? "Si" : "No" }}
     </mat-slide-toggle>

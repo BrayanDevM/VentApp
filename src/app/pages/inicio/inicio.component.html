@@ -7,7 +7,7 @@
   <div class="contadores d-flex flex-row mb-4">
     <app-contador
       [color]="'#4AC3B5'"
-      [numero]="142"
+      [numero]="ventasRecientes.length"
       [descripcion]="'Ventas'"
     ></app-contador>
     <app-contador
@@ -43,5 +43,7 @@
   <app-lista-venta
     *ngFor="let venta of ventasRecientes"
     [venta]="venta"
+    (editarVenta$)="editarVenta($event)"
+    (eliminarVenta$)="eliminarVenta($event)"
   ></app-lista-venta>
 </ng-template>

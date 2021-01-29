@@ -27,13 +27,8 @@ export class InventarioComponent implements OnInit {
   }
 
   editarProducto(producto: Producto) {
-    const dialog = this.dialog.open(DialogProductoComponent, {
+    this.dialog.open(DialogProductoComponent, {
       data: producto,
-    });
-    dialog.afterClosed().subscribe((confirma) => {
-      if (confirma) {
-        this.productos$.eliminarProducto(producto.id).then(console.log);
-      }
     });
   }
 

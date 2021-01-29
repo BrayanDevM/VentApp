@@ -22,11 +22,13 @@ export class VentasService {
     venta.id = this.crearIdVenta();
     this.ventas.unshift(venta);
     this.almacenarEnLS();
+    console.log(this.ventas);
+
     return venta;
   }
 
   async editarVenta(venta: Venta) {
-    const i = this.ventas.findIndex((v: Venta) => (v.id = venta.id));
+    const i = this.ventas.findIndex((v: Venta) => v.id === venta.id);
     this.ventas.splice(i, 1, venta);
     this.almacenarEnLS();
     return true;

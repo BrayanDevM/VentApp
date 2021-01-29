@@ -1,0 +1,43 @@
+.cliente {
+  border-bottom: 1px solid #e5e3ed;
+  padding: 10px 20px;
+}
+
+.cliente .cliente-img {
+  height: 58px;
+  width: 58px;
+  background-color: #eceefc;
+  color: #5e77c1;
+  margin-right: 8px;
+  border-radius: 10px;
+}
+
+/* .cliente .cliente-img img {
+  height: 48px;
+  width: 48px;
+} */
+
+.cliente .cliente-icono .mat-icon {
+  transform: scale(1.5);
+}
+
+.cliente .cliente-detalles .descripcion {
+  color: #1c0e5e;
+  font-weight: 700;
+}
+
+.cliente .cliente-detalles .fecha {
+  color: #adacb1;
+  font-weight: 600;
+  font-size: 12px;
+}
+
+.cliente .cliente-total {
+  margin-left: auto;
+  color: #1c0e5e;
+  font-size: 24px;
+}
+
+.cliente .cliente-acciones {
+  margin-left: auto;
+}

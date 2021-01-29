@@ -2,4 +2,34 @@
   <div class="header">
     <h1>Clientes</h1>
   </div>
+
+  <!-- BOTÓN CREAR NUEVO PRODUCTO DE VENTA -->
+  <div class="boton-macro d-flex flex-row align-items-center">
+    <div class="boton-items me-3">
+      <div class="boton-titulo">Agregar nuevo cliente</div>
+      <p class="boton-desc">
+        Puedes agregar un nuevo cliente, este se mostrará automáticamente en las
+        listas de venta.
+      </p>
+    </div>
+    <button (click)="nuevoCliente()" mat-flat-button color="accent">
+      <mat-icon>add</mat-icon>
+    </button>
+  </div>
 </div>
+
+<section class="seccion">Clientes</section>
+<div
+  *ngIf="clientesLista.length === 0; else clientes"
+  class="d-flex align-items-center justify-content-center text-muted p-4"
+>
+  No tienes clientes creados
+</div>
+<ng-template #clientes>
+  <app-lista-cliente
+    *ngFor="let cliente of clientesLista"
+    [cliente]="cliente"
+    (editarCliente$)="editarCliente($event)"
+    (eliminarCliente$)="eliminarCliente($event)"
+  ></app-lista-cliente>
+</ng-template>

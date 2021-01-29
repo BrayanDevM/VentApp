@@ -28,7 +28,9 @@ export class ProductosService {
   }
 
   async editarProducto(producto: Producto) {
-    const i = this.productos.findIndex((v: Producto) => (v.id = producto.id));
+    console.log(producto);
+
+    const i = this.productos.findIndex((p: Producto) => p.id === producto.id);
     this.productos.splice(i, 1, producto);
     this.almacenarEnLS();
     return true;

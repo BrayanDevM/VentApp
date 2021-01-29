@@ -3,6 +3,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { Subscription } from 'rxjs';
 import { DialogConfirmaComponent } from 'src/app/components/dialog-confirma/dialog-confirma.component';
 import { DialogVentaComponent } from 'src/app/components/dialog-venta/dialog-venta.component';
+import { ClientesService } from 'src/app/services/clientes.service';
 import { Venta, VentasService } from 'src/app/services/ventas.service';
 
 @Component({
@@ -12,13 +13,19 @@ import { Venta, VentasService } from 'src/app/services/ventas.service';
 })
 export class InicioComponent implements OnInit, OnDestroy {
   ventasRecientes: Venta[] = [];
+  clientesNumero = 0;
 
   ventaNueva = new Subscription();
 
-  constructor(public dialog: MatDialog, private ventas$: VentasService) {}
+  constructor(
+    public dialog: MatDialog,
+    private ventas$: VentasService,
+    private clientes$: ClientesService
+  ) {}
 
   ngOnInit(): void {
     this.obtenerVentas();
+    this.obtenerNumClientes();
     this.subVentaNueva();
   }
 
@@ -29,6 +36,12 @@ export class InicioComponent implements OnInit, OnDestroy {
   obtenerVentas() {
     this.ventas$.obtenerVentas().then((ventas: Venta[]) => {
       this.ventasRecientes = ventas;
+    });
+  }
+
+  obtenerNumClientes() {
+    this.clientes$.obtenerClientes().then((clientes) => {
+      this.clientesNumero = clientes.length;
     });
   }
 

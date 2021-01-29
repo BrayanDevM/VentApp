@@ -10,6 +10,8 @@ import { ListaVentaComponent } from './lista-venta/lista-venta.component';
 import { DialogConfirmaComponent } from './dialog-confirma/dialog-confirma.component';
 import { DialogProductoComponent } from './dialog-producto/dialog-producto.component';
 import { ListaProductoComponent } from './lista-producto/lista-producto.component';
+import { ListaClienteComponent } from './lista-cliente/lista-cliente.component';
+import { DialogClienteComponent } from './dialog-cliente/dialog-cliente.component';
 
 const componentes = [
   NavegacionComponent,
@@ -19,10 +21,11 @@ const componentes = [
   DialogConfirmaComponent,
   DialogProductoComponent,
   ListaProductoComponent,
+  ListaClienteComponent,
 ];
 
 @NgModule({
-  declarations: [...componentes],
+  declarations: [...componentes, DialogClienteComponent],
   imports: [CommonModule, MaterialModule, FormsModule, ReactiveFormsModule],
   exports: [...componentes],
 })

@@ -1,7 +1,8 @@
 import { Component, Inject, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
-import { ProductosService } from 'src/app/services/productos.service';
+import { Cliente, ClientesService } from 'src/app/services/clientes.service';
+import { Producto, ProductosService } from 'src/app/services/productos.service';
 import { Venta, VentasService } from 'src/app/services/ventas.service';
 
 @Component({
@@ -11,13 +12,15 @@ import { Venta, VentasService } from 'src/app/services/ventas.service';
 })
 export class DialogVentaComponent implements OnInit {
   formVenta: FormGroup;
-  productos: any[] = [];
+  productos: Producto[] = [];
+  clientes: Cliente[] = [];
 
   constructor(
     private dialogRef: MatDialogRef<DialogVentaComponent>,
     @Inject(MAT_DIALOG_DATA) public data: Venta,
     private fb: FormBuilder,
     private productos$: ProductosService,
+    private clientes$: ClientesService,
     private ventas$: VentasService
   ) {
     this.formVenta = this.fb.group({
@@ -41,9 +44,19 @@ export class DialogVentaComponent implements OnInit {
 
   ngOnInit(): void {
     this.compruebaEdicion();
-    this.productos$.obtenerProductos().then((productos: any[]) => {
+    this.obtenerProductos();
+    this.obtenerClientes();
+  }
+
+  obtenerProductos() {
+    this.productos$.obtenerProductos().then((productos: Producto[]) => {
       this.productos = productos;
-      // console.log(this.productos);
+    });
+  }
+
+  obtenerClientes() {
+    this.clientes$.obtenerClientes().then((clientes: Cliente[]) => {
+      this.clientes = clientes;
     });
   }
 
@@ -88,7 +101,7 @@ export class DialogVentaComponent implements OnInit {
     const producto = this.fv.producto;
     let i = this.productos.findIndex((prod) => prod.nombre === producto);
     this.formVenta.patchValue({
-      precio: this.productos[i].precio,
+      precio: this.productos[i].precioVenta,
     });
   }
 }

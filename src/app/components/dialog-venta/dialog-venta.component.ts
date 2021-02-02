@@ -27,9 +27,11 @@ export class DialogVentaComponent implements OnInit {
     this.formVenta = this.fb.group({
       id: '',
       producto: [null, Validators.required],
+      utilidad: 0,
       cantidad: [1, Validators.required],
+      utilidadTotal: 0,
       cliente: [null, Validators.required],
-      precio: [0],
+      precio: 0,
       paga: [true],
       fecha: [new Date()],
     });
@@ -71,6 +73,8 @@ export class DialogVentaComponent implements OnInit {
         id: this.data.id,
         producto: this.data.producto,
         cantidad: this.data.cantidad,
+        utilidad: this.data.utilidad,
+        utilidadTotal: this.data.utilidadTotal,
         cliente: this.data.cliente,
         precio: this.data.precio,
         paga: this.data.paga,
@@ -82,10 +86,12 @@ export class DialogVentaComponent implements OnInit {
   guardarVenta() {
     if (this.formVenta.invalid) return;
     if (this.data) {
+      this.calcularUtilidadTotal();
       this.ventas$
         .editarVenta(this.formVenta.value)
         .then(() => this.dialogRef.close());
     } else {
+      this.calcularUtilidadTotal();
       this.ventas$.guardarVenta(this.formVenta.value).then(({ ok, venta }) => {
         this.editarStockProducto(this.fv.producto, this.fv.cantidad);
         this.ventas$.ventaNueva$.emit(venta);
@@ -94,12 +100,24 @@ export class DialogVentaComponent implements OnInit {
     }
   }
 
-  obtenerPrecio() {
+  obtenerValorProducto() {
     const producto = this.fv.producto;
     const i = this.productos.findIndex((prod) => prod.nombre === producto);
     this.formVenta.patchValue({
       precio: this.productos[i].precioVenta,
+      utilidad: this.productos[i].precioVenta - this.productos[i].precioCompra,
     });
+  }
+
+  calcularUtilidadTotal() {
+    const producto = this.fv.producto;
+    const i = this.productos.findIndex((prod) => prod.nombre === producto);
+    this.formVenta.patchValue({
+      utilidadTotal: this.fv.utilidad * this.fv.cantidad,
+    });
+    console.log('utilidad: ', this.fv.utilidad);
+    console.log('cant. vendida: ', this.fv.cantidad);
+    console.log('utilidad total: ', this.fv.utilidadTotal);
   }
 
   obtenerStock() {

@@ -2,8 +2,8 @@
 @import "../node_modules/bootstrap/scss/bootstrap-reboot";
 @import "../node_modules/bootstrap/scss/bootstrap-grid";
 @import "../node_modules/bootstrap/scss/bootstrap-utilities";
-@import "../node_modules/bootstrap/scss/transitions";
 @import "../node_modules/bootstrap/scss/nav";
+@import "../node_modules/bootstrap/scss/transitions";
 
 // Fuentes
 @import url("https://fonts.googleapis.com/css2?family=Montserrat:wght@600;700&display=swap");
@@ -42,7 +42,7 @@ h1 {
 
 .main {
   height: 100%;
-  padding-bottom: calc(64px + 3rem);
+  padding-bottom: calc(64px + 1rem);
   overflow-y: scroll;
   background-color: #f9f8ff;
 }

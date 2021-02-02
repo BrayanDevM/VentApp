@@ -5,7 +5,7 @@
     <mat-form-field class="w-100 mb-2" appearance="outline">
       <mat-label>Producto</mat-label>
       <mat-select
-        (selectionChange)="[obtenerPrecio(), obtenerStock()]"
+        (selectionChange)="[obtenerValorProducto(), obtenerStock()]"
         formControlName="producto"
         name="producto"
       >

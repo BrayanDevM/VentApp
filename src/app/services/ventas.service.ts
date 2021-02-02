@@ -85,7 +85,9 @@ export interface Venta {
   id: string;
   producto: string;
   precio: number;
+  utilidad: number;
   cantidad: number;
+  utilidadTotal: number;
   cliente: string;
   paga: boolean;
   fecha: Date;

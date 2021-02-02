@@ -23,6 +23,7 @@ export class DialogProductoComponent implements OnInit {
       precioCompra: [null, Validators.required],
       precioVenta: [null, Validators.required],
       img: '',
+      stock: [null, Validators.required],
     });
   }
 
@@ -51,10 +52,17 @@ export class DialogProductoComponent implements OnInit {
         precioVenta: this.data.precioVenta,
         precioCompra: this.data.precioCompra,
         img: this.data.img,
+        stock: this.data.stock,
       });
     } else {
       console.log('no viene producto');
     }
+  }
+
+  sumarStock(cantidad: number) {
+    this.formProducto.patchValue({
+      stock: this.fv.stock + cantidad,
+    });
   }
 
   guardarProducto() {
@@ -68,7 +76,7 @@ export class DialogProductoComponent implements OnInit {
       console.log('es nueva venta');
       this.productos$
         .guardarProducto(this.formProducto.value)
-        .then((producto: Producto) => {
+        .then(({ ok, producto }) => {
           this.productos$.productoNuevo$.emit(producto);
           this.dialogRef.close();
         });

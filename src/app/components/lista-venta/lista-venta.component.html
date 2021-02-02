@@ -3,10 +3,8 @@
     <div class="venta-icono d-flex align-items-center justify-content-center">
       <mat-icon>person</mat-icon>
     </div>
-    <div class="d-flex flex-column">
-      <div class="descripcion">
-        {{ venta.cliente }}, {{ venta.cantidad }} {{ venta.producto }}
-      </div>
+    <div class="descripcion d-flex flex-column">
+      <p>{{ venta.cliente }}, {{ venta.cantidad }} {{ venta.producto }}</p>
       <div class="fecha">{{ venta.fecha | date: "d/M/yy, h:mm a" }}</div>
     </div>
     <div class="venta-total">

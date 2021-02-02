@@ -18,30 +18,42 @@ export class VentasService {
     return this.ventas;
   }
 
-  async guardarVenta(venta: Venta) {
+  async guardarVenta(venta: Venta): Promise<any> {
     venta.id = this.crearIdVenta();
     this.ventas.unshift(venta);
     this.almacenarEnLS();
     console.log(this.ventas);
 
-    return venta;
+    return {
+      ok: true,
+      venta,
+    };
   }
 
-  async editarVenta(venta: Venta) {
+  async editarVenta(venta: Venta): Promise<any> {
     const i = this.ventas.findIndex((v: Venta) => v.id === venta.id);
     this.ventas.splice(i, 1, venta);
     this.almacenarEnLS();
-    return true;
+    return {
+      ok: true,
+      ventaEditada: venta,
+    };
   }
 
-  async eliminarVenta(id: string): Promise<boolean> {
+  async eliminarVenta(id: string): Promise<any> {
     const i = this.ventas.findIndex((venta: Venta) => venta.id === id);
     if (i >= 0) {
       this.ventas.splice(i, 1);
       this.almacenarEnLS();
-      return true;
+      return {
+        ok: true,
+        message: 'Venta eliminada correctamente',
+      };
     } else {
-      return false;
+      return {
+        ok: false,
+        message: 'No se puedo eliminar la venta',
+      };
     }
   }
 

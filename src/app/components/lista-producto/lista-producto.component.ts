@@ -13,6 +13,7 @@ export class ListaProductoComponent implements OnInit {
     precioVenta: 0,
     precioCompra: 0,
     img: '',
+    stock: 0,
   };
 
   @Output() eliminarProducto$ = new EventEmitter<Producto>();

@@ -18,34 +18,44 @@ export class ProductosService {
     return this.productos;
   }
 
-  async guardarProducto(producto: Producto) {
+  async guardarProducto(producto: Producto): Promise<any> {
     producto.id = this.crearIdProducto();
     this.productos.unshift(producto);
     console.log(this.productos);
 
     this.almacenarEnLS();
-    return producto;
+    return {
+      ok: true,
+      producto,
+    };
   }
 
-  async editarProducto(producto: Producto) {
-    console.log(producto);
-
+  async editarProducto(producto: Producto): Promise<any> {
     const i = this.productos.findIndex((p: Producto) => p.id === producto.id);
     this.productos.splice(i, 1, producto);
     this.almacenarEnLS();
-    return true;
+    return {
+      ok: true,
+      productoEditado: this.productos[i],
+    };
   }
 
-  async eliminarProducto(id: string): Promise<boolean> {
+  async eliminarProducto(id: string): Promise<any> {
     const i = this.productos.findIndex(
       (producto: Producto) => producto.id === id
     );
     if (i >= 0) {
       this.productos.splice(i, 1);
       this.almacenarEnLS();
-      return true;
+      return {
+        ok: true,
+        message: 'Producto eliminado',
+      };
     } else {
-      return false;
+      return {
+        ok: false,
+        message: 'No se ha podido eliminar el producto',
+      };
     }
   }
 
@@ -79,4 +89,5 @@ export interface Producto {
   precioVenta: number;
   precioCompra: number;
   img: string;
+  stock: number;
 }

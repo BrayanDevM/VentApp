@@ -1,0 +1,50 @@
+.tabs-ventas {
+  display: flex;
+  align-items: center;
+  height: 64px;
+  border-top: 1px solid #eee;
+  border-bottom: 2px solid #eee;
+  font-family: "Lato", sans-serif;
+  font-weight: 600;
+  background-color: #fff;
+  overflow-x: scroll;
+  overflow-y: hidden;
+}
+
+.tabs-ventas .contenedor {
+  padding-top: 0;
+  padding-bottom: 0;
+}
+
+.tabs-ventas::-webkit-scrollbar {
+  display: none;
+}
+
+.tabs-ventas .nav {
+  flex-wrap: nowrap;
+}
+
+.tabs-ventas .nav-pills a {
+  display: flex;
+  align-items: center;
+  margin-right: 10px;
+  padding: 0.7rem 0.7rem;
+  border-radius: 14px;
+  white-space: nowrap;
+  color: #c8c8c8;
+  font-size: 0.9rem;
+}
+
+.tabs-ventas .nav-pills a.active {
+  background-color: #f6f4fe;
+  color: #ff5a5f;
+}
+
+.filtro-listado {
+  background-color: #fff;
+}
+
+.filtro-listado .total-precio-listado {
+  font-size: 1.5rem;
+  font-weight: 300;
+}

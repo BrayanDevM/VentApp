@@ -14,6 +14,7 @@ export class DialogVentaComponent implements OnInit {
   formVenta: FormGroup;
   productos: Producto[] = [];
   clientes: Cliente[] = [];
+  stockProducto = 0;
 
   constructor(
     private dialogRef: MatDialogRef<DialogVentaComponent>,
@@ -66,7 +67,6 @@ export class DialogVentaComponent implements OnInit {
    */
   compruebaEdicion() {
     if (this.data) {
-      console.log('viene venta para actualizar');
       this.formVenta.patchValue({
         id: this.data.id,
         producto: this.data.producto,
@@ -76,21 +76,18 @@ export class DialogVentaComponent implements OnInit {
         paga: this.data.paga,
         fecha: this.data.fecha,
       });
-    } else {
-      console.log('no viene venta');
     }
   }
 
   guardarVenta() {
     if (this.formVenta.invalid) return;
     if (this.data) {
-      console.log('es para actualizar');
       this.ventas$
         .editarVenta(this.formVenta.value)
         .then(() => this.dialogRef.close());
     } else {
-      console.log('es nueva venta');
-      this.ventas$.guardarVenta(this.formVenta.value).then((venta: Venta) => {
+      this.ventas$.guardarVenta(this.formVenta.value).then(({ ok, venta }) => {
+        this.editarStockProducto(this.fv.producto, this.fv.cantidad);
         this.ventas$.ventaNueva$.emit(venta);
         this.dialogRef.close();
       });
@@ -99,9 +96,24 @@ export class DialogVentaComponent implements OnInit {
 
   obtenerPrecio() {
     const producto = this.fv.producto;
-    let i = this.productos.findIndex((prod) => prod.nombre === producto);
+    const i = this.productos.findIndex((prod) => prod.nombre === producto);
     this.formVenta.patchValue({
       precio: this.productos[i].precioVenta,
     });
+  }
+
+  obtenerStock() {
+    const producto = this.fv.producto;
+    const i = this.productos.findIndex((prod) => prod.nombre === producto);
+    this.stockProducto = this.productos[i].stock;
+  }
+
+  editarStockProducto(nombreProducto: string, cantVendida: number) {
+    const i = this.productos.findIndex(
+      (prod) => prod.nombre === nombreProducto
+    );
+    const producto = this.productos[i];
+    producto.stock += -cantVendida;
+    this.productos$.editarProducto(producto).then(console.log);
   }
 }

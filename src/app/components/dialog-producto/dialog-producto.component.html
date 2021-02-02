@@ -37,11 +37,37 @@
     </mat-form-field>
 
     <!-- ****************** ESTABLECER IMG ****************** -->
-    <mat-form-field class="w-100 mb-1" appearance="outline">
+    <mat-form-field class="w-100 mb-2" appearance="outline">
       <mat-label>Imagen</mat-label>
       <input type="text" formControlName="img" name="img" matInput />
       <mat-hint>Es opcional</mat-hint>
     </mat-form-field>
+
+    <!-- ****************** ESTABLECER STOCK ****************** -->
+    <mat-form-field class="w-100 mb-1" appearance="outline">
+      <mat-label>Stock</mat-label>
+      <input type="number" formControlName="stock" name="stock" matInput />
+      <mat-error>Debes indicar cantidad de stock</mat-error>
+    </mat-form-field>
+    <!-- ****************** ACCESOS RÁPIDOS ****************** -->
+    <div class="text-muted">Accesos rápidos</div>
+    <button
+      type="button"
+      (click)="sumarStock(30)"
+      mat-stroked-button
+      class="me-2"
+      color="primary"
+    >
+      +30 stock
+    </button>
+    <button
+      type="button"
+      (click)="sumarStock(60)"
+      mat-stroked-button
+      color="primary"
+    >
+      +60 stock
+    </button>
   </mat-dialog-content>
   <mat-dialog-actions align="end">
     <button mat-button mat-dialog-close>Cancelar</button>

@@ -12,6 +12,8 @@ import { DialogProductoComponent } from './dialog-producto/dialog-producto.compo
 import { ListaProductoComponent } from './lista-producto/lista-producto.component';
 import { ListaClienteComponent } from './lista-cliente/lista-cliente.component';
 import { DialogClienteComponent } from './dialog-cliente/dialog-cliente.component';
+import { TabsVentasComponent } from './tabs-ventas/tabs-ventas.component';
+import { ScrollTopComponent } from './scroll-top/scroll-top.component';
 
 const componentes = [
   NavegacionComponent,
@@ -22,10 +24,13 @@ const componentes = [
   DialogProductoComponent,
   ListaProductoComponent,
   ListaClienteComponent,
+  DialogClienteComponent,
+  TabsVentasComponent,
+  ScrollTopComponent,
 ];
 
 @NgModule({
-  declarations: [...componentes, DialogClienteComponent],
+  declarations: [...componentes],
   imports: [CommonModule, MaterialModule, FormsModule, ReactiveFormsModule],
   exports: [...componentes],
 })

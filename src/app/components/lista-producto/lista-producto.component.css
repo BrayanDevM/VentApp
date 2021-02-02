@@ -26,10 +26,12 @@
   font-weight: 700;
 }
 
-.producto .producto-detalles .fecha {
-  color: #adacb1;
+.producto .producto-detalles .stock {
+  /* color: #adacb1; */
   font-weight: 600;
-  font-size: 12px;
+  font-size: 0.92rem;
+  padding: 0 0.5rem;
+  border-radius: 10px;
 }
 
 .producto .producto-total {
@@ -40,4 +42,17 @@
 
 .producto .producto-acciones {
   margin-left: auto;
+}
+
+.stock-ok {
+  color: #4524a8;
+  background-color: hsla(255, 65%, 40%, 0.1);
+}
+.stock-warn {
+  color: #cc800c;
+  background-color: hsla(36, 89%, 42%, 0.1);
+}
+.stock-danger {
+  color: #ff4d35;
+  background-color: hsla(7, 100%, 60%, 0.1);
 }

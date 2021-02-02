@@ -11,8 +11,15 @@
       <div class="descripcion">
         {{ producto.nombre }}
       </div>
-      <div class="fecha">
-        Precio venta: $ {{ producto.precioVenta | number }}
+      <div
+        class="stock"
+        [ngClass]="{
+          'stock-ok': producto.stock >= 10,
+          'stock-warn': producto.stock < 10,
+          'stock-danger': producto.stock <= 3
+        }"
+      >
+        Stock: {{ producto.stock | number }}
       </div>
     </div>
     <div class="producto-total">

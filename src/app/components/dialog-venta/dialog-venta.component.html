@@ -5,17 +5,21 @@
     <mat-form-field class="w-100 mb-2" appearance="outline">
       <mat-label>Producto</mat-label>
       <mat-select
-        (selectionChange)="obtenerPrecio()"
+        (selectionChange)="[obtenerPrecio(), obtenerStock()]"
         formControlName="producto"
         name="producto"
       >
-        <mat-option *ngFor="let prod of productos" [value]="prod.nombre">
-          {{ prod.nombre }}
+        <mat-option
+          *ngFor="let prod of productos"
+          [value]="prod.nombre"
+          [disabled]="prod.stock <= 0"
+        >
+          {{ prod.nombre }} <small *ngIf="prod.stock <= 0"> - Sin stock</small>
         </mat-option>
       </mat-select>
       <mat-icon matSuffix>sports_bar</mat-icon>
       <mat-hint *ngIf="fv.producto">
-        Precio: {{ fv.precio | currency }}
+        Precio: {{ fv.precio | currency }}, Stock: {{ stockProducto }}
       </mat-hint>
       <mat-error>Debes seleccionar un producto</mat-error>
     </mat-form-field>
@@ -58,6 +62,13 @@
   </mat-dialog-content>
   <mat-dialog-actions align="end">
     <button mat-button mat-dialog-close>Cancelar</button>
-    <button mat-flat-button type="submit" color="primary">Guardar</button>
+    <button
+      mat-flat-button
+      type="submit"
+      color="primary"
+      [disabled]="formVenta.invalid"
+    >
+      Guardar
+    </button>
   </mat-dialog-actions>
 </form>

@@ -18,30 +18,42 @@ export class ClientesService {
     return this.clientes;
   }
 
-  async guardarCliente(cliente: Cliente) {
+  async guardarCliente(cliente: Cliente): Promise<any> {
     cliente.id = this.crearIdCliente();
     this.clientes.unshift(cliente);
     console.log(this.clientes);
 
     this.almacenarEnLS();
-    return cliente;
+    return {
+      ok: true,
+      cliente,
+    };
   }
 
-  async editarCliente(cliente: Cliente) {
+  async editarCliente(cliente: Cliente): Promise<any> {
     const i = this.clientes.findIndex((v: Cliente) => v.id === cliente.id);
     this.clientes.splice(i, 1, cliente);
     this.almacenarEnLS();
-    return true;
+    return {
+      ok: true,
+      clienteEditado: cliente,
+    };
   }
 
-  async eliminarCliente(id: string): Promise<boolean> {
+  async eliminarCliente(id: string): Promise<any> {
     const i = this.clientes.findIndex((cliente: Cliente) => cliente.id === id);
     if (i >= 0) {
       this.clientes.splice(i, 1);
       this.almacenarEnLS();
-      return true;
+      return {
+        ok: true,
+        message: 'Cliente eliminado correctamente',
+      };
     } else {
-      return false;
+      return {
+        ok: false,
+        message: 'No se ha podido eliminar el cliente',
+      };
     }
   }
 

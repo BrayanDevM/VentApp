@@ -1,11 +1,13 @@
 // Bootstrap config
-@import "../node_modules/bootstrap/scss/bootstrap-reboot.scss";
-@import "../node_modules/bootstrap/scss/bootstrap-grid.scss";
-@import "../node_modules/bootstrap/scss/bootstrap-utilities.scss";
+@import "../node_modules/bootstrap/scss/bootstrap-reboot";
+@import "../node_modules/bootstrap/scss/bootstrap-grid";
+@import "../node_modules/bootstrap/scss/bootstrap-utilities";
+@import "../node_modules/bootstrap/scss/transitions";
+@import "../node_modules/bootstrap/scss/nav";
 
 // Fuentes
 @import url("https://fonts.googleapis.com/css2?family=Montserrat:wght@600;700&display=swap");
-@import url("https://fonts.googleapis.com/css2?family=Lato:wght@400;700&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&display=swap");
 
 :root {
   --color-texto: #1c0e5e;

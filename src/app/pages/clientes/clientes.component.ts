@@ -40,7 +40,7 @@ export class ClientesComponent implements OnInit {
     });
     dialog.afterClosed().subscribe((confirma) => {
       if (confirma) {
-        this.clientes$.eliminarCliente(cliente.id).then(console.log);
+        this.clientes$.eliminarCliente(cliente.id);
       }
     });
   }

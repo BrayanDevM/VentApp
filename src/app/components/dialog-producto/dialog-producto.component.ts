@@ -45,7 +45,6 @@ export class DialogProductoComponent implements OnInit {
    */
   compruebaEdicion() {
     if (this.data) {
-      console.log('viene producto para actualizar');
       this.formProducto.patchValue({
         id: this.data.id,
         nombre: this.data.nombre,
@@ -54,8 +53,6 @@ export class DialogProductoComponent implements OnInit {
         img: this.data.img,
         stock: this.data.stock,
       });
-    } else {
-      console.log('no viene producto');
     }
   }
 
@@ -68,12 +65,10 @@ export class DialogProductoComponent implements OnInit {
   guardarProducto() {
     if (this.formProducto.invalid) return;
     if (this.data) {
-      console.log('es para actualizar');
       this.productos$
         .editarProducto(this.formProducto.value)
         .then(() => this.dialogRef.close());
     } else {
-      console.log('es nueva venta');
       this.productos$
         .guardarProducto(this.formProducto.value)
         .then(({ ok, producto }) => {

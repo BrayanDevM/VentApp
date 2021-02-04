@@ -21,7 +21,6 @@ export class ClientesService {
   async guardarCliente(cliente: Cliente): Promise<any> {
     cliente.id = this.crearIdCliente();
     this.clientes.unshift(cliente);
-    console.log(this.clientes);
 
     this.almacenarEnLS();
     return {

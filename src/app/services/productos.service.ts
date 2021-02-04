@@ -21,7 +21,6 @@ export class ProductosService {
   async guardarProducto(producto: Producto): Promise<any> {
     producto.id = this.crearIdProducto();
     this.productos.unshift(producto);
-    console.log(this.productos);
 
     this.almacenarEnLS();
     return {

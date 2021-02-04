@@ -1,49 +1,51 @@
-<div class="contenedor">
-  <div class="header">
-    <h1>Inicio</h1>
-  </div>
-
-  <!-- CONTADORES GENERALES -->
-  <div class="contadores d-flex flex-row mb-4">
-    <app-contador
-      [color]="'#4AC3B5'"
-      [numero]="ventasRecientes.length"
-      [descripcion]="'Ventas'"
-    ></app-contador>
-    <app-contador
-      [color]="'#FFA0A3'"
-      [numero]="clientesNumero"
-      [descripcion]="'Clientes'"
-    ></app-contador>
-  </div>
-
-  <!-- BOTÓN CREAR NUEVO REGISTRO DE VENTA -->
-  <div class="boton-macro d-flex flex-row align-items-center">
-    <div class="boton-items me-3">
-      <div class="boton-titulo">Agregar nueva venta</div>
-      <p class="boton-desc">
-        Puedes agregar un nuevo registro de venta, este se almacenará en tus
-        ventas y podrás consultar sus detalles.
-      </p>
+<main>
+  <div class="contenedor">
+    <div class="header">
+      <h1>Inicio</h1>
     </div>
-    <button (click)="nuevaVenta()" mat-flat-button color="accent">
-      <mat-icon>add</mat-icon>
-    </button>
-  </div>
-</div>
 
-<section class="seccion">Ventas recientes</section>
-<div
-  *ngIf="ventasRecientes.length === 0; else ventas"
-  class="d-flex align-items-center justify-content-center text-muted p-4"
->
-  No tienes ventas
-</div>
-<ng-template #ventas>
-  <app-lista-venta
-    *ngFor="let venta of ventasRecientes"
-    [venta]="venta"
-    (editarVenta$)="editarVenta($event)"
-    (eliminarVenta$)="eliminarVenta($event)"
-  ></app-lista-venta>
-</ng-template>
+    <!-- CONTADORES GENERALES -->
+    <div class="contadores d-flex flex-row mb-4">
+      <app-contador
+        [color]="'#4AC3B5'"
+        [numero]="ventasRecientes.length"
+        [descripcion]="'Ventas'"
+      ></app-contador>
+      <app-contador
+        [color]="'#FFA0A3'"
+        [numero]="clientesNumero"
+        [descripcion]="'Clientes'"
+      ></app-contador>
+    </div>
+
+    <!-- BOTÓN CREAR NUEVO REGISTRO DE VENTA -->
+    <div class="boton-macro d-flex flex-row align-items-center">
+      <div class="boton-items me-3">
+        <div class="boton-titulo">Agregar nueva venta</div>
+        <p class="boton-desc">
+          Puedes agregar un nuevo registro de venta, este se almacenará en tus
+          ventas y podrás consultar sus detalles.
+        </p>
+      </div>
+      <button (click)="nuevaVenta()" mat-flat-button color="accent">
+        <mat-icon>add</mat-icon>
+      </button>
+    </div>
+  </div>
+
+  <section class="seccion">Ventas recientes</section>
+  <div
+    *ngIf="ventasRecientes.length === 0; else ventas"
+    class="d-flex align-items-center justify-content-center text-muted p-4"
+  >
+    No tienes ventas
+  </div>
+  <ng-template #ventas>
+    <app-lista-venta
+      *ngFor="let venta of ventasRecientes"
+      [venta]="venta"
+      (editarVenta$)="editarVenta($event)"
+      (eliminarVenta$)="eliminarVenta($event)"
+    ></app-lista-venta>
+  </ng-template>
+</main>

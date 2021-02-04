@@ -40,7 +40,7 @@ export class InventarioComponent implements OnInit {
     });
     dialog.afterClosed().subscribe((confirma) => {
       if (confirma) {
-        this.productos$.eliminarProducto(producto.id).then(console.log);
+        this.productos$.eliminarProducto(producto.id);
       }
     });
   }

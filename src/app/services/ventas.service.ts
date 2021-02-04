@@ -22,7 +22,6 @@ export class VentasService {
     venta.id = this.crearIdVenta();
     this.ventas.unshift(venta);
     this.almacenarEnLS();
-    console.log(this.ventas);
 
     return {
       ok: true,

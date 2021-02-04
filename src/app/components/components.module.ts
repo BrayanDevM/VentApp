@@ -19,6 +19,7 @@ import { DialogClienteComponent } from './dialog-cliente/dialog-cliente.componen
 import { TabsVentasComponent } from './tabs-ventas/tabs-ventas.component';
 import { ScrollTopComponent } from './scroll-top/scroll-top.component';
 import { ChartBarComponent } from './chart-bar/chart-bar.component';
+import { ChartDonutComponent } from './chart-donut/chart-donut.component';
 
 const componentes = [
   NavegacionComponent,
@@ -33,6 +34,7 @@ const componentes = [
   TabsVentasComponent,
   ScrollTopComponent,
   ChartBarComponent,
+  ChartDonutComponent,
 ];
 
 @NgModule({

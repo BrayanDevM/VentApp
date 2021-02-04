@@ -27,6 +27,7 @@ export class ChartBarComponent implements OnInit, OnChanges {
   chartOptions: ChartOptions;
   mesActual: number;
 
+  // Configurables
   @Input() nombreSeries = 'Series';
   @Input() dataSeries: any[] = [];
   @Input() titulo = 'Título';
@@ -82,8 +83,6 @@ export class ChartBarComponent implements OnInit, OnChanges {
 
   ngOnChanges(): void {
     if (this.dataSeries.length > 0) {
-      console.log(this.dataSeries, 'data recibida');
-
       // actualizar gráfica
       this.chartOptions.title = {
         text: this.titulo,

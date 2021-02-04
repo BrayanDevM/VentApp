@@ -63,7 +63,7 @@ export class TabsVentasComponent implements OnInit {
     const dialog = this.dialog.open(DialogVentaComponent, { data: venta });
     dialog.afterClosed().subscribe((confirma) => {
       if (confirma) {
-        this.ventas$.eliminarVenta(venta.id).then(console.log);
+        this.ventas$.eliminarVenta(venta.id);
       }
     });
   }
@@ -76,7 +76,7 @@ export class TabsVentasComponent implements OnInit {
     });
     dialog.afterClosed().subscribe((confirma) => {
       if (confirma) {
-        this.ventas$.eliminarVenta(venta.id).then(console.log);
+        this.ventas$.eliminarVenta(venta.id);
       }
     });
   }

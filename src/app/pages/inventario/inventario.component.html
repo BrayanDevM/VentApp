@@ -1,35 +1,37 @@
-<div class="contenedor">
-  <div class="header">
-    <h1>Inventario</h1>
-  </div>
-
-  <!-- BOTÓN CREAR NUEVO PRODUCTO DE VENTA -->
-  <div class="boton-macro d-flex flex-row align-items-center">
-    <div class="boton-items me-3">
-      <div class="boton-titulo">Agregar nuevo producto</div>
-      <p class="boton-desc">
-        Puedes agregar un nuevo producto, este se mostrará automáticamente en
-        las listas de venta.
-      </p>
+<main>
+  <div class="contenedor">
+    <div class="header">
+      <h1>Inventario</h1>
     </div>
-    <button (click)="nuevoProducto()" mat-flat-button color="accent">
-      <mat-icon>add</mat-icon>
-    </button>
-  </div>
-</div>
 
-<section class="seccion">Productos</section>
-<div
-  *ngIf="productosLista.length === 0; else productos"
-  class="d-flex align-items-center justify-content-center text-muted p-4"
->
-  No tienes productos creados
-</div>
-<ng-template #productos>
-  <app-lista-producto
-    *ngFor="let prod of productosLista"
-    [producto]="prod"
-    (editarProducto$)="editarProducto($event)"
-    (eliminarProducto$)="eliminarProducto($event)"
-  ></app-lista-producto>
-</ng-template>
+    <!-- BOTÓN CREAR NUEVO PRODUCTO DE VENTA -->
+    <div class="boton-macro d-flex flex-row align-items-center">
+      <div class="boton-items me-3">
+        <div class="boton-titulo">Agregar nuevo producto</div>
+        <p class="boton-desc">
+          Puedes agregar un nuevo producto, este se mostrará automáticamente en
+          las listas de venta.
+        </p>
+      </div>
+      <button (click)="nuevoProducto()" mat-flat-button color="accent">
+        <mat-icon>add</mat-icon>
+      </button>
+    </div>
+  </div>
+
+  <section class="seccion">Productos</section>
+  <div
+    *ngIf="productosLista.length === 0; else productos"
+    class="d-flex align-items-center justify-content-center text-muted p-4"
+  >
+    No tienes productos creados
+  </div>
+  <ng-template #productos>
+    <app-lista-producto
+      *ngFor="let prod of productosLista"
+      [producto]="prod"
+      (editarProducto$)="editarProducto($event)"
+      (eliminarProducto$)="eliminarProducto($event)"
+    ></app-lista-producto>
+  </ng-template>
+</main>

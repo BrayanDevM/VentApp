@@ -1,21 +1,31 @@
-<div class="contenedor">
-  <div class="header">
-    <h1>Estadísticas</h1>
+<main>
+  <div class="contenedor">
+    <div class="header">
+      <h1>Estadísticas</h1>
+    </div>
+    <!-- GRAFICAS -->
+    <div class="mb-3">
+      <app-chart-bar
+        [titulo]="'VENTAS POR MES'"
+        [tipoGrafica]="'Ventas'"
+        [dataSeries]="ventas"
+        [nombreSeries]="'Ventas'"
+        [color]="['#66a6ff']"
+      ></app-chart-bar>
+    </div>
+    <div class="mb-3">
+      <app-chart-bar
+        [titulo]="'UTILIDADES POR MES'"
+        [tipoGrafica]="'Utilidades'"
+        [dataSeries]="ventas"
+        [nombreSeries]="'Utilidad'"
+      ></app-chart-bar>
+    </div>
+    <div class="mb-3">
+      <app-chart-donut
+        [data]="ventas"
+        [titulo]="'PRODUCTOS MÁS VENDIDOS'"
+      ></app-chart-donut>
+    </div>
   </div>
-  <!-- GRAFICAS -->
-  <div class="mb-3">
-    <app-chart-bar
-      [titulo]="'VENTAS POR MES'"
-      [tipoGrafica]="'Ventas'"
-      [dataSeries]="ventas"
-      [nombreSeries]="'Ventas'"
-      [color]="['#66a6ff']"
-    ></app-chart-bar>
-  </div>
-  <app-chart-bar
-    [titulo]="'UTILIDADES POR MES'"
-    [tipoGrafica]="'Utilidades'"
-    [dataSeries]="ventas"
-    [nombreSeries]="'Utilidad'"
-  ></app-chart-bar>
-</div>
+</main>

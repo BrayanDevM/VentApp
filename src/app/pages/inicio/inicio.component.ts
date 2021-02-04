@@ -53,7 +53,7 @@ export class InicioComponent implements OnInit, OnDestroy {
     const dialog = this.dialog.open(DialogVentaComponent, { data: venta });
     dialog.afterClosed().subscribe((confirma) => {
       if (confirma) {
-        this.ventas$.eliminarVenta(venta.id).then(console.log);
+        this.ventas$.editarVenta(venta);
       }
     });
   }
@@ -66,7 +66,7 @@ export class InicioComponent implements OnInit, OnDestroy {
     });
     dialog.afterClosed().subscribe((confirma) => {
       if (confirma) {
-        this.ventas$.eliminarVenta(venta.id).then(console.log);
+        this.ventas$.eliminarVenta(venta.id);
       }
     });
   }
@@ -74,7 +74,6 @@ export class InicioComponent implements OnInit, OnDestroy {
   // Subscribers
   subVentaNueva(): void {
     this.ventaNueva = this.ventas$.ventaNueva$.subscribe((venta: Venta) => {
-      console.log('Nueva venta subs', venta);
       // this.ventasRecientes.unshift(venta);
     });
   }

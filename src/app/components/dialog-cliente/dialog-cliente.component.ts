@@ -42,26 +42,21 @@ export class DialogClienteComponent implements OnInit {
    */
   compruebaEdicion() {
     if (this.data) {
-      console.log('viene cliente para actualizar');
       this.formCliente.patchValue({
         id: this.data.id,
         nombre: this.data.nombre,
         anotacion: this.data.anotacion,
       });
-    } else {
-      console.log('no viene cliente');
     }
   }
 
   guardarCliente() {
     if (this.formCliente.invalid) return;
     if (this.data) {
-      console.log('es para actualizar');
       this.clientes$
         .editarCliente(this.formCliente.value)
         .then(() => this.dialogRef.close());
     } else {
-      console.log('es nueva venta');
       this.clientes$
         .guardarCliente(this.formCliente.value)
         .then((cliente: Cliente) => {

@@ -115,9 +115,9 @@ export class DialogVentaComponent implements OnInit {
     this.formVenta.patchValue({
       utilidadTotal: this.fv.utilidad * this.fv.cantidad,
     });
-    console.log('utilidad: ', this.fv.utilidad);
-    console.log('cant. vendida: ', this.fv.cantidad);
-    console.log('utilidad total: ', this.fv.utilidadTotal);
+    // console.log('utilidad: ', this.fv.utilidad);
+    // console.log('cant. vendida: ', this.fv.cantidad);
+    // console.log('utilidad total: ', this.fv.utilidadTotal);
   }
 
   obtenerStock() {
@@ -132,6 +132,6 @@ export class DialogVentaComponent implements OnInit {
     );
     const producto = this.productos[i];
     producto.stock += -cantVendida;
-    this.productos$.editarProducto(producto).then(console.log);
+    this.productos$.editarProducto(producto);
   }
 }

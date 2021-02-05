@@ -37,6 +37,7 @@ export class ChartDonutComponent implements OnInit, OnChanges {
       series: [], // <- valores gráfica
       chart: {
         type: 'donut',
+        height: 220,
       },
       labels: [], // <- Etiquetas de valores
       dataLabels: {

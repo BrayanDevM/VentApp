@@ -2,6 +2,7 @@ import { Component, Input, OnChanges, OnInit, ViewChild } from '@angular/core';
 import {
   ApexAxisChartSeries,
   ApexChart,
+  ApexGrid,
   ApexTitleSubtitle,
   ApexXAxis,
   ApexYAxis,
@@ -15,6 +16,7 @@ export type ChartOptions = {
   yaxis: ApexYAxis;
   title: ApexTitleSubtitle;
   colors: string[];
+  grid: ApexGrid;
 };
 
 @Component({
@@ -32,7 +34,7 @@ export class ChartBarComponent implements OnInit, OnChanges {
   @Input() dataSeries: any[] = [];
   @Input() titulo = 'Título';
   @Input() tipoGrafica = 'Ventas';
-  @Input() color = ['#2fc2d8'];
+  @Input() color = ['#9c27b0'];
 
   constructor() {
     this.mesActual = new Date().getMonth();
@@ -46,7 +48,7 @@ export class ChartBarComponent implements OnInit, OnChanges {
       ],
       colors: this.color,
       chart: {
-        height: 250,
+        height: 220,
         type: 'bar',
       },
       title: {
@@ -56,6 +58,9 @@ export class ChartBarComponent implements OnInit, OnChanges {
           fontFamily: 'Lato',
           color: '#c7c8ca',
         },
+      },
+      grid: {
+        strokeDashArray: 2,
       },
       xaxis: {
         categories: [

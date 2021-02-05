@@ -1,4 +1,4 @@
-<div class="producto">
+<div mat-ripple (click)="editarProducto(producto)" class="producto">
   <div class="producto-detalles d-flex flex-row align-items-center">
     <div
       class="producto-img d-flex align-items-center justify-content-center border"
@@ -21,19 +21,6 @@
       >
         Stock: {{ producto.stock | number }}
       </div>
-    </div>
-    <div class="producto-total">
-      <button (click)="editarProducto(producto)" mat-stroked-button>
-        <mat-icon>edit</mat-icon>
-      </button>
-      <button
-        (click)="eliminarProducto(producto)"
-        class="ms-2"
-        mat-stroked-button
-        color="warn"
-      >
-        <mat-icon>delete</mat-icon>
-      </button>
     </div>
   </div>
 </div>

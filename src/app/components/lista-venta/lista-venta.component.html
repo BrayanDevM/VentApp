@@ -1,33 +1,20 @@
-<div class="venta">
+<div mat-ripple (click)="editarVenta(venta)" class="card card-body venta">
   <div class="venta-detalles d-flex flex-row align-items-center">
     <div class="venta-icono d-flex align-items-center justify-content-center">
-      <mat-icon>person</mat-icon>
+      <mat-icon color="primary">person</mat-icon>
     </div>
     <div class="descripcion d-flex flex-column">
       <p>{{ venta.cliente }}, {{ venta.cantidad }} {{ venta.producto }}</p>
-      <div class="fecha">{{ venta.fecha | date: "d/M/yy, h:mm a" }}</div>
+      <div class="sub-text text-muted">
+        {{ venta.fecha | date: "d/M/yy, h:mm a" }}
+      </div>
     </div>
-    <div class="venta-total">
-      $ {{ venta.precio * venta.cantidad | number }}
-    </div>
-  </div>
-  <div class="d-flex flex-row align-items-center mt-2">
-    <mat-chip-list>
-      <mat-chip *ngIf="venta.paga">Pagado</mat-chip>
-      <mat-chip *ngIf="!venta.paga" color="accent" selected>Debe</mat-chip>
-    </mat-chip-list>
-    <div class="venta-acciones">
-      <button (click)="editarVenta(venta)" mat-stroked-button>
-        <mat-icon>edit</mat-icon>
-      </button>
-      <button
-        (click)="eliminarVenta(venta)"
-        class="ms-2"
-        mat-stroked-button
-        color="warn"
-      >
-        <mat-icon>delete</mat-icon>
-      </button>
+    <div class="venta-total d-flex flex-column">
+      <span>$ {{ venta.precio * venta.cantidad | number }}</span>
+      <div class="sub-text">
+        <span *ngIf="venta.paga" class="text-success">Pagado</span>
+        <span *ngIf="!venta.paga" class="text-danger">Debe</span>
+      </div>
     </div>
   </div>
 </div>

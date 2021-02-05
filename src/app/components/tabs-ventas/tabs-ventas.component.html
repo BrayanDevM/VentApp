@@ -4,19 +4,6 @@
       <li class="nav-item" role="presentation">
         <a
           class="nav-link active"
-          id="ventas-tab"
-          data-bs-toggle="pill"
-          href="#ventas"
-          role="tab"
-          aria-controls="ventas"
-          aria-selected="true"
-        >
-          <mat-icon class="me-1">list</mat-icon> Todas las ventas
-        </a>
-      </li>
-      <li class="nav-item" role="presentation">
-        <a
-          class="nav-link"
           id="pagadas-tab"
           data-bs-toggle="pill"
           href="#pagadas"
@@ -24,7 +11,10 @@
           aria-controls="pagadas"
           aria-selected="false"
         >
-          <mat-icon class="me-1">check_circle_outline</mat-icon> Pagadas
+          <div class="icon d-flex align-items-center justify-content-center">
+            <mat-icon>check_circle_outline</mat-icon>
+          </div>
+          <span>Pagadas</span>
         </a>
       </li>
       <li class="nav-item" role="presentation">
@@ -37,7 +27,26 @@
           aria-controls="deudores"
           aria-selected="false"
         >
-          <mat-icon class="me-1">pending_actions</mat-icon> Pendientes de pago
+          <div class="icon d-flex align-items-center justify-content-center">
+            <mat-icon>pending_actions</mat-icon>
+          </div>
+          <span>Sin pagar</span>
+        </a>
+      </li>
+      <li class="nav-item" role="presentation">
+        <a
+          class="nav-link"
+          id="ventas-tab"
+          data-bs-toggle="pill"
+          href="#ventas"
+          role="tab"
+          aria-controls="ventas"
+          aria-selected="true"
+        >
+          <div class="icon d-flex align-items-center justify-content-center">
+            <mat-icon>list</mat-icon>
+          </div>
+          <span>Todas</span>
         </a>
       </li>
     </ul>
@@ -46,39 +55,16 @@
 <div class="tab-content" id="pills-tabContent">
   <div
     class="tab-pane fade show active"
-    id="ventas"
-    role="tabpanel"
-    aria-labelledby="ventas-tab"
-  >
-    <!-- FILTRO DE LISTADO ////////////////////////////////// -->
-    <div class="filtro-listado contenedor py-2 border-bottom">
-      <div class="d-flex flex-row align-items-center justify-content-end">
-        <div class="total-precio-listado">
-          Total vendido: {{ sumarVentas(listaVentas) | number }}
-        </div>
-      </div>
-    </div>
-
-    <app-lista-venta
-      *ngFor="let venta of listaVentas"
-      [venta]="venta"
-      (eliminarVenta$)="eliminarVenta($event)"
-      (editarVenta$)="editarVenta($event)"
-    ></app-lista-venta>
-  </div>
-  <div
-    class="tab-pane fade"
     id="pagadas"
     role="tabpanel"
     aria-labelledby="pagadas-tab"
   >
-    <!-- FILTRO DE LISTADO ////////////////////////////////// -->
-    <div class="filtro-listado contenedor py-2 border-bottom">
-      <div class="d-flex flex-row align-items-center justify-content-end">
-        <div class="total-precio-listado">
-          Total vendido: {{ sumarVentas(listaVentasPagaron) | number }}
-        </div>
-      </div>
+    <!-- total DE LISTADO ////////////////////////////////// -->
+    <div
+      class="total-listado d-flex flex-column align-items-center justify-content-center"
+    >
+      <div class="total">$ {{ sumarVentas(listaVentasPagaron) | number }}</div>
+      <div class="sub-text">Venta total</div>
     </div>
 
     <app-lista-venta
@@ -94,17 +80,37 @@
     role="tabpanel"
     aria-labelledby="deudores-tab"
   >
-    <!-- FILTRO DE LISTADO ////////////////////////////////// -->
-    <div class="filtro-listado contenedor py-2 border-bottom">
-      <div class="d-flex flex-row align-items-center justify-content-end">
-        <div class="total-precio-listado">
-          Total pendiente: {{ sumarVentas(listaVentasDeben) | number }}
-        </div>
-      </div>
+    <!-- total DE LISTADO ////////////////////////////////// -->
+    <div
+      class="total-listado d-flex flex-column align-items-center justify-content-center"
+    >
+      <div class="total">$ {{ sumarVentas(listaVentasDeben) | number }}</div>
+      <div class="sub-text">Deuda total</div>
     </div>
 
     <app-lista-venta
       *ngFor="let venta of listaVentasDeben"
+      [venta]="venta"
+      (eliminarVenta$)="eliminarVenta($event)"
+      (editarVenta$)="editarVenta($event)"
+    ></app-lista-venta>
+  </div>
+  <div
+    class="tab-pane fade"
+    id="ventas"
+    role="tabpanel"
+    aria-labelledby="ventas-tab"
+  >
+    <!-- total DE LISTADO ////////////////////////////////// -->
+    <div
+      class="total-listado d-flex flex-column align-items-center justify-content-center"
+    >
+      <div class="total">$ {{ sumarVentas(listaVentas) | number }}</div>
+      <div class="sub-text">Venta total</div>
+    </div>
+
+    <app-lista-venta
+      *ngFor="let venta of listaVentas"
       [venta]="venta"
       (eliminarVenta$)="eliminarVenta($event)"
       (editarVenta$)="editarVenta($event)"

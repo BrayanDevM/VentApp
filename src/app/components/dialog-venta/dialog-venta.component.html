@@ -1,5 +1,16 @@
 <form [formGroup]="formVenta" (ngSubmit)="guardarVenta()">
   <h2 mat-dialog-title>Nueva venta</h2>
+  <div *ngIf="data" class="dialog-actions">
+    <button mat-icon-button type="button" [matMenuTriggerFor]="menu">
+      <mat-icon>more_vert</mat-icon>
+    </button>
+    <mat-menu #menu="matMenu" yPosition="above">
+      <button (click)="eliminarVenta(data)" mat-menu-item>
+        <mat-icon>delete</mat-icon>
+        <span>Eliminar</span>
+      </button>
+    </mat-menu>
+  </div>
   <mat-dialog-content>
     <!-- ****************** SELECCIÓN DE PRODUCTO ****************** -->
     <mat-form-field class="w-100 mb-2" appearance="outline">
@@ -16,6 +27,9 @@
         >
           {{ prod.nombre }} <small *ngIf="prod.stock <= 0"> - Sin stock</small>
         </mat-option>
+        <mat-option *ngIf="productos.length <= 0" disabled
+          >Debes crear un producto</mat-option
+        >
       </mat-select>
       <mat-icon matSuffix>sports_bar</mat-icon>
       <mat-hint *ngIf="fv.producto">
@@ -31,6 +45,9 @@
         <mat-option *ngFor="let cliente of clientes" [value]="cliente.nombre">
           {{ cliente.nombre }}
         </mat-option>
+        <mat-option *ngIf="clientes.length <= 0" disabled
+          >Debes crear un cliente</mat-option
+        >
       </mat-select>
       <mat-icon matSuffix>person</mat-icon>
       <mat-error>Debes seleccionar un cliente</mat-error>
@@ -56,9 +73,12 @@
     <div class="text-muted mb-3">
       Fecha: {{ fv.fecha | date: "d/M/yy, h:mm a" }}
     </div>
-    <h3 *ngIf="formVenta.valid">
+    <h3 *ngIf="fv.cantidad && stockProducto >= fv.cantidad">
       Total: ${{ fv.precio * fv.cantidad | number }}
     </h3>
+    <h6 *ngIf="stockProducto < fv.cantidad && !data" class="text-danger mt-3">
+      Sólo hay {{ stockProducto }} {{ fv.producto }} en stock!
+    </h6>
   </mat-dialog-content>
   <mat-dialog-actions align="end">
     <button mat-button mat-dialog-close>Cancelar</button>
@@ -66,7 +86,7 @@
       mat-flat-button
       type="submit"
       color="primary"
-      [disabled]="formVenta.invalid"
+      [disabled]="formVenta.invalid || (!data && stockProducto < fv.cantidad)"
     >
       Guardar
     </button>

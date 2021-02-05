@@ -1,7 +1,12 @@
 import { Component, Inject, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
+import {
+  MatDialog,
+  MatDialogRef,
+  MAT_DIALOG_DATA,
+} from '@angular/material/dialog';
 import { Cliente, ClientesService } from 'src/app/services/clientes.service';
+import { DialogConfirmaComponent } from '../dialog-confirma/dialog-confirma.component';
 
 @Component({
   selector: 'app-dialog-cliente',
@@ -14,6 +19,7 @@ export class DialogClienteComponent implements OnInit {
   constructor(
     private dialogRef: MatDialogRef<DialogClienteComponent>,
     @Inject(MAT_DIALOG_DATA) public data: Cliente,
+    private dialog: MatDialog,
     private fb: FormBuilder,
     private clientes$: ClientesService
   ) {
@@ -64,5 +70,19 @@ export class DialogClienteComponent implements OnInit {
           this.dialogRef.close();
         });
     }
+  }
+
+  eliminarCliente(cliente: Cliente) {
+    const dialog = this.dialog.open(DialogConfirmaComponent, {
+      data: {
+        texto: `Eliminar ${cliente.nombre}, esta acción no puede deshacerse.`,
+      },
+    });
+    dialog.afterClosed().subscribe((confirma) => {
+      if (confirma) {
+        this.clientes$.eliminarCliente(cliente.id);
+        this.dialogRef.close();
+      }
+    });
   }
 }

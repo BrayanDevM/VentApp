@@ -14,7 +14,7 @@ export class ProductosService {
     this.cargarLS();
   }
 
-  async obtenerProductos(): Promise<any[]> {
+  async obtenerProductos(): Promise<Producto[]> {
     return this.productos;
   }
 

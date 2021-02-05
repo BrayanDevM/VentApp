@@ -1,4 +1,4 @@
-<div class="cliente">
+<div mat-ripple (click)="editarCliente(cliente)" class="cliente">
   <div class="cliente-detalles d-flex flex-row align-items-center">
     <div class="cliente-img d-flex align-items-center justify-content-center">
       <mat-icon>person</mat-icon>
@@ -7,22 +7,9 @@
       <div class="descripcion">
         {{ cliente.nombre }}
       </div>
-      <div class="fecha">
+      <div class="sub-text text-muted">
         {{ cliente.anotacion }}
       </div>
-    </div>
-    <div class="cliente-total">
-      <button (click)="editarCliente(cliente)" mat-stroked-button>
-        <mat-icon>edit</mat-icon>
-      </button>
-      <button
-        (click)="eliminarCliente(cliente)"
-        class="ms-2"
-        mat-stroked-button
-        color="warn"
-      >
-        <mat-icon>delete</mat-icon>
-      </button>
     </div>
   </div>
 </div>

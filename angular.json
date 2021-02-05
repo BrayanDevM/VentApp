@@ -20,7 +20,10 @@
         "build": {
           "builder": "@angular-devkit/build-angular:browser",
           "options": {
-            "allowedCommonJsDependencies": ["apexcharts", "ng-apexcharts"],
+            "allowedCommonJsDependencies": [
+              "apexcharts",
+              "ng-apexcharts"
+            ],
             "outputPath": "dist/VentApp",
             "index": "src/index.html",
             "main": "src/main.ts",
@@ -32,7 +35,10 @@
               "src/assets",
               "src/manifest.webmanifest"
             ],
-            "styles": ["src/styles-theme.scss", "src/styles.scss"],
+            "styles": [
+              "src/styles-theme.scss",
+              "src/styles.scss"
+            ],
             "scripts": []
           },
           "configurations": {
@@ -111,7 +117,9 @@
               "tsconfig.spec.json",
               "e2e/tsconfig.json"
             ],
-            "exclude": ["**/node_modules/**"]
+            "exclude": [
+              "**/node_modules/**"
+            ]
           }
         },
         "e2e": {
@@ -125,6 +133,10 @@
               "devServerTarget": "VentApp:serve:production"
             }
           }
+        },
+        "deploy": {
+          "builder": "angular-cli-ghpages:deploy",
+          "options": {}
         }
       }
     }

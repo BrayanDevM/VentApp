@@ -31,17 +31,4 @@ export class ClientesComponent implements OnInit {
       data: cliente,
     });
   }
-
-  eliminarCliente(cliente: Cliente) {
-    const dialog = this.dialog.open(DialogConfirmaComponent, {
-      data: {
-        texto: `Eliminar ${cliente.nombre}, esta acción no puede deshacerse.`,
-      },
-    });
-    dialog.afterClosed().subscribe((confirma) => {
-      if (confirma) {
-        this.clientes$.eliminarCliente(cliente.id);
-      }
-    });
-  }
 }

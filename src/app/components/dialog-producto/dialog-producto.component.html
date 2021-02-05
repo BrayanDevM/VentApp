@@ -1,5 +1,16 @@
 <form [formGroup]="formProducto" (ngSubmit)="guardarProducto()">
   <h2 mat-dialog-title>Nuevo producto</h2>
+  <div *ngIf="data" class="dialog-actions">
+    <button mat-icon-button type="button" [matMenuTriggerFor]="menu">
+      <mat-icon>more_vert</mat-icon>
+    </button>
+    <mat-menu #menu="matMenu" yPosition="above">
+      <button (click)="eliminarProducto(data)" mat-menu-item>
+        <mat-icon>delete</mat-icon>
+        <span>Eliminar</span>
+      </button>
+    </mat-menu>
+  </div>
   <mat-dialog-content>
     <!-- ****************** ESTABLECER PRODUCTO ****************** -->
     <mat-form-field class="w-100 mb-1" appearance="outline">

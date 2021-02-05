@@ -1,9 +1,8 @@
 <main>
-  <div class="contenedor">
-    <div class="header">
-      <h1>Clientes</h1>
-    </div>
-
+  <div class="page-header header-big">
+    <h1>Clientes</h1>
+  </div>
+  <div class="wrapper">
     <!-- BOTÓN CREAR NUEVO PRODUCTO DE VENTA -->
     <div class="boton-macro d-flex flex-row align-items-center">
       <div class="boton-items me-3">
@@ -17,21 +16,20 @@
         <mat-icon>add</mat-icon>
       </button>
     </div>
-  </div>
 
-  <section class="seccion">Clientes</section>
-  <div
-    *ngIf="clientesLista.length === 0; else clientes"
-    class="d-flex align-items-center justify-content-center text-muted p-4"
-  >
-    No tienes clientes creados
+    <section class="seccion">Clientes</section>
+    <div
+      *ngIf="clientesLista.length === 0; else clientes"
+      class="d-flex align-items-center justify-content-center text-muted p-4"
+    >
+      No tienes clientes creados
+    </div>
+    <ng-template #clientes>
+      <app-lista-cliente
+        *ngFor="let cliente of clientesLista"
+        [cliente]="cliente"
+        (editarCliente$)="editarCliente($event)"
+      ></app-lista-cliente>
+    </ng-template>
   </div>
-  <ng-template #clientes>
-    <app-lista-cliente
-      *ngFor="let cliente of clientesLista"
-      [cliente]="cliente"
-      (editarCliente$)="editarCliente($event)"
-      (eliminarCliente$)="eliminarCliente($event)"
-    ></app-lista-cliente>
-  </ng-template>
 </main>

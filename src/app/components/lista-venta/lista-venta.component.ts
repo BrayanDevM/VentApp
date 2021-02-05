@@ -29,8 +29,4 @@ export class ListaVentaComponent implements OnInit {
   editarVenta(venta: Venta) {
     this.editarVenta$.emit(venta);
   }
-
-  eliminarVenta(venta: Venta) {
-    this.eliminarVenta$.emit(venta);
-  }
 }

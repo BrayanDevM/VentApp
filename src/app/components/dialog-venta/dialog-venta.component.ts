@@ -1,9 +1,14 @@
 import { Component, Inject, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
+import {
+  MatDialog,
+  MatDialogRef,
+  MAT_DIALOG_DATA,
+} from '@angular/material/dialog';
 import { Cliente, ClientesService } from 'src/app/services/clientes.service';
 import { Producto, ProductosService } from 'src/app/services/productos.service';
 import { Venta, VentasService } from 'src/app/services/ventas.service';
+import { DialogConfirmaComponent } from '../dialog-confirma/dialog-confirma.component';
 
 @Component({
   selector: 'app-dialog-venta',
@@ -19,6 +24,7 @@ export class DialogVentaComponent implements OnInit {
   constructor(
     private dialogRef: MatDialogRef<DialogVentaComponent>,
     @Inject(MAT_DIALOG_DATA) public data: Venta,
+    public dialog: MatDialog,
     private fb: FormBuilder,
     private productos$: ProductosService,
     private clientes$: ClientesService,
@@ -28,7 +34,7 @@ export class DialogVentaComponent implements OnInit {
       id: '',
       producto: [null, Validators.required],
       utilidad: 0,
-      cantidad: [1, Validators.required],
+      cantidad: [null, Validators.required],
       utilidadTotal: 0,
       cliente: [null, Validators.required],
       precio: 0,
@@ -45,22 +51,10 @@ export class DialogVentaComponent implements OnInit {
     return this.formVenta.controls;
   }
 
-  ngOnInit(): void {
+  async ngOnInit() {
+    this.productos = await this.productos$.obtenerProductos();
+    this.clientes = await this.clientes$.obtenerClientes();
     this.compruebaEdicion();
-    this.obtenerProductos();
-    this.obtenerClientes();
-  }
-
-  obtenerProductos() {
-    this.productos$.obtenerProductos().then((productos: Producto[]) => {
-      this.productos = productos;
-    });
-  }
-
-  obtenerClientes() {
-    this.clientes$.obtenerClientes().then((clientes: Cliente[]) => {
-      this.clientes = clientes;
-    });
   }
 
   /**
@@ -80,6 +74,7 @@ export class DialogVentaComponent implements OnInit {
         paga: this.data.paga,
         fecha: this.data.fecha,
       });
+      this.obtenerStock();
     }
   }
 
@@ -87,9 +82,10 @@ export class DialogVentaComponent implements OnInit {
     if (this.formVenta.invalid) return;
     if (this.data) {
       this.calcularUtilidadTotal();
-      this.ventas$
-        .editarVenta(this.formVenta.value)
-        .then(() => this.dialogRef.close());
+      this.ventas$.editarVenta(this.formVenta.value).then(() => {
+        this.ventas$.ventaEditada$.emit(this.formVenta.value);
+        this.dialogRef.close();
+      });
     } else {
       this.calcularUtilidadTotal();
       this.ventas$.guardarVenta(this.formVenta.value).then(({ ok, venta }) => {
@@ -98,6 +94,21 @@ export class DialogVentaComponent implements OnInit {
         this.dialogRef.close();
       });
     }
+  }
+
+  eliminarVenta(venta: Venta) {
+    const dialog = this.dialog.open(DialogConfirmaComponent, {
+      data: {
+        texto: `Eliminar venta de ${venta.cliente}, esta acción no puede deshacerse.`,
+      },
+    });
+    dialog.afterClosed().subscribe((confirma) => {
+      if (confirma) {
+        this.ventas$.eliminarVenta(venta.id);
+        this.dialogRef.close();
+        this.ventas$.ventaEliminada$.emit(venta.id);
+      }
+    });
   }
 
   obtenerValorProducto() {

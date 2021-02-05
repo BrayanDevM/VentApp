@@ -1,9 +1,8 @@
 <main>
-  <div class="contenedor">
-    <div class="header">
-      <h1>Inventario</h1>
-    </div>
-
+  <div class="page-header header-big">
+    <h1>Inventario</h1>
+  </div>
+  <div class="wrapper">
     <!-- BOTÓN CREAR NUEVO PRODUCTO DE VENTA -->
     <div class="boton-macro d-flex flex-row align-items-center">
       <div class="boton-items me-3">
@@ -17,21 +16,20 @@
         <mat-icon>add</mat-icon>
       </button>
     </div>
-  </div>
 
-  <section class="seccion">Productos</section>
-  <div
-    *ngIf="productosLista.length === 0; else productos"
-    class="d-flex align-items-center justify-content-center text-muted p-4"
-  >
-    No tienes productos creados
+    <section class="seccion">Productos</section>
+    <div
+      *ngIf="productosLista.length === 0; else productos"
+      class="d-flex align-items-center justify-content-center text-muted p-4"
+    >
+      No tienes productos creados
+    </div>
+    <ng-template #productos>
+      <app-lista-producto
+        *ngFor="let prod of productosLista"
+        [producto]="prod"
+        (editarProducto$)="editarProducto($event)"
+      ></app-lista-producto>
+    </ng-template>
   </div>
-  <ng-template #productos>
-    <app-lista-producto
-      *ngFor="let prod of productosLista"
-      [producto]="prod"
-      (editarProducto$)="editarProducto($event)"
-      (eliminarProducto$)="eliminarProducto($event)"
-    ></app-lista-producto>
-  </ng-template>
 </main>

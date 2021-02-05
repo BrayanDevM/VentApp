@@ -8,7 +8,7 @@ export class VentasService {
 
   ventaNueva$ = new EventEmitter<Venta>();
   ventaEliminada$ = new EventEmitter<string>();
-  ventaActualizada$ = new EventEmitter<Venta>();
+  ventaEditada$ = new EventEmitter<Venta>();
 
   constructor() {
     this.cargarLS();

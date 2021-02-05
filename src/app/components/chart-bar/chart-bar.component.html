@@ -1,13 +1,10 @@
-<div
-  class="card card-body shadow-sm border-0 p-3 rounded-3 bg-white"
-  style="text-align: center"
->
+<div class="card card-body border-0 bg-white" style="text-align: center">
   <apx-chart
     [series]="chartOptions.series"
     [chart]="chartOptions.chart"
     [xaxis]="chartOptions.xaxis"
     [yaxis]="chartOptions.yaxis"
-    [title]="chartOptions.title"
     [colors]="chartOptions.colors"
+    [grid]="chartOptions.grid"
   ></apx-chart>
 </div>

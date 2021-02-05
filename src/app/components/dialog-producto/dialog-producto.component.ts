@@ -1,7 +1,12 @@
 import { Component, Inject, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
+import {
+  MatDialog,
+  MatDialogRef,
+  MAT_DIALOG_DATA,
+} from '@angular/material/dialog';
 import { Producto, ProductosService } from 'src/app/services/productos.service';
+import { DialogConfirmaComponent } from '../dialog-confirma/dialog-confirma.component';
 
 @Component({
   selector: 'app-dialog-producto',
@@ -14,6 +19,7 @@ export class DialogProductoComponent implements OnInit {
   constructor(
     private dialogRef: MatDialogRef<DialogProductoComponent>,
     @Inject(MAT_DIALOG_DATA) public data: Producto,
+    public dialog: MatDialog,
     private fb: FormBuilder,
     private productos$: ProductosService
   ) {
@@ -76,5 +82,19 @@ export class DialogProductoComponent implements OnInit {
           this.dialogRef.close();
         });
     }
+  }
+
+  eliminarProducto(producto: Producto) {
+    const dialog = this.dialog.open(DialogConfirmaComponent, {
+      data: {
+        texto: `Eliminar ${producto.nombre}, esta acción no puede deshacerse.`,
+      },
+    });
+    dialog.afterClosed().subscribe((confirma) => {
+      if (confirma) {
+        this.productos$.eliminarProducto(producto.id);
+        this.dialogRef.close();
+      }
+    });
   }
 }

@@ -12,6 +12,9 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { MatChipsModule } from '@angular/material/chips';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
+import { MatMenuModule } from '@angular/material/menu';
+import { MatListModule } from '@angular/material/list';
+import { MatDividerModule } from '@angular/material/divider';
 
 const materialComponents = [
   MatRippleModule,
@@ -24,6 +27,9 @@ const materialComponents = [
   MatSlideToggleModule,
   MatChipsModule,
   MatSnackBarModule,
+  MatMenuModule,
+  MatListModule,
+  MatDividerModule,
 ];
 
 @NgModule({

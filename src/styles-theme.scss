@@ -1,0 +1,29 @@
+@import "~@angular/material/theming";
+// Cambio de tipografía (fuente, tamaño en títulos, tamaño en body)
+$custom-typography: mat-typography-config(
+  $font-family: "Lato, Roboto, monospace",
+  $headline: mat-typography-level(32px, 48px, 700),
+  $body-1: mat-typography-level(14px, 24px, 400),
+);
+
+@include mat-core();
+
+// Definiendo variables con color primerio y secundario
+$default-primary: mat-palette($mat-deep-purple, A400);
+$default-accent: mat-palette($mat-pink);
+$default-warn: mat-palette($mat-red);
+
+// Creamos el objeto con el tema
+$default-theme: mat-light-theme(
+  (
+    color: (
+      primary: $default-primary,
+      accent: $default-accent,
+      warn: $default-warn,
+    ),
+  )
+);
+
+@include angular-material-theme($default-theme);
+// Sobre-escribimos clases CSS de tipografía (e.g., mat-h1, mat-display-1, mat-typography, etc.)
+@include angular-material-typography($custom-typography);

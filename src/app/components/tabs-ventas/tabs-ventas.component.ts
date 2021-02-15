@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { Tab } from 'bootstrap';
+import { Cliente, ClientesService } from 'src/app/services/clientes.service';
 import { Venta, VentasService } from 'src/app/services/ventas.service';
 import { DialogConfirmaComponent } from '../dialog-confirma/dialog-confirma.component';
 import { DialogVentaComponent } from '../dialog-venta/dialog-venta.component';
@@ -11,32 +12,88 @@ import { DialogVentaComponent } from '../dialog-venta/dialog-venta.component';
   styleUrls: ['./tabs-ventas.component.css'],
 })
 export class TabsVentasComponent implements OnInit {
-  listaVentas: Venta[] = [];
+  // Lista BD
+  ventas: Venta[] = [];
+
+  // Listas filtradas
+  listaTodos: Venta[] = [];
   listaVentasDeben: Venta[] = [];
   listaVentasPagaron: Venta[] = [];
 
-  constructor(private ventas$: VentasService, private dialog: MatDialog) {}
+  listaClientes: Cliente[] = [];
+
+  constructor(
+    private ventas$: VentasService,
+    private clientes$: ClientesService,
+    private dialog: MatDialog
+  ) {}
 
   ngOnInit(): void {
     this.obtenerVentas();
+    this.obtenerClientes();
   }
 
   async obtenerVentas() {
-    this.listaVentas = await this.ventas$.obtenerVentas();
-    this.listaVentasDeben = this.filtrarListado(this.listaVentas, 'deudores');
-    this.listaVentasPagaron = this.filtrarListado(this.listaVentas, 'pagadas');
+    this.ventas = await this.ventas$.obtenerVentas();
+    this.crearListas();
+  }
+
+  async obtenerClientes() {
+    this.listaClientes = await this.clientes$.obtenerClientes();
+  }
+
+  crearListas() {
+    this.listaTodos = [...this.ventas];
+    this.listaVentasDeben = [...this.filtrarListado(this.ventas, 'Sin pagar')];
+    this.listaVentasPagaron = [...this.filtrarListado(this.ventas, 'Pagadas')];
   }
 
   filtrarListado(lista: Venta[], condicion: string) {
     switch (condicion) {
-      case 'deudores':
+      case 'Sin pagar':
         return lista.filter((venta: Venta) => venta.paga === false);
-      case 'pagadas':
+      case 'Pagadas':
         return lista.filter((venta: Venta) => venta.paga === true);
       default:
         console.error('No se pudo filtrar la lista, condición inválida');
         return [];
     }
+  }
+
+  filtrarPorCliente(lista: string, clienteNombre: string) {
+    switch (lista) {
+      case 'Pagadas':
+        if (clienteNombre === 'Sin filtro') {
+          this.crearListas();
+        } else {
+          this.listaVentasPagaron = [
+            ...this.filtrarListado(this.ventas, 'Pagadas'),
+          ].filter((venta: Venta) => venta.cliente === clienteNombre);
+        }
+        break;
+      case 'Sin pagar':
+        if (clienteNombre === 'Sin filtro') {
+          this.crearListas();
+        } else {
+          this.listaVentasDeben = [
+            ...this.filtrarListado(this.ventas, 'Sin pagar'),
+          ].filter((venta: Venta) => venta.cliente === clienteNombre);
+        }
+        break;
+      default:
+        if (clienteNombre === 'Sin filtro') {
+          this.crearListas();
+        } else {
+          this.listaTodos = [...this.ventas].filter(
+            (venta: Venta) => venta.cliente === clienteNombre
+          );
+        }
+        break;
+    }
+  }
+
+  ver(e: any) {
+    console.log(e);
   }
 
   sumarVentas(ventas: Venta[]) {

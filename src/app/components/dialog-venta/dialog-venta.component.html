@@ -1,5 +1,8 @@
 <form [formGroup]="formVenta" (ngSubmit)="guardarVenta()">
-  <h2 mat-dialog-title>Nueva venta</h2>
+  <h2 mat-dialog-title *ngIf="!data">Registrar nueva venta</h2>
+  <h2 mat-dialog-title *ngIf="data">Editar venta</h2>
+
+  <!-- BOTONES DE ACCIÓN /////// -->
   <div *ngIf="data" class="dialog-actions">
     <button mat-icon-button type="button" [matMenuTriggerFor]="menu">
       <mat-icon>more_vert</mat-icon>
@@ -11,7 +14,14 @@
       </button>
     </mat-menu>
   </div>
+
   <mat-dialog-content>
+    <div
+      *ngIf="hora >= horaRecargoNoctInicio || hora < horaRecargoNoctFin"
+      class="venta-nocturna"
+    >
+      Venta nocturna
+    </div>
     <!-- ****************** SELECCIÓN DE PRODUCTO ****************** -->
     <mat-form-field class="w-100 mb-2" appearance="outline">
       <mat-label>Producto</mat-label>
@@ -33,7 +43,8 @@
       </mat-select>
       <mat-icon matSuffix>sports_bar</mat-icon>
       <mat-hint *ngIf="fv.producto">
-        Precio: {{ fv.precio | currency }}, Stock: {{ stockProducto }}
+        Precio: {{ fv.precio + fv.recargoNocturno | currency }}, Stock:
+        {{ stockProducto }}
       </mat-hint>
       <mat-error>Debes seleccionar un producto</mat-error>
     </mat-form-field>
@@ -74,7 +85,7 @@
       Fecha: {{ fv.fecha | date: "d/M/yy, h:mm a" }}
     </div>
     <h3 *ngIf="fv.cantidad && stockProducto >= fv.cantidad">
-      Total: ${{ fv.precio * fv.cantidad | number }}
+      Total: {{ (fv.precio + fv.recargoNocturno) * fv.cantidad | number }}
     </h3>
     <h6 *ngIf="stockProducto < fv.cantidad && !data" class="text-danger mt-3">
       Sólo hay {{ stockProducto }} {{ fv.producto }} en stock!

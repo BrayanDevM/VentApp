@@ -12,6 +12,7 @@ export class ListaProductoComponent implements OnInit {
     nombre: 'Producto',
     precioVenta: 0,
     precioCompra: 0,
+    recargoNocturno: 0,
     img: '',
     stock: 0,
   };

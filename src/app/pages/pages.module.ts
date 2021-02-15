@@ -13,6 +13,7 @@ import { InventarioComponent } from './inventario/inventario.component';
 import { ClientesComponent } from './clientes/clientes.component';
 import { EstadisticasComponent } from './estadisticas/estadisticas.component';
 import { AjustesComponent } from './ajustes/ajustes.component';
+import { ReactiveFormsModule } from '@angular/forms';
 
 const paginas = [
   InicioComponent,
@@ -25,7 +26,13 @@ const paginas = [
 
 @NgModule({
   declarations: [...paginas],
-  imports: [CommonModule, RoutesModule, MaterialModule, ComponentsModule],
+  imports: [
+    CommonModule,
+    ReactiveFormsModule,
+    RoutesModule,
+    MaterialModule,
+    ComponentsModule,
+  ],
   exports: [...paginas],
 })
 export class PagesModule {}

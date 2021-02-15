@@ -78,16 +78,23 @@ export class VentasService {
       this.ventas = JSON.parse(localStorage.getItem('ventas') + '');
     }
   }
+
+  eliminarLS() {
+    localStorage.removeItem('ventas');
+    window.location.reload();
+  }
 }
 
 export interface Venta {
   id: string;
   producto: string;
   precio: number;
+  recargoNocturno: number;
   utilidad: number;
   cantidad: number;
   utilidadTotal: number;
   cliente: string;
   paga: boolean;
   fecha: Date;
+  totalVenta: number;
 }

@@ -10,7 +10,7 @@
       </div>
     </div>
     <div class="venta-total d-flex flex-column">
-      <span>$ {{ venta.precio * venta.cantidad | number }}</span>
+      <span>$ {{ venta.totalVenta | number }}</span>
       <div class="sub-text">
         <span *ngIf="venta.paga" class="text-success">Pagado</span>
         <span *ngIf="!venta.paga" class="text-danger">Debe</span>

@@ -5,6 +5,7 @@ import {
   MatDialogRef,
   MAT_DIALOG_DATA,
 } from '@angular/material/dialog';
+import { AjustesService } from 'src/app/services/ajustes.service';
 import { Cliente, ClientesService } from 'src/app/services/clientes.service';
 import { Producto, ProductosService } from 'src/app/services/productos.service';
 import { Venta, VentasService } from 'src/app/services/ventas.service';
@@ -21,6 +22,11 @@ export class DialogVentaComponent implements OnInit {
   clientes: Cliente[] = [];
   stockProducto = 0;
 
+  fecha = new Date();
+  hora = new Date().getHours();
+  horaRecargoNoctInicio = 20;
+  horaRecargoNoctFin = 6;
+
   constructor(
     private dialogRef: MatDialogRef<DialogVentaComponent>,
     @Inject(MAT_DIALOG_DATA) public data: Venta,
@@ -28,19 +34,23 @@ export class DialogVentaComponent implements OnInit {
     private fb: FormBuilder,
     private productos$: ProductosService,
     private clientes$: ClientesService,
-    private ventas$: VentasService
+    private ventas$: VentasService,
+    private ajustes$: AjustesService
   ) {
     this.formVenta = this.fb.group({
       id: '',
       producto: [null, Validators.required],
+      precio: 0,
+      recargoNocturno: 0,
       utilidad: 0,
       cantidad: [null, Validators.required],
       utilidadTotal: 0,
       cliente: [null, Validators.required],
-      precio: 0,
       paga: [true],
-      fecha: [new Date()],
+      fecha: [this.fecha],
+      totalVenta: null,
     });
+    this.cargarAjustes();
   }
 
   get fv() {
@@ -52,9 +62,20 @@ export class DialogVentaComponent implements OnInit {
   }
 
   async ngOnInit() {
-    this.productos = await this.productos$.obtenerProductos();
-    this.clientes = await this.clientes$.obtenerClientes();
-    this.compruebaEdicion();
+    Promise.all([
+      this.productos$.obtenerProductos(),
+      this.clientes$.obtenerClientes(),
+    ]).then((data: any) => {
+      this.productos = data[0];
+      this.clientes = data[1];
+      this.compruebaEdicion();
+    });
+  }
+
+  cargarAjustes() {
+    const ajustes = this.ajustes$.obtenerAjustes();
+    this.horaRecargoNoctInicio = ajustes.horaRecargoNoctInicio;
+    this.horaRecargoNoctFin = ajustes.horaRecargoNoctFin;
   }
 
   /**
@@ -63,37 +84,59 @@ export class DialogVentaComponent implements OnInit {
    */
   compruebaEdicion() {
     if (this.data) {
+      this.hora = new Date(this.data.fecha).getHours();
+
+      // Validaciones para compatibilidad con ventas anteriores a inclusión de estas propiedades
+      this.data.recargoNocturno = !this.data.recargoNocturno
+        ? this.obtenerRecargoNoct(this.data.producto, this.hora)
+        : this.data.recargoNocturno;
+      const totalVenta =
+        (this.data.precio + this.data.recargoNocturno) * this.data.cantidad;
+
       this.formVenta.patchValue({
         id: this.data.id,
         producto: this.data.producto,
+        precio: this.data.precio,
+        recargoNocturno: this.data.recargoNocturno,
         cantidad: this.data.cantidad,
         utilidad: this.data.utilidad,
         utilidadTotal: this.data.utilidadTotal,
         cliente: this.data.cliente,
-        precio: this.data.precio,
         paga: this.data.paga,
         fecha: this.data.fecha,
+        totalVenta: this.data.totalVenta || totalVenta,
       });
       this.obtenerStock();
     }
+  }
+  obtenerRecargoNoct(producto: string, horaVenta: number) {
+    const i = this.productos.findIndex(
+      (prod: Producto) => prod.nombre === producto
+    );
+
+    return horaVenta >= this.horaRecargoNoctInicio ||
+      horaVenta < this.horaRecargoNoctFin
+      ? this.productos[i].recargoNocturno
+      : 0;
   }
 
   guardarVenta() {
     if (this.formVenta.invalid) return;
     if (this.data) {
       this.calcularUtilidadTotal();
-      this.ventas$.editarVenta(this.formVenta.value).then(() => {
-        this.ventas$.ventaEditada$.emit(this.formVenta.value);
+      this.ventas$.editarVenta(this.fv).then(() => {
+        this.ventas$.ventaEditada$.emit(this.fv);
         this.dialogRef.close();
       });
     } else {
       this.calcularUtilidadTotal();
-      this.ventas$.guardarVenta(this.formVenta.value).then(({ ok, venta }) => {
+      this.ventas$.guardarVenta(this.fv).then(({ ok, venta }) => {
         this.editarStockProducto(this.fv.producto, this.fv.cantidad);
         this.ventas$.ventaNueva$.emit(venta);
         this.dialogRef.close();
       });
     }
+    console.log(this.fv);
   }
 
   eliminarVenta(venta: Venta) {
@@ -111,24 +154,41 @@ export class DialogVentaComponent implements OnInit {
     });
   }
 
+  /**
+   * Busca el producto seleccionado en la lista de productos
+   * 1. Si la hora es mayor o igual a las 00 capturamos el valor
+   * del recargo nocturno del producto, sino es 0.
+   * 2. Editamos el formulario y el precio es = al precio + recargo.
+   * 3. La utilidad es igual al precio de venta + recargo nocturno
+   */
   obtenerValorProducto() {
     const producto = this.fv.producto;
     const i = this.productos.findIndex((prod) => prod.nombre === producto);
+    const precioVenta = this.productos[i].precioVenta;
+    const precioCompra = this.productos[i].precioCompra;
+
+    const recargoNocturno =
+      this.hora >= this.horaRecargoNoctInicio ||
+      this.hora < this.horaRecargoNoctFin
+        ? this.productos[i].recargoNocturno
+        : 0;
+
     this.formVenta.patchValue({
-      precio: this.productos[i].precioVenta,
-      utilidad: this.productos[i].precioVenta - this.productos[i].precioCompra,
+      precio: precioVenta,
+      recargoNocturno: recargoNocturno,
+      utilidad: precioVenta + recargoNocturno - precioCompra,
     });
   }
 
   calcularUtilidadTotal() {
-    const producto = this.fv.producto;
-    const i = this.productos.findIndex((prod) => prod.nombre === producto);
+    const utilidadTotal = this.fv.utilidad * this.fv.cantidad;
+    const totalVenta =
+      (this.fv.precio + this.fv.recargoNocturno) * this.fv.cantidad;
+
     this.formVenta.patchValue({
-      utilidadTotal: this.fv.utilidad * this.fv.cantidad,
+      utilidadTotal: utilidadTotal,
+      totalVenta: totalVenta,
     });
-    // console.log('utilidad: ', this.fv.utilidad);
-    // console.log('cant. vendida: ', this.fv.cantidad);
-    // console.log('utilidad total: ', this.fv.utilidadTotal);
   }
 
   obtenerStock() {

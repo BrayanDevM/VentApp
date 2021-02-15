@@ -9,16 +9,6 @@
 @import url("https://fonts.googleapis.com/css2?family=Montserrat:wght@500;600;700&display=swap");
 @import url("https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&display=swap");
 
-:root {
-  --color-titulo: #17268c;
-  --color-texto: #202020;
-  --color-primary: hsl(259, 100%, 56%);
-  --color-primary-background: hsla(259, 100%, 56%, 0.15);
-  --color-accent: #e91e63;
-  --color-warn: #f44336;
-  --fondo-gris: #eae8fe;
-}
-
 // HTML STYLES ///////////////////////////////////////////////////////////////////////////////////////////////////
 
 html,
@@ -29,7 +19,6 @@ body {
   margin: 0;
   font-family: "Lato", "Roboto", "Helvetica Neue", sans-serif;
   // background-color: #f9f8ff;
-  color: var(--color-texto);
 }
 
 h1,
@@ -39,7 +28,6 @@ h4,
 h5,
 h6 {
   font-family: "Montserrat", sans-serif;
-  color: var(--color-titulo);
   margin: 0;
 }
 
@@ -63,7 +51,6 @@ h1 {
 }
 
 .page-header {
-  background-color: var(--fondo-gris);
   padding: 1.2rem;
 }
 
@@ -82,7 +69,6 @@ h1 {
   line-height: 64px;
   font-family: "Lato", sans-serif;
   font-size: 1.4rem;
-  color: var(--color-texto);
   font-weight: 600;
 }
 
@@ -105,7 +91,6 @@ h1 {
   bottom: 0;
   left: 0;
   height: 72px;
-  box-shadow: 0px -1px 20px 5px rgba(0, 0, 0, 0.1);
 }
 
 .navegacion ul {
@@ -125,16 +110,15 @@ h1 {
   width: 64px;
   border-radius: 50%;
   text-decoration: none;
-  color: #dcd8e0;
   // border: 0.5px solid green;
 }
 .navegacion .opcion-item a > .mat-icon {
   transform: scale(1.5);
 }
 
-.navegacion .opcion-item a.active {
-  color: var(--color-primary);
-}
+// .navegacion .opcion-item a.active { theme.scss
+//   color: var(--color-primary);
+// }
 .navegacion .opcion-item a.active > .mat-icon {
   margin-top: -5px;
 }
@@ -147,15 +131,12 @@ h1 {
   margin: 0 auto;
   width: 4px;
   height: 4px;
-  background-color: var(--color-primary);
   z-index: 600;
   border-radius: 50%;
 }
 
 .boton-macro {
-  background-color: #f9f8fc;
   border-radius: 2rem;
-  color: var(--color-texto);
   padding: 1rem 1.2rem;
   margin: -4.5rem 1rem 1rem;
 }
@@ -173,12 +154,25 @@ h1 {
   height: 64px;
   width: 64px;
   border-radius: 20px;
-  background-color: var(--fondo-gris);
-  color: var(--color-primary);
 }
 
 .boton-macro button.mat-flat-button .mat-icon {
   transform: scale(1.3);
+}
+
+/*
+  COMPONENTE DIALOG VENTA
+*/
+
+.venta-nocturna {
+  position: relative;
+  padding: 3px 12px;
+  border-radius: 1rem 1rem 0 0;
+  width: fit-content;
+  font-size: 0.8rem;
+  margin-left: auto;
+  margin-bottom: -5px;
+  margin-right: 3px;
 }
 
 /*
@@ -216,7 +210,6 @@ h1 {
   border-radius: 1rem;
   padding: 1rem 0.8rem;
   margin-bottom: 1.1rem;
-  box-shadow: 0 8px 15px 5px #eee;
 }
 
 .cliente .cliente-img,
@@ -225,8 +218,6 @@ h1 {
   height: 56px;
   width: 56px;
   min-width: 56px;
-  background-color: var(--color-primary-background);
-  color: var(--color-primary);
   margin-right: 0.8rem;
   border-radius: 50%;
 }
@@ -239,7 +230,6 @@ h1 {
 .cliente .cliente-detalles .descripcion,
 .producto .producto-detalles .descripcion,
 .venta .venta-detalles .descripcion {
-  color: #333333;
   font-weight: 700;
   margin-right: 5px;
   font-size: 1.1rem;
@@ -265,7 +255,6 @@ h1 {
   COMPONENTE LISTA PRODUCTO
 */
 .producto .producto-img {
-  background-color: #fff;
   overflow: hidden;
 }
 
@@ -318,7 +307,6 @@ h1 {
 .venta .venta-total {
   text-align: right;
   margin-left: auto;
-  color: #4454c3;
   font-size: 1.25rem;
   min-width: 100px;
   /* font-weight: 600; */
@@ -357,13 +345,10 @@ h1 {
   margin-right: 5px;
   border-radius: 1.5rem;
   font-size: 0.8rem;
-  background-color: #f9f8fd;
-  color: var(--color-titulo);
 }
 .tabs-ventas .icon {
   height: 48px;
   width: 48px;
-  background-color: var(--fondo-gris);
   padding: 0.5rem;
   border-radius: 1rem;
   margin-bottom: 1rem;
@@ -373,17 +358,17 @@ h1 {
   color: #6328fb;
 }
 
-.tabs-ventas .nav-pills a.active {
-  background-color: #6328fb;
-  color: #fff;
-}
+// .tabs-ventas .nav-pills a.active {
+//   background-color: #6328fb;
+//   color: #fff;
+// }
 
-.tabs-ventas .nav-pills a.active .icon {
-  background-color: #fff;
-}
-.tabs-ventas .nav-pills a.active .mat-icon {
-  color: #6328fb;
-}
+// .tabs-ventas .nav-pills a.active .icon {
+//   background-color: #fff;
+// }
+// .tabs-ventas .nav-pills a.active .mat-icon {
+//   color: #6328fb;
+// }
 
 .total-listado {
   padding: 1.5rem 0;
@@ -414,6 +399,10 @@ h1 {
   top: 20px;
 }
 
+// .mat-form-field-suffix .mat-icon {
+//   color: var(--color-iconos);
+// }
+
 .mat-icon {
   font-family: "Material Icons Round";
 }
@@ -431,7 +420,6 @@ button.mat-stroked-button {
 .mat-dialog-title {
   font-family: Lato, sans-serif;
   font-weight: 700;
-  color: var(--color-texto);
 }
 
 // FIN MATERIAL CHANGE STYLES ///////////////////////////////////////////////////////////////////////////////////////////////////

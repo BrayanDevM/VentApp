@@ -99,7 +99,7 @@ export class TabsVentasComponent implements OnInit {
   sumarVentas(ventas: Venta[]) {
     let suma = 0;
     ventas.forEach((venta: Venta) => {
-      suma += venta.precio * venta.cantidad;
+      suma += (venta.precio + venta.recargoNocturno) * venta.cantidad;
     });
     return suma;
   }

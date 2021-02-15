@@ -3,16 +3,72 @@
     <h1>Ajustes</h1>
   </div>
   <div class="wrapper">
-    <section class="seccion">General</section>
-    <div class="opciones">
-      <div
-        class="opcion d-flex flex-row align-items-center justify-content-between"
-      >
-        <div class="texto">Modo oscuro</div>
-        <div class="accion">
-          <mat-slide-toggle></mat-slide-toggle>
-        </div>
+    <form [formGroup]="formAjustes" (ngSubmit)="guardarAjustes()">
+      <section class="seccion">General</section>
+      <div class="opciones">
+        <mat-form-field class="w-100" appearance="outline">
+          <mat-label>Tema</mat-label>
+          <mat-select
+            (selectionChange)="guardarAjustes()"
+            formControlName="tema"
+          >
+            <mat-option value="Claro">Claro</mat-option>
+            <mat-option value="Oscuro">Oscuro</mat-option>
+          </mat-select>
+          <mat-icon matSuffix>palette</mat-icon>
+        </mat-form-field>
       </div>
+
+      <section class="seccion">Ventas</section>
+      <div class="opciones">
+        <mat-form-field class="w-100 mb-3" appearance="outline">
+          <mat-label>Hora inicio recargo nocturno</mat-label>
+          <input
+            type="number"
+            matInput
+            formControlName="horaRecargoNoctInicio"
+            (input)="guardarAjustes()"
+          />
+          <mat-icon matSuffix>nights_stay</mat-icon>
+          <mat-hint>Formato 24hrs</mat-hint>
+          <mat-error>Debes indicar la cantidad</mat-error>
+        </mat-form-field>
+
+        <mat-form-field class="w-100" appearance="outline">
+          <mat-label>Hora fin recargo nocturno</mat-label>
+          <input
+            type="number"
+            matInput
+            formControlName="horaRecargoNoctFin"
+            (input)="guardarAjustes()"
+          />
+          <mat-icon matSuffix>nights_stay</mat-icon>
+          <mat-hint>Formato 24hrs</mat-hint>
+          <mat-error>Debes indicar la cantidad</mat-error>
+        </mat-form-field>
+      </div>
+    </form>
+
+    <section class="seccion text-danger mt-4">Zona de peligro</section>
+    <div class="opciones border border-danger rounded-3 p-3">
+      <p>Eliminar todos los registros de ventas creados.</p>
+      <button (click)="eliminarVentas()" mat-flat-button color="warn">
+        Eliminar ventas
+      </button>
+
+      <mat-divider class="mt-4 mb-4"></mat-divider>
+
+      <p>Eliminar todos los registros de clientes creados.</p>
+      <button (click)="eliminarClientes()" mat-flat-button color="warn">
+        Eliminar clientes
+      </button>
+
+      <mat-divider class="mt-4 mb-4"></mat-divider>
+
+      <p>Eliminar todos los registros de productos creados.</p>
+      <button (click)="eliminarProductos()" mat-flat-button color="warn">
+        Eliminar productos
+      </button>
     </div>
   </div>
 </main>

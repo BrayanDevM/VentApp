@@ -80,6 +80,11 @@ export class ProductosService {
       this.productos = JSON.parse(localStorage.getItem('productos') + '');
     }
   }
+
+  eliminarLS() {
+    localStorage.removeItem('productos');
+    window.location.reload();
+  }
 }
 
 export interface Producto {
@@ -87,6 +92,7 @@ export interface Producto {
   nombre: string;
   precioVenta: number;
   precioCompra: number;
+  recargoNocturno: number;
   img: string;
   stock: number;
 }

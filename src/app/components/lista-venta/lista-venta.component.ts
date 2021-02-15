@@ -11,12 +11,14 @@ export class ListaVentaComponent implements OnInit {
     id: '0',
     producto: 'Producto',
     precio: 0,
+    recargoNocturno: 0,
     utilidad: 0,
     cantidad: 0,
     utilidadTotal: 0,
     cliente: 'Nombre cliente',
     fecha: new Date(),
     paga: true,
+    totalVenta: 0,
   };
 
   @Output() eliminarVenta$ = new EventEmitter<Venta>();

@@ -28,6 +28,7 @@ export class DialogProductoComponent implements OnInit {
       nombre: [null, Validators.required],
       precioCompra: [null, Validators.required],
       precioVenta: [null, Validators.required],
+      recargoNocturno: [0],
       img: '',
       stock: [null, Validators.required],
     });
@@ -56,6 +57,7 @@ export class DialogProductoComponent implements OnInit {
         nombre: this.data.nombre,
         precioVenta: this.data.precioVenta,
         precioCompra: this.data.precioCompra,
+        recargoNocturno: this.data.recargoNocturno,
         img: this.data.img,
         stock: this.data.stock,
       });

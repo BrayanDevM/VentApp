@@ -16,7 +16,7 @@
     <mat-form-field class="w-100 mb-1" appearance="outline">
       <mat-label>Nombre</mat-label>
       <input type="text" formControlName="nombre" name="nombre" matInput />
-      <mat-icon matSuffix>sports_bar</mat-icon>
+      <mat-icon matSuffix>create</mat-icon>
       <mat-error>Debes seleccionar un producto</mat-error>
     </mat-form-field>
 
@@ -29,11 +29,12 @@
         name="precioCompra"
         matInput
       />
+      <mat-icon matSuffix>paid</mat-icon>
       <mat-error>Debes indicar el precio</mat-error>
     </mat-form-field>
 
     <!-- ****************** ESTABLECER PRECIO VENTA ****************** -->
-    <mat-form-field class="w-100 mb-1" appearance="outline">
+    <mat-form-field class="w-100 mb-2" appearance="outline">
       <mat-label>Precio venta</mat-label>
       <input
         type="number"
@@ -41,10 +42,24 @@
         name="precioVenta"
         matInput
       />
-      <mat-hint
-        >Utilidad: $ {{ fv.precioVenta - fv.precioCompra | number }}</mat-hint
-      >
+      <mat-icon matSuffix>paid</mat-icon>
+      <mat-hint>
+        Utilidad: $ {{ fv.precioVenta - fv.precioCompra | number }}
+      </mat-hint>
       <mat-error>Debes indicar el precio</mat-error>
+    </mat-form-field>
+
+    <!-- ****************** ESTABLECER RECARGO NOCTURNO 🌙 ****************** -->
+    <mat-form-field class="w-100 mb-2" appearance="outline">
+      <mat-label>Recargo nocturno</mat-label>
+      <input
+        type="number"
+        formControlName="recargoNocturno"
+        name="recargoNocturno"
+        matInput
+      />
+      <mat-icon matSuffix>nights_stay</mat-icon>
+      <mat-hint>Costo adicional por ventas en horario nocturno</mat-hint>
     </mat-form-field>
 
     <!-- ****************** ESTABLECER IMG ****************** -->
@@ -52,12 +67,14 @@
       <mat-label>Imagen</mat-label>
       <input type="text" formControlName="img" name="img" matInput />
       <mat-hint>Es opcional</mat-hint>
+      <mat-icon matSuffix>insert_photo</mat-icon>
     </mat-form-field>
 
     <!-- ****************** ESTABLECER STOCK ****************** -->
     <mat-form-field class="w-100 mb-1" appearance="outline">
       <mat-label>Stock</mat-label>
       <input type="number" formControlName="stock" name="stock" matInput />
+      <mat-icon matSuffix>inventory_2</mat-icon>
       <mat-error>Debes indicar cantidad de stock</mat-error>
     </mat-form-field>
     <!-- ****************** ACCESOS RÁPIDOS ****************** -->

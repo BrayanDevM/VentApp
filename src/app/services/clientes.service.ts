@@ -78,6 +78,11 @@ export class ClientesService {
       this.clientes = JSON.parse(localStorage.getItem('clientes') + '');
     }
   }
+
+  eliminarLS() {
+    localStorage.removeItem('clientes');
+    window.location.reload();
+  }
 }
 
 export interface Cliente {

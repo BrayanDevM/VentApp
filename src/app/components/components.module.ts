@@ -20,6 +20,10 @@ import { TabsVentasComponent } from './tabs-ventas/tabs-ventas.component';
 import { ScrollTopComponent } from './scroll-top/scroll-top.component';
 import { ChartBarComponent } from './chart-bar/chart-bar.component';
 import { ChartDonutComponent } from './chart-donut/chart-donut.component';
+import { RouterModule } from '@angular/router';
+import { ProfileButtonComponent } from './profile-button/profile-button.component';
+
+import { InicialNombrePipe } from '../pipes/inicial-nombre.pipe';
 
 const componentes = [
   NavegacionComponent,
@@ -35,17 +39,19 @@ const componentes = [
   ScrollTopComponent,
   ChartBarComponent,
   ChartDonutComponent,
+  ProfileButtonComponent,
 ];
 
 @NgModule({
-  declarations: [...componentes],
+  declarations: [...componentes, InicialNombrePipe],
   imports: [
     CommonModule,
     MaterialModule,
+    RouterModule,
     FormsModule,
     ReactiveFormsModule,
     NgApexchartsModule,
   ],
-  exports: [...componentes],
+  exports: [...componentes, InicialNombrePipe],
 })
 export class ComponentsModule {}

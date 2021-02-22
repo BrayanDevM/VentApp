@@ -2,21 +2,23 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
 // Otros módulos
-import { RoutesModule } from '../routes.module';
 import { ComponentsModule } from '../components/components.module';
 import { MaterialModule } from '../material.module';
+import { ReactiveFormsModule } from '@angular/forms';
+import { PagesRoutesModule } from './pages-routes.module';
+import { RouterModule } from '@angular/router';
 
 // Páginas
-import { InicioComponent } from './inicio/inicio.component';
+import { PagesComponent } from './pages.component';
+import { HomeComponent } from './home/home.component';
 import { VentasComponent } from './ventas/ventas.component';
 import { InventarioComponent } from './inventario/inventario.component';
 import { ClientesComponent } from './clientes/clientes.component';
 import { EstadisticasComponent } from './estadisticas/estadisticas.component';
 import { AjustesComponent } from './ajustes/ajustes.component';
-import { ReactiveFormsModule } from '@angular/forms';
 
 const paginas = [
-  InicioComponent,
+  HomeComponent,
   VentasComponent,
   InventarioComponent,
   ClientesComponent,
@@ -25,13 +27,14 @@ const paginas = [
 ];
 
 @NgModule({
-  declarations: [...paginas],
+  declarations: [PagesComponent, ...paginas],
   imports: [
     CommonModule,
+    RouterModule,
     ReactiveFormsModule,
-    RoutesModule,
     MaterialModule,
     ComponentsModule,
+    PagesRoutesModule,
   ],
   exports: [...paginas],
 })

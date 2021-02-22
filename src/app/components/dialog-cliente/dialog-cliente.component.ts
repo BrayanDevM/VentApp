@@ -5,6 +5,7 @@ import {
   MatDialogRef,
   MAT_DIALOG_DATA,
 } from '@angular/material/dialog';
+import { MatSnackBar } from '@angular/material/snack-bar';
 import { Cliente, ClientesService } from 'src/app/services/clientes.service';
 import { DialogConfirmaComponent } from '../dialog-confirma/dialog-confirma.component';
 
@@ -20,6 +21,7 @@ export class DialogClienteComponent implements OnInit {
     private dialogRef: MatDialogRef<DialogClienteComponent>,
     @Inject(MAT_DIALOG_DATA) public data: Cliente,
     private dialog: MatDialog,
+    private _snackBar: MatSnackBar,
     private fb: FormBuilder,
     private clientes$: ClientesService
   ) {
@@ -60,15 +62,16 @@ export class DialogClienteComponent implements OnInit {
     if (this.formCliente.invalid) return;
     if (this.data) {
       this.clientes$
-        .editarCliente(this.formCliente.value)
-        .then(() => this.dialogRef.close());
-    } else {
-      this.clientes$
-        .guardarCliente(this.formCliente.value)
-        .then((cliente: Cliente) => {
-          this.clientes$.clienteNuevo$.emit(cliente);
+        .guardarCliente(this.formCliente.value, this.data.id)
+        .then(() => {
+          this.crearNotificacion('Cliente actualizado correctamente');
           this.dialogRef.close();
         });
+    } else {
+      this.clientes$.guardarCliente(this.formCliente.value).then(() => {
+        this.crearNotificacion('Cliente creado');
+        this.dialogRef.close();
+      });
     }
   }
 
@@ -83,6 +86,12 @@ export class DialogClienteComponent implements OnInit {
         this.clientes$.eliminarCliente(cliente.id);
         this.dialogRef.close();
       }
+    });
+  }
+
+  crearNotificacion(mensaje: string) {
+    this._snackBar.open(mensaje, undefined, {
+      duration: 2000,
     });
   }
 }

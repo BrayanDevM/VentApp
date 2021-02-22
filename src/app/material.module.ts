@@ -1,5 +1,4 @@
 import { NgModule } from '@angular/core';
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 // Componentes
 import { MatRippleModule } from '@angular/material/core';
@@ -15,6 +14,7 @@ import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { MatMenuModule } from '@angular/material/menu';
 import { MatListModule } from '@angular/material/list';
 import { MatDividerModule } from '@angular/material/divider';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 
 const materialComponents = [
   MatRippleModule,
@@ -30,11 +30,12 @@ const materialComponents = [
   MatMenuModule,
   MatListModule,
   MatDividerModule,
+  MatProgressSpinnerModule,
 ];
 
 @NgModule({
   declarations: [],
-  imports: [BrowserAnimationsModule, ...materialComponents],
+  imports: [...materialComponents],
   exports: [...materialComponents],
 })
 export class MaterialModule {}

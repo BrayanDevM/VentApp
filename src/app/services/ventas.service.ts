@@ -1,87 +1,81 @@
 import { EventEmitter, Injectable } from '@angular/core';
+import {
+  AngularFirestore,
+  AngularFirestoreCollection,
+} from '@angular/fire/firestore';
+import { Observable } from 'rxjs';
+import { map } from 'rxjs/operators';
+import { UsuariosService } from './usuarios.service';
 
 @Injectable({
   providedIn: 'root',
 })
 export class VentasService {
-  ventas: Venta[] = [];
+  usuarioId: string;
+  ventasColecction: AngularFirestoreCollection<Venta>;
+  ventas!: Observable<Venta[]>;
 
   ventaNueva$ = new EventEmitter<Venta>();
   ventaEliminada$ = new EventEmitter<string>();
   ventaEditada$ = new EventEmitter<Venta>();
 
-  constructor() {
-    this.cargarLS();
+  constructor(
+    private usuarios$: UsuariosService,
+    private db: AngularFirestore
+  ) {
+    // declaraciones
+    this.usuarioId = this.usuarios$.usuario.uid;
+    this.ventasColecction = this.db
+      .collection('Ventas')
+      .doc(`user.${this.usuarioId}`)
+      .collection<Venta>('Registros', (ref) => ref.orderBy('fecha', 'desc'));
+
+    // this.guardarVentasLocales();
   }
 
-  async obtenerVentas(): Promise<Venta[]> {
-    return this.ventas;
-  }
-
-  async guardarVenta(venta: Venta): Promise<any> {
-    venta.id = this.crearIdVenta();
-    this.ventas.unshift(venta);
-    this.almacenarEnLS();
-
-    return {
-      ok: true,
-      venta,
-    };
-  }
-
-  async editarVenta(venta: Venta): Promise<any> {
-    const i = this.ventas.findIndex((v: Venta) => v.id === venta.id);
-    this.ventas.splice(i, 1, venta);
-    this.almacenarEnLS();
-    return {
-      ok: true,
-      ventaEditada: venta,
-    };
-  }
-
-  async eliminarVenta(id: string): Promise<any> {
-    const i = this.ventas.findIndex((venta: Venta) => venta.id === id);
-    if (i >= 0) {
-      this.ventas.splice(i, 1);
-      this.almacenarEnLS();
-      return {
-        ok: true,
-        message: 'Venta eliminada correctamente',
-      };
-    } else {
-      return {
-        ok: false,
-        message: 'No se puedo eliminar la venta',
-      };
-    }
-  }
-
-  crearIdVenta(longitud = 18) {
-    let resultado = '';
-    const caracteres =
-      'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstvwxyz0123456789';
-    const caracteresLength = caracteres.length;
-    for (let i = 0; i < longitud; i++) {
-      resultado += caracteres.charAt(
-        Math.floor(Math.random() * caracteresLength)
+  obtenerVentas() {
+    return this.ventasColecction
+      .snapshotChanges()
+      .pipe(
+        map((actions) => actions.map((a) => a.payload.doc.data() as Venta))
       );
-    }
-    return resultado;
   }
 
-  almacenarEnLS() {
-    localStorage.setItem('ventas', JSON.stringify(this.ventas));
+  guardarVenta(
+    venta: Venta,
+    ventaId: string | undefined = undefined
+  ): Promise<any> {
+    return new Promise(async (resolve, reject) => {
+      try {
+        !ventaId ? (venta.id = this.db.createId()) : null;
+        const result = await this.ventasColecction.doc(venta.id).set(venta);
+        resolve(result);
+      } catch (err) {
+        reject(err);
+      }
+    });
   }
 
-  cargarLS() {
+  eliminarVenta(id: string) {
+    return new Promise(async (resolve, reject) => {
+      try {
+        const result = await this.ventasColecction.doc(id).delete();
+        resolve(result);
+      } catch (err) {
+        reject(err);
+      }
+    });
+  }
+
+  // NO FUNCIONA AÚN
+  guardarVentasLocales() {
     if (localStorage.getItem('ventas')) {
-      this.ventas = JSON.parse(localStorage.getItem('ventas') + '');
+      const ventas: Venta[] = JSON.parse(localStorage.getItem('ventas') + '');
+      ventas.forEach((venta: Venta) => {
+        venta.id = this.db.createId();
+        this.guardarVenta(venta, venta.id);
+      });
     }
-  }
-
-  eliminarLS() {
-    localStorage.removeItem('ventas');
-    window.location.reload();
   }
 }
 
@@ -95,6 +89,6 @@ export interface Venta {
   utilidadTotal: number;
   cliente: string;
   paga: boolean;
-  fecha: Date;
+  fecha: any;
   totalVenta: number;
 }

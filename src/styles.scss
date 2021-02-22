@@ -40,7 +40,139 @@ h1 {
   font-size: 2.5rem;
 }
 
-// FIN HTML STYLES ///////////////////////////////////////////////////////////////////////////////////////////////////
+// FIN HTML STYLES //////////////////////////////////////////////////////////////////////////////////////////////////
+
+// LOGIN/REGISTRO STYLES ////////////////////////////////////////////////////////////////////////////////////////////
+.inicio-container {
+  min-height: 100%;
+  background-color: #fff;
+  display: flex;
+  flex-direction: column;
+}
+
+.inicio-container .inicio-img {
+  flex: 2;
+  display: flex;
+  flex-direction: column;
+  /* background-color: green; */
+  height: inherit;
+  padding-top: 3rem;
+}
+
+.inicio-container .inicio-titulo {
+  flex: 1;
+  text-align: center;
+  color: #651fff;
+}
+
+.inicio-container .inicio-img .img {
+  flex: auto;
+  background-image: url("./assets/img/clip-web-design.png");
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center;
+  width: 90%;
+  height: 60%;
+}
+
+.inicio-container .ingreso {
+  background-color: #eae8fe;
+  padding: 3rem 2rem;
+  min-height: 35%;
+  border-radius: 3rem 3rem 0 0;
+}
+.inicio-container .ingreso p {
+  text-align: justify;
+}
+.inicio-container .ingreso-actions {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  margin-top: 2.5rem;
+}
+.inicio-container .ingreso-actions button {
+  flex: auto;
+  padding: 0.5rem 1.5rem;
+  border-radius: 3rem;
+  font-weight: 800;
+}
+.inicio-container .ingreso-actions .login {
+  // background-color: #e91e63;
+  margin-right: 0.5rem;
+}
+.inicio-container .ingreso-actions .registro {
+  background-color: #fff;
+  color: #202020;
+}
+// FIN LOGIN/REGISTRO STYLES ////////////////////////////////////////////////////////////////////////////////////////////
+.login-container {
+  background-color: #eae8fe;
+}
+
+.login-container .actions,
+.login-container .desc,
+.login-container .login-form {
+  padding: 1rem 2rem;
+}
+
+.login-container .actions {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+}
+.login-container .actions button {
+  margin-left: -10px;
+}
+
+.login-container .desc {
+  text-align: justify;
+}
+
+.login-container .login-form {
+  padding-top: 3rem;
+  background-color: #fff;
+  // min-height: 35%;
+  border-radius: 3rem 3rem 0 0;
+}
+
+.login-container .login-form .forgot-pass {
+  text-align: right;
+  text-decoration: none;
+  margin-top: -10px;
+  margin-bottom: 2rem;
+}
+.login-container a {
+  color: #202020;
+}
+
+.login-container .login-form button {
+  width: 100%;
+  padding: 0.5rem;
+  font-size: 1.1rem;
+  font-weight: 800;
+  border-radius: 3rem;
+}
+
+.login-container .login-rrss .btn-rrss {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  border-radius: 3rem;
+  padding: 1rem 2rem;
+  // box-shadow: 0 0 5px #eee;
+  margin-bottom: 1rem;
+  cursor: pointer;
+}
+
+.login-container .login-rrss .btn-rrss .texto {
+  flex: 1;
+  margin-left: 1rem;
+}
+.login-container .login-rrss .btn-rrss .icono {
+  height: 24px;
+}
 
 // ESTRUCTURE STYLES ///////////////////////////////////////////////////////////////////////////////////////////////////
 
@@ -52,6 +184,32 @@ h1 {
 
 .page-header {
   padding: 1.2rem;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.page-header .btn-perfil {
+  height: 48px;
+  width: 48px;
+}
+
+.page-header .btn-perfil .img-perfil {
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+}
+.page-header .btn-perfil .noImg {
+  height: 48px;
+  width: 48px;
+  text-transform: uppercase;
+  background-color: #4524a8;
+  color: #fff;
+  border-radius: 50%;
+  line-height: 48px;
+  text-align: center;
+  font-size: 1.4rem;
 }
 
 .header-big {
@@ -388,6 +546,9 @@ h1 {
 // FIN ESTRUCTURE STYLES ///////////////////////////////////////////////////////////////////////////////////////////////////
 
 // MATERIAL CHANGE STYLES ///////////////////////////////////////////////////////////////////////////////////////////////////
+.mat-focus-indicator:focus {
+  outline: none;
+}
 
 .mat-dialog-container {
   position: relative;
@@ -425,7 +586,8 @@ button.mat-stroked-button {
 // FIN MATERIAL CHANGE STYLES ///////////////////////////////////////////////////////////////////////////////////////////////////
 
 // ANIMACIONES //////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-main .wrapper {
+main .wrapper,
+.fadeInUp {
   opacity: 0;
   animation: fadeInUp 0.2s ease-in-out 0s forwards;
 }

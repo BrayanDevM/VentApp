@@ -6,7 +6,7 @@
     <div class="descripcion d-flex flex-column">
       <p>{{ venta.cliente }}, {{ venta.cantidad }} {{ venta.producto }}</p>
       <div class="sub-text text-muted">
-        {{ venta.fecha | date: "d/M/yy, h:mm a" }}
+        {{ venta.fecha.toDate() | date: "d/M/yy, h:mm a" }}
       </div>
     </div>
     <div class="venta-total d-flex flex-column">

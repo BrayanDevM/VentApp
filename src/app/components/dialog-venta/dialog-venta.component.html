@@ -82,7 +82,12 @@
     </mat-slide-toggle>
 
     <div class="text-muted mb-3">
-      Fecha: {{ fv.fecha | date: "d/M/yy, h:mm a" }}
+      <ng-container *ngIf="!data">
+        Fecha: {{ fv.fecha | date: "d/M/yy, h:mm a" }}
+      </ng-container>
+      <ng-container *ngIf="data">
+        Fecha: {{ data.fecha.toDate() | date: "d/M/yy, h:mm a" }}
+      </ng-container>
     </div>
     <h3 *ngIf="fv.cantidad && stockProducto >= fv.cantidad">
       Total: {{ (fv.precio + fv.recargoNocturno) * fv.cantidad | number }}

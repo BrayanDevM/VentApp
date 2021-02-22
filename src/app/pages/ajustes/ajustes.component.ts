@@ -59,7 +59,7 @@ export class AjustesComponent implements OnInit {
     });
     dialog.afterClosed().subscribe((confirma) => {
       if (confirma) {
-        this.ventas$.eliminarLS();
+        // this.ventas$.eliminarLS();
       }
     });
   }
@@ -72,7 +72,7 @@ export class AjustesComponent implements OnInit {
     });
     dialog.afterClosed().subscribe((confirma) => {
       if (confirma) {
-        this.productos$.eliminarLS();
+        // this.productos$.eliminarLS();
       }
     });
   }
@@ -85,7 +85,7 @@ export class AjustesComponent implements OnInit {
     });
     dialog.afterClosed().subscribe((confirma) => {
       if (confirma) {
-        this.clientes$.eliminarLS();
+        // this.clientes$.eliminarLS();
       }
     });
   }

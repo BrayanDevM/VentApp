@@ -16,6 +16,6 @@ export class EstadisticasComponent implements OnInit {
   }
 
   async obtenerVentas() {
-    this.ventas = await this.ventas$.obtenerVentas();
+    // this.ventas = await this.ventas$.obtenerVentas();
   }
 }

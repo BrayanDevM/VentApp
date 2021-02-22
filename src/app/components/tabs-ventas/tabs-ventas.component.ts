@@ -33,19 +33,23 @@ export class TabsVentasComponent implements OnInit {
     this.obtenerClientes();
   }
 
-  async obtenerVentas() {
-    this.ventas = await this.ventas$.obtenerVentas();
-    this.crearListas();
+  obtenerVentas() {
+    this.ventas$.obtenerVentas().subscribe((ventas) => {
+      this.ventas = ventas;
+      this.crearListas();
+    });
+    // this.ventas = await this.ventas$.obtenerVentas();
   }
 
-  async obtenerClientes() {
-    this.listaClientes = await this.clientes$.obtenerClientes();
+  obtenerClientes() {
+    this.clientes$.obtenerClientes().subscribe((clientes) => {
+      this.listaClientes = clientes;
+    });
   }
 
   crearListas() {
-    this.listaTodos = [...this.ventas];
-    this.listaVentasDeben = [...this.filtrarListado(this.ventas, 'Sin pagar')];
-    this.listaVentasPagaron = [...this.filtrarListado(this.ventas, 'Pagadas')];
+    this.listaVentasDeben = this.filtrarListado(this.ventas, 'Sin pagar');
+    this.listaVentasPagaron = this.filtrarListado(this.ventas, 'Pagadas');
   }
 
   filtrarListado(lista: Venta[], condicion: string) {
@@ -120,7 +124,7 @@ export class TabsVentasComponent implements OnInit {
     const dialog = this.dialog.open(DialogVentaComponent, { data: venta });
     dialog.afterClosed().subscribe((confirma) => {
       if (confirma) {
-        this.ventas$.eliminarVenta(venta.id);
+        // this.ventas$.eliminarVenta(venta.id);
       }
     });
   }
@@ -133,7 +137,7 @@ export class TabsVentasComponent implements OnInit {
     });
     dialog.afterClosed().subscribe((confirma) => {
       if (confirma) {
-        this.ventas$.eliminarVenta(venta.id);
+        // this.ventas$.eliminarVenta(venta.id);
       }
     });
   }

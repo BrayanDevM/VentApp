@@ -1,0 +1,11 @@
+{
+  "targets": {
+    "ventapp-6d0c6": {
+      "hosting": {
+        "VentApp": [
+          "ventapp-6d0c6"
+        ]
+      }
+    }
+  }
+}

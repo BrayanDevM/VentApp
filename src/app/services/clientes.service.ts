@@ -1,87 +1,68 @@
 import { EventEmitter, Injectable } from '@angular/core';
+import {
+  AngularFirestore,
+  AngularFirestoreCollection,
+} from '@angular/fire/firestore';
+import { Observable } from 'rxjs';
+import { map } from 'rxjs/operators';
+import { UsuariosService } from './usuarios.service';
 
 @Injectable({
   providedIn: 'root',
 })
 export class ClientesService {
-  clientes: Cliente[] = [];
+  usuarioId: string;
+  clientesColecction: AngularFirestoreCollection<Cliente>;
+  clientes: Observable<Cliente>[] = [];
 
-  clienteNuevo$ = new EventEmitter<Cliente>();
-  clienteEliminado$ = new EventEmitter<string>();
-  clienteActualizado$ = new EventEmitter<Cliente>();
+  constructor(
+    private usuarios$: UsuariosService,
+    private db: AngularFirestore
+  ) {
+    // declaraciones
+    this.usuarioId = this.usuarios$.usuario.uid;
+    this.clientesColecction = this.db
+      .collection('Clientes')
+      .doc(`user.${this.usuarioId}`)
+      .collection<Cliente>('Registros');
 
-  constructor() {
-    this.cargarLS();
+    // this.cargarLS();
   }
 
-  async obtenerClientes(): Promise<any[]> {
-    return this.clientes;
+  obtenerClientes() {
+    return this.clientesColecction
+      .snapshotChanges()
+      .pipe(
+        map((actions) => actions.map((a) => a.payload.doc.data() as Cliente))
+      );
   }
 
-  async guardarCliente(cliente: Cliente): Promise<any> {
-    cliente.id = this.crearIdCliente();
-    this.clientes.unshift(cliente);
-
-    this.almacenarEnLS();
-    return {
-      ok: true,
-      cliente,
-    };
-  }
-
-  async editarCliente(cliente: Cliente): Promise<any> {
-    const i = this.clientes.findIndex((v: Cliente) => v.id === cliente.id);
-    this.clientes.splice(i, 1, cliente);
-    this.almacenarEnLS();
-    return {
-      ok: true,
-      clienteEditado: cliente,
-    };
+  guardarCliente(
+    cliente: Cliente,
+    clienteId: string | undefined = undefined
+  ): Promise<any> {
+    return new Promise(async (resolve, reject) => {
+      try {
+        !clienteId ? (cliente.id = this.db.createId()) : null;
+        const result = await this.clientesColecction
+          .doc(cliente.id)
+          .set(cliente);
+        resolve(result);
+      } catch (err) {
+        reject(err);
+      }
+    });
   }
 
   async eliminarCliente(id: string): Promise<any> {
-    const i = this.clientes.findIndex((cliente: Cliente) => cliente.id === id);
-    if (i >= 0) {
-      this.clientes.splice(i, 1);
-      this.almacenarEnLS();
-      return {
-        ok: true,
-        message: 'Cliente eliminado correctamente',
-      };
-    } else {
-      return {
-        ok: false,
-        message: 'No se ha podido eliminar el cliente',
-      };
-    }
-  }
-
-  crearIdCliente(longitud = 18) {
-    let resultado = '';
-    const caracteres =
-      'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstvwxyz0123456789';
-    const caracteresLength = caracteres.length;
-    for (let i = 0; i < longitud; i++) {
-      resultado += caracteres.charAt(
-        Math.floor(Math.random() * caracteresLength)
-      );
-    }
-    return resultado;
-  }
-
-  almacenarEnLS() {
-    localStorage.setItem('clientes', JSON.stringify(this.clientes));
-  }
-
-  cargarLS() {
-    if (localStorage.getItem('clientes')) {
-      this.clientes = JSON.parse(localStorage.getItem('clientes') + '');
-    }
-  }
-
-  eliminarLS() {
-    localStorage.removeItem('clientes');
-    window.location.reload();
+    return new Promise(async (resolve, reject) => {
+      try {
+        const result = await this.clientesColecction.doc(id).delete();
+        resolve(result);
+      } catch (err) {
+        reject(err);
+      }
+    });
   }
 }
 

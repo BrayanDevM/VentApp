@@ -109,14 +109,14 @@ export class ChartBarComponent implements OnInit, OnChanges {
     switch (tipoGrafica) {
       case 'Utilidades':
         datos.forEach((dato) => {
-          let mesVenta = new Date(dato.fecha).getMonth();
+          let mesVenta = new Date(dato.fecha.toDate()).getMonth();
           series[mesVenta] += dato.utilidadTotal;
         });
         return this.removerMesesPosteriores(series);
 
       default:
         datos.forEach((dato) => {
-          let mesVenta = new Date(dato.fecha).getMonth();
+          let mesVenta = new Date(dato.fecha.toDate()).getMonth();
           series[mesVenta] += 1;
         });
         return this.removerMesesPosteriores(series);

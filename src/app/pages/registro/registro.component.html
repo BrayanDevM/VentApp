@@ -1,0 +1,82 @@
+<div class="login-container">
+  <div class="actions">
+    <button routerLink="/inicio" mat-icon-button>
+      <mat-icon>keyboard_backspace</mat-icon>
+    </button>
+    <a routerLink="/login">Iniciar sesión</a>
+  </div>
+  <div class="desc">
+    <h1>Registro</h1>
+    <p>
+      Puedes crear una cuenta personal para controlar tu información de ventas.
+    </p>
+  </div>
+  <div class="login-form fadeInUp">
+    <form [formGroup]="formReg" (ngSubmit)="registrarUsuario()">
+      <!-- ******** CAMPO NOMBRE ******** -->
+      <mat-form-field class="w-100 mb-3" appearance="fill">
+        <mat-label>Nombre completo</mat-label>
+        <input formControlName="nombre" matInput placeholder="Jhon Doe" />
+        <mat-icon matSuffix>person</mat-icon>
+        <!-- errores -->
+        <mat-error *ngIf="fc.nombre.errors?.required">
+          El nombre es obligatorio
+        </mat-error>
+      </mat-form-field>
+
+      <!-- ******** CAMPO CORREO ******** -->
+      <mat-form-field class="w-100 mb-3" appearance="fill">
+        <mat-label>Correo</mat-label>
+        <input formControlName="correo" matInput placeholder="Correo" />
+        <mat-icon matSuffix>mail</mat-icon>
+        <!-- errores -->
+        <mat-error *ngIf="fc.correo.errors?.required">
+          El correo es obligatorio
+        </mat-error>
+        <mat-error *ngIf="fc.correo.errors?.email">
+          El correo es inválido
+        </mat-error>
+      </mat-form-field>
+
+      <!-- ******** CAMPO CONTRASEÑA 1 ******** -->
+      <mat-form-field class="w-100 mb-3" appearance="fill">
+        <mat-label>Contraseña</mat-label>
+        <input
+          formControlName="pass1"
+          matInput
+          type="password"
+          placeholder="******"
+        />
+        <mat-icon matSuffix>lock</mat-icon>
+        <!-- errores -->
+        <mat-error *ngIf="fc.pass1.errors?.required">
+          Debes crear una contraseña
+        </mat-error>
+        <mat-error *ngIf="fc.pass1.errors?.minlength">
+          La contraseña debe tener mínimo 6 carácteres
+        </mat-error>
+      </mat-form-field>
+
+      <!-- ******** CAMPO CONTRASEÑA 2 ******** -->
+      <mat-form-field class="w-100 mb-3" appearance="fill">
+        <mat-label>Confirmar contraseña</mat-label>
+        <input
+          formControlName="pass2"
+          matInput
+          type="password"
+          placeholder="******"
+        />
+        <mat-icon matSuffix>lock</mat-icon>
+        <!-- errores -->
+        <mat-error *ngIf="fc.pass2.errors?.required">
+          Debes confirmar la contraseña
+        </mat-error>
+        <mat-error *ngIf="fc.pass2.errors?.iguales === false">
+          Las contraseñas no coinciden
+        </mat-error>
+      </mat-form-field>
+
+      <button type="submit" mat-flat-button color="primary">Registrarme</button>
+    </form>
+  </div>
+</div>

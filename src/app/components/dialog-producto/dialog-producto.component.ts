@@ -5,6 +5,7 @@ import {
   MatDialogRef,
   MAT_DIALOG_DATA,
 } from '@angular/material/dialog';
+import { MatSnackBar } from '@angular/material/snack-bar';
 import { Producto, ProductosService } from 'src/app/services/productos.service';
 import { DialogConfirmaComponent } from '../dialog-confirma/dialog-confirma.component';
 
@@ -20,6 +21,7 @@ export class DialogProductoComponent implements OnInit {
     private dialogRef: MatDialogRef<DialogProductoComponent>,
     @Inject(MAT_DIALOG_DATA) public data: Producto,
     public dialog: MatDialog,
+    private _snackBar: MatSnackBar,
     private fb: FormBuilder,
     private productos$: ProductosService
   ) {
@@ -74,13 +76,17 @@ export class DialogProductoComponent implements OnInit {
     if (this.formProducto.invalid) return;
     if (this.data) {
       this.productos$
-        .editarProducto(this.formProducto.value)
-        .then(() => this.dialogRef.close());
+        .guardarProducto(this.formProducto.value, this.data.id)
+        .then(() => {
+          this.crearNotificacion('Producto actualizado');
+          this.dialogRef.close();
+        });
     } else {
       this.productos$
         .guardarProducto(this.formProducto.value)
-        .then(({ ok, producto }) => {
-          this.productos$.productoNuevo$.emit(producto);
+        .then((result) => {
+          console.log(result);
+          this.crearNotificacion('Producto creado');
           this.dialogRef.close();
         });
     }
@@ -94,9 +100,17 @@ export class DialogProductoComponent implements OnInit {
     });
     dialog.afterClosed().subscribe((confirma) => {
       if (confirma) {
-        this.productos$.eliminarProducto(producto.id);
+        this.productos$.eliminarProducto(producto.id).then(() => {
+          this.crearNotificacion('Producto eliminado');
+        });
         this.dialogRef.close();
       }
+    });
+  }
+
+  crearNotificacion(mensaje: string) {
+    this._snackBar.open(mensaje, undefined, {
+      duration: 2000,
     });
   }
 }

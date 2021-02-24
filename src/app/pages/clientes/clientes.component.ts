@@ -18,8 +18,10 @@ export class ClientesComponent implements OnInit {
     this.obtenerClientes();
   }
 
-  async obtenerClientes() {
-    this.clientesLista = await this.clientes$.obtenerClientes();
+  obtenerClientes() {
+    this.clientes$.obtenerClientes().subscribe((clientes) => {
+      this.clientesLista = clientes;
+    });
   }
 
   nuevoCliente() {

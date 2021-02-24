@@ -1,0 +1,67 @@
+<div class="login-container">
+  <div class="actions">
+    <button routerLink="/inicio" mat-icon-button>
+      <mat-icon>keyboard_backspace</mat-icon>
+    </button>
+    <a routerLink="/registro">Registro</a>
+  </div>
+  <div class="desc">
+    <h1>Iniciar sesión</h1>
+    <p>
+      Para permancer conectado, por favor ingresa con tu información personal,
+      correo y contraseña.
+    </p>
+  </div>
+  <div class="login-form fadeInUp">
+    <form [formGroup]="formLogin" (ngSubmit)="iniciarSesionCorreo()">
+      <mat-form-field class="w-100" appearance="fill">
+        <mat-label>Correo</mat-label>
+        <input formControlName="correo" matInput placeholder="Correo" />
+        <mat-icon matSuffix>mail</mat-icon>
+      </mat-form-field>
+
+      <mat-form-field class="w-100" appearance="fill">
+        <mat-label>Contraseña</mat-label>
+        <input
+          formControlName="pass"
+          matInput
+          type="password"
+          placeholder="******"
+        />
+        <mat-icon matSuffix>lock</mat-icon>
+      </mat-form-field>
+      <div class="forgot-pass">
+        <a href="#">Olvidaste tu contraseña?</a>
+      </div>
+
+      <button type="submit" mat-flat-button color="primary">
+        Iniciar sesión
+      </button>
+    </form>
+
+    <div class="login-rrss mt-4">
+      <p class="text-muted text-center mb-4">También puedes ingresar con</p>
+      <!-- GOOGLE -->
+      <div (click)="iniciarSesionGoogle()" mat-ripple class="btn-rrss shadow">
+        <div class="logo">
+          <img src="./assets/img/google-logo.png" width="32" />
+        </div>
+        <div class="texto">Continuar con Google</div>
+        <div class="icono">
+          <mat-icon> east </mat-icon>
+        </div>
+      </div>
+
+      <!-- FACEBOOK -->
+      <div mat-ripple class="btn-rrss shadow">
+        <div class="logo">
+          <img src="./assets/img/facebook-logo.png" width="32" />
+        </div>
+        <div class="texto">Continuar con Facebook</div>
+        <div class="icono">
+          <mat-icon> east </mat-icon>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

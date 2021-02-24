@@ -3,7 +3,7 @@
     <ul class="nav nav-pills" id="pills-tab" role="tablist">
       <li class="nav-item" role="presentation">
         <a
-          class="nav-link active"
+          class="nav-link shadow active"
           id="pagadas-tab"
           data-bs-toggle="pill"
           href="#pagadas"
@@ -12,14 +12,14 @@
           aria-selected="false"
         >
           <div class="icon d-flex align-items-center justify-content-center">
-            <mat-icon>check_circle_outline</mat-icon>
+            <mat-icon>check_circle_fill</mat-icon>
           </div>
           <span>Pagadas</span>
         </a>
       </li>
       <li class="nav-item" role="presentation">
         <a
-          class="nav-link"
+          class="nav-link shadow"
           id="deudores-tab"
           data-bs-toggle="pill"
           href="#deudores"
@@ -35,7 +35,7 @@
       </li>
       <li class="nav-item" role="presentation">
         <a
-          class="nav-link"
+          class="nav-link shadow"
           id="ventas-tab"
           data-bs-toggle="pill"
           href="#ventas"
@@ -67,37 +67,38 @@
       <div class="total">$ {{ sumarVentas(listaVentasPagaron) | number }}</div>
       <div class="sub-text">Venta total</div>
     </div>
-
-    <!-- FILTRO POR CLIENTE ///////////////////////////////// -->
-    <mat-form-field class="w-100 mb-2" appearance="outline">
-      <mat-label>Filtrar por cliente</mat-label>
-      <mat-select
-        [value]="'Sin filtro'"
-        (selectionChange)="filtrarPorCliente('Pagadas', $event.value)"
-      >
-        <mat-option
-          *ngFor="let cliente of listaClientes"
-          [value]="cliente.nombre"
+    <div class="p-4">
+      <!-- FILTRO POR CLIENTE ///////////////////////////////// -->
+      <mat-form-field class="w-100" appearance="fill">
+        <mat-label>Filtrar por cliente</mat-label>
+        <mat-select
+          [value]="'Sin filtro'"
+          (selectionChange)="filtrarPorCliente('Pagadas', $event.value)"
         >
-          {{ cliente.nombre }}
-        </mat-option>
-        <mat-option value="Sin filtro">Sin filtro</mat-option>
-      </mat-select>
-      <mat-icon matSuffix>filter_alt</mat-icon>
-    </mat-form-field>
+          <mat-option
+            *ngFor="let cliente of listaClientes"
+            [value]="cliente.nombre"
+          >
+            {{ cliente.nombre }}
+          </mat-option>
+          <mat-option value="Sin filtro">Sin filtro</mat-option>
+        </mat-select>
+        <mat-icon matSuffix>filter_alt</mat-icon>
+      </mat-form-field>
 
-    <!-- LISTADO ////////////////////////////////////////// -->
-    <ng-container *ngIf="listaVentasPagaron.length > 0; else noVentasPagadas">
-      <app-lista-venta
-        *ngFor="let venta of listaVentasPagaron"
-        [venta]="venta"
-        (eliminarVenta$)="eliminarVenta($event)"
-        (editarVenta$)="editarVenta($event)"
-      ></app-lista-venta>
-    </ng-container>
-    <ng-template #noVentasPagadas>
-      <div class="p4 text-center">No tienes ventas</div>
-    </ng-template>
+      <!-- LISTADO ////////////////////////////////////////// -->
+      <ng-container *ngIf="listaVentasPagaron.length > 0; else noVentasPagadas">
+        <app-lista-venta
+          *ngFor="let venta of listaVentasPagaron"
+          [venta]="venta"
+          (eliminarVenta$)="eliminarVenta($event)"
+          (editarVenta$)="editarVenta($event)"
+        ></app-lista-venta>
+      </ng-container>
+      <ng-template #noVentasPagadas>
+        <div class="p4 text-center">No tienes ventas</div>
+      </ng-template>
+    </div>
   </div>
 
   <!-- PANEL LISTA SIN PAGAR ************************************************************** -->
@@ -114,37 +115,38 @@
       <div class="total">$ {{ sumarVentas(listaVentasDeben) | number }}</div>
       <div class="sub-text">Deuda total</div>
     </div>
-
-    <!-- FILTRO POR CLIENTE ///////////////////////////////// -->
-    <mat-form-field class="w-100 mb-2" appearance="outline">
-      <mat-label>Filtrar por cliente</mat-label>
-      <mat-select
-        [value]="'Sin filtro'"
-        (selectionChange)="filtrarPorCliente('Sin pagar', $event.value)"
-      >
-        <mat-option
-          *ngFor="let cliente of listaClientes"
-          [value]="cliente.nombre"
+    <div class="p-4">
+      <!-- FILTRO POR CLIENTE ///////////////////////////////// -->
+      <mat-form-field class="w-100" appearance="fill">
+        <mat-label>Filtrar por cliente</mat-label>
+        <mat-select
+          [value]="'Sin filtro'"
+          (selectionChange)="filtrarPorCliente('Sin pagar', $event.value)"
         >
-          {{ cliente.nombre }}
-        </mat-option>
-        <mat-option value="Sin filtro">Sin filtro</mat-option>
-      </mat-select>
-      <mat-icon matSuffix>filter_alt</mat-icon>
-    </mat-form-field>
+          <mat-option
+            *ngFor="let cliente of listaClientes"
+            [value]="cliente.nombre"
+          >
+            {{ cliente.nombre }}
+          </mat-option>
+          <mat-option value="Sin filtro">Sin filtro</mat-option>
+        </mat-select>
+        <mat-icon matSuffix>filter_alt</mat-icon>
+      </mat-form-field>
 
-    <!-- LISTADO ////////////////////////////////////////// -->
-    <ng-container *ngIf="listaVentasDeben.length > 0; else noVentasDeben">
-      <app-lista-venta
-        *ngFor="let venta of listaVentasDeben"
-        [venta]="venta"
-        (eliminarVenta$)="eliminarVenta($event)"
-        (editarVenta$)="editarVenta($event)"
-      ></app-lista-venta>
-    </ng-container>
-    <ng-template #noVentasDeben>
-      <div class="p4 text-center">No tienes ventas</div>
-    </ng-template>
+      <!-- LISTADO ////////////////////////////////////////// -->
+      <ng-container *ngIf="listaVentasDeben.length > 0; else noVentasDeben">
+        <app-lista-venta
+          *ngFor="let venta of listaVentasDeben"
+          [venta]="venta"
+          (eliminarVenta$)="eliminarVenta($event)"
+          (editarVenta$)="editarVenta($event)"
+        ></app-lista-venta>
+      </ng-container>
+      <ng-template #noVentasDeben>
+        <div class="p4 text-center">No tienes ventas</div>
+      </ng-template>
+    </div>
   </div>
 
   <!-- PANEL LISTA TODAS LAS VENTAS ************************************************************** -->
@@ -158,39 +160,40 @@
     <div
       class="total-listado d-flex flex-column align-items-center justify-content-center"
     >
-      <div class="total">$ {{ sumarVentas(listaTodos) | number }}</div>
+      <div class="total">$ {{ sumarVentas(ventas) | number }}</div>
       <div class="sub-text">Venta total</div>
     </div>
-
-    <!-- FILTRO POR CLIENTE ///////////////////////////////// -->
-    <mat-form-field class="w-100 mb-2" appearance="outline">
-      <mat-label>Filtrar por cliente</mat-label>
-      <mat-select
-        [value]="'Sin filtro'"
-        (selectionChange)="filtrarPorCliente('Todas', $event.value)"
-      >
-        <mat-option
-          *ngFor="let cliente of listaClientes"
-          [value]="cliente.nombre"
+    <div class="p-4">
+      <!-- FILTRO POR CLIENTE ///////////////////////////////// -->
+      <mat-form-field class="w-100" appearance="fill">
+        <mat-label>Filtrar por cliente</mat-label>
+        <mat-select
+          [value]="'Sin filtro'"
+          (selectionChange)="filtrarPorCliente('Todas', $event.value)"
         >
-          {{ cliente.nombre }}
-        </mat-option>
-        <mat-option value="Sin filtro">Sin filtro</mat-option>
-      </mat-select>
-      <mat-icon matSuffix>filter_alt</mat-icon>
-    </mat-form-field>
+          <mat-option
+            *ngFor="let cliente of listaClientes"
+            [value]="cliente.nombre"
+          >
+            {{ cliente.nombre }}
+          </mat-option>
+          <mat-option value="Sin filtro">Sin filtro</mat-option>
+        </mat-select>
+        <mat-icon matSuffix>filter_alt</mat-icon>
+      </mat-form-field>
 
-    <!-- LISTADO ////////////////////////////////////////// -->
-    <ng-container *ngIf="listaTodos.length > 0; else noVentasTotal">
-      <app-lista-venta
-        *ngFor="let venta of listaTodos"
-        [venta]="venta"
-        (eliminarVenta$)="eliminarVenta($event)"
-        (editarVenta$)="editarVenta($event)"
-      ></app-lista-venta>
-    </ng-container>
-    <ng-template #noVentasTotal>
-      <div class="p4 text-center">No tienes ventas</div>
-    </ng-template>
+      <!-- LISTADO ////////////////////////////////////////// -->
+      <ng-container *ngIf="ventas.length > 0; else noVentasTotal">
+        <app-lista-venta
+          *ngFor="let venta of ventas"
+          [venta]="venta"
+          (eliminarVenta$)="eliminarVenta($event)"
+          (editarVenta$)="editarVenta($event)"
+        ></app-lista-venta>
+      </ng-container>
+      <ng-template #noVentasTotal>
+        <div class="p4 text-center">No tienes ventas</div>
+      </ng-template>
+    </div>
   </div>
 </div>

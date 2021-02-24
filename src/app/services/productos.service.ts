@@ -1,89 +1,82 @@
-import { EventEmitter, Injectable } from '@angular/core';
+import { Injectable } from '@angular/core';
+import {
+  AngularFirestore,
+  AngularFirestoreCollection,
+} from '@angular/fire/firestore';
+import { MatSnackBar } from '@angular/material/snack-bar';
+import { Observable } from 'rxjs';
+import { map } from 'rxjs/operators';
+import { UsuariosService } from './usuarios.service';
 
 @Injectable({
   providedIn: 'root',
 })
 export class ProductosService {
-  productos: Producto[] = [];
+  usuarioId: string;
+  productosColecction: AngularFirestoreCollection<Producto>;
+  productos: Observable<Producto>[] = [];
 
-  productoNuevo$ = new EventEmitter<Producto>();
-  productoEliminado$ = new EventEmitter<string>();
-  productoActualizado$ = new EventEmitter<Producto>();
+  constructor(
+    private usuarios$: UsuariosService,
+    private db: AngularFirestore,
+    private _snackBar: MatSnackBar
+  ) {
+    // declaraciones
+    this.usuarioId = this.usuarios$.usuario.uid;
+    this.productosColecction = this.db
+      .collection('Productos')
+      .doc(`user.${this.usuarioId}`)
+      .collection<Producto>('Registros');
 
-  constructor() {
-    this.cargarLS();
+    // this.cargarLS();
   }
 
-  async obtenerProductos(): Promise<Producto[]> {
-    return this.productos;
-  }
-
-  async guardarProducto(producto: Producto): Promise<any> {
-    producto.id = this.crearIdProducto();
-    this.productos.unshift(producto);
-
-    this.almacenarEnLS();
-    return {
-      ok: true,
-      producto,
-    };
-  }
-
-  async editarProducto(producto: Producto): Promise<any> {
-    const i = this.productos.findIndex((p: Producto) => p.id === producto.id);
-    this.productos.splice(i, 1, producto);
-    this.almacenarEnLS();
-    return {
-      ok: true,
-      productoEditado: this.productos[i],
-    };
-  }
-
-  async eliminarProducto(id: string): Promise<any> {
-    const i = this.productos.findIndex(
-      (producto: Producto) => producto.id === id
-    );
-    if (i >= 0) {
-      this.productos.splice(i, 1);
-      this.almacenarEnLS();
-      return {
-        ok: true,
-        message: 'Producto eliminado',
-      };
-    } else {
-      return {
-        ok: false,
-        message: 'No se ha podido eliminar el producto',
-      };
-    }
-  }
-
-  crearIdProducto(longitud = 18) {
-    let resultado = '';
-    const caracteres =
-      'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstvwxyz0123456789';
-    const caracteresLength = caracteres.length;
-    for (let i = 0; i < longitud; i++) {
-      resultado += caracteres.charAt(
-        Math.floor(Math.random() * caracteresLength)
+  obtenerProductos() {
+    return this.productosColecction
+      .snapshotChanges()
+      .pipe(
+        map((actions) => actions.map((a) => a.payload.doc.data() as Producto))
       );
-    }
-    return resultado;
   }
 
-  almacenarEnLS() {
-    localStorage.setItem('productos', JSON.stringify(this.productos));
+  guardarProducto(
+    producto: Producto,
+    productoId: string | undefined = undefined
+  ): Promise<any> {
+    return new Promise(async (resolve, reject) => {
+      try {
+        !productoId ? (producto.id = this.db.createId()) : null;
+        const result = await this.productosColecction
+          .doc(producto.id)
+          .set(producto);
+        resolve(result);
+      } catch (err) {
+        reject(err);
+      }
+    });
   }
 
-  cargarLS() {
-    if (localStorage.getItem('productos')) {
-      this.productos = JSON.parse(localStorage.getItem('productos') + '');
-    }
+  eliminarProducto(id: string): Promise<any> {
+    return new Promise(async (resolve, reject) => {
+      try {
+        const result = await this.productosColecction.doc(id).delete();
+        resolve(result);
+      } catch (err) {
+        reject(err);
+      }
+    });
   }
 
-  eliminarLS() {
-    localStorage.removeItem('productos');
-    window.location.reload();
+  eliminarDocumentoFirestore() {
+    this.productosColecction.ref.onSnapshot((snap) => {
+      snap.forEach((doc) => {
+        doc.ref.delete();
+      });
+    });
+
+    this._snackBar.open('Registros de productos eliminados', 'Entendido', {
+      duration: 5000,
+    });
   }
 }
 

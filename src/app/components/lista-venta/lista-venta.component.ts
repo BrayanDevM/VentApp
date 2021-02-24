@@ -1,4 +1,11 @@
-import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import {
+  Component,
+  EventEmitter,
+  Input,
+  OnChanges,
+  OnInit,
+  Output,
+} from '@angular/core';
 import { Venta } from 'src/app/services/ventas.service';
 
 @Component({
@@ -6,7 +13,7 @@ import { Venta } from 'src/app/services/ventas.service';
   templateUrl: './lista-venta.component.html',
   styleUrls: ['./lista-venta.component.css'],
 })
-export class ListaVentaComponent implements OnInit {
+export class ListaVentaComponent implements OnInit, OnChanges {
   @Input() venta: Venta = {
     id: '0',
     producto: 'Producto',
@@ -27,6 +34,10 @@ export class ListaVentaComponent implements OnInit {
   constructor() {}
 
   ngOnInit(): void {}
+
+  ngOnChanges(): void {
+    this.venta = this.venta;
+  }
 
   editarVenta(venta: Venta) {
     this.editarVenta$.emit(venta);

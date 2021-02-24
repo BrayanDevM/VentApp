@@ -17,8 +17,10 @@ export class InventarioComponent implements OnInit {
     this.obtenerProductos();
   }
 
-  async obtenerProductos() {
-    this.productosLista = await this.productos$.obtenerProductos();
+  obtenerProductos() {
+    this.productos$.obtenerProductos().subscribe((productos) => {
+      this.productosLista = productos;
+    });
   }
 
   nuevoProducto() {

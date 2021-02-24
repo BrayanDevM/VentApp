@@ -1,23 +1,26 @@
-<main>
-  <div class="page-header header-big">
+<div class="page-content page-alt">
+  <div class="page-header header-alt shadow">
     <h1>Clientes</h1>
+    <!-- <app-profile-button></app-profile-button> -->
+    <button (click)="nuevoCliente()" mat-flat-button color="primary">
+      + Cliente
+    </button>
   </div>
-  <div class="wrapper">
-    <!-- BOTÓN CREAR NUEVO PRODUCTO DE VENTA -->
-    <div class="boton-macro d-flex flex-row align-items-center">
-      <div class="boton-items me-3">
-        <div class="boton-titulo">Agregar nuevo cliente</div>
-        <p class="boton-desc">
-          Puedes agregar un nuevo cliente, este se mostrará automáticamente en
-          las listas de venta.
-        </p>
-      </div>
-      <button (click)="nuevoCliente()" mat-flat-button color="accent">
-        <mat-icon>add</mat-icon>
-      </button>
+  <!-- BOTÓN CREAR NUEVO PRODUCTO DE VENTA -->
+  <!-- <div class="boton-macro d-flex flex-row align-items-center shadow">
+    <div class="boton-items me-3">
+      <div class="boton-titulo">Agregar nuevo cliente</div>
+      <p class="boton-desc">
+        Puedes agregar un nuevo cliente, este se mostrará automáticamente en las
+        listas de venta.
+      </p>
     </div>
+    <button (click)="nuevoCliente()" mat-flat-button color="primary">
+      <mat-icon>add</mat-icon>
+    </button>
+  </div> -->
 
-    <section class="seccion">Clientes</section>
+  <div class="p-4 fadeInUp">
     <div
       *ngIf="clientesLista.length === 0; else clientes"
       class="d-flex align-items-center justify-content-center text-muted p-4"
@@ -32,4 +35,4 @@
       ></app-lista-cliente>
     </ng-template>
   </div>
-</main>
+</div>

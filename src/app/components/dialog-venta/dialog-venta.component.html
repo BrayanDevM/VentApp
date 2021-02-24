@@ -23,7 +23,7 @@
       Venta nocturna
     </div>
     <!-- ****************** SELECCIÓN DE PRODUCTO ****************** -->
-    <mat-form-field class="w-100 mb-2" appearance="outline">
+    <mat-form-field class="w-100 mb-3" appearance="fill">
       <mat-label>Producto</mat-label>
       <mat-select
         (selectionChange)="[obtenerValorProducto(), obtenerStock()]"
@@ -50,7 +50,7 @@
     </mat-form-field>
 
     <!-- ****************** SELECCIÓN DE CANTIDAD ****************** -->
-    <mat-form-field class="w-100 mb-2" appearance="outline">
+    <mat-form-field class="w-100 mb-3" appearance="fill">
       <mat-label>Cliente</mat-label>
       <mat-select formControlName="cliente" name="cliente">
         <mat-option *ngFor="let cliente of clientes" [value]="cliente.nombre">
@@ -65,7 +65,7 @@
     </mat-form-field>
 
     <!-- ****************** SELECCIÓN DE CANTIDAD ****************** -->
-    <mat-form-field class="w-100 mb-2" appearance="outline">
+    <mat-form-field class="w-100 mb-3" appearance="fill">
       <mat-label>Cantidad</mat-label>
       <input
         type="number"
@@ -82,12 +82,20 @@
     </mat-slide-toggle>
 
     <div class="text-muted mb-3">
-      Fecha: {{ fv.fecha | date: "d/M/yy, h:mm a" }}
+      <ng-container *ngIf="!data">
+        Fecha: {{ fv.fecha | date: "d/M/yy, h:mm a" }}
+      </ng-container>
+      <ng-container *ngIf="data">
+        Fecha: {{ data.fecha.toDate() | date: "d/M/yy, h:mm a" }}
+      </ng-container>
     </div>
     <h3 *ngIf="fv.cantidad && stockProducto >= fv.cantidad">
       Total: {{ (fv.precio + fv.recargoNocturno) * fv.cantidad | number }}
     </h3>
-    <h6 *ngIf="stockProducto < fv.cantidad && !data" class="text-danger mt-3">
+    <h6
+      *ngIf="stockProducto < fv.cantidad && !data"
+      class="text-danger mt-3 mb-2"
+    >
       Sólo hay {{ stockProducto }} {{ fv.producto }} en stock!
     </h6>
   </mat-dialog-content>
@@ -97,7 +105,7 @@
       mat-flat-button
       type="submit"
       color="primary"
-      [disabled]="formVenta.invalid || (!data && stockProducto < fv.cantidad)"
+      [disabled]="!data && stockProducto < fv.cantidad"
     >
       Guardar
     </button>

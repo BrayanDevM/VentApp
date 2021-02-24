@@ -5,6 +5,7 @@ import {
   MatDialogRef,
   MAT_DIALOG_DATA,
 } from '@angular/material/dialog';
+import { MatSnackBar } from '@angular/material/snack-bar';
 import { AjustesService } from 'src/app/services/ajustes.service';
 import { Cliente, ClientesService } from 'src/app/services/clientes.service';
 import { Producto, ProductosService } from 'src/app/services/productos.service';
@@ -31,6 +32,7 @@ export class DialogVentaComponent implements OnInit {
     private dialogRef: MatDialogRef<DialogVentaComponent>,
     @Inject(MAT_DIALOG_DATA) public data: Venta,
     public dialog: MatDialog,
+    private _snackBar: MatSnackBar,
     private fb: FormBuilder,
     private productos$: ProductosService,
     private clientes$: ClientesService,
@@ -61,14 +63,13 @@ export class DialogVentaComponent implements OnInit {
     return this.formVenta.controls;
   }
 
-  async ngOnInit() {
-    Promise.all([
-      this.productos$.obtenerProductos(),
-      this.clientes$.obtenerClientes(),
-    ]).then((data: any) => {
-      this.productos = data[0];
-      this.clientes = data[1];
+  ngOnInit() {
+    this.productos$.obtenerProductos().subscribe((productos) => {
+      this.productos = productos;
       this.compruebaEdicion();
+    });
+    this.clientes$.obtenerClientes().subscribe((clientes) => {
+      this.clientes = clientes;
     });
   }
 
@@ -124,15 +125,15 @@ export class DialogVentaComponent implements OnInit {
     if (this.formVenta.invalid) return;
     if (this.data) {
       this.calcularUtilidadTotal();
-      this.ventas$.editarVenta(this.fv).then(() => {
-        this.ventas$.ventaEditada$.emit(this.fv);
+      this.ventas$.guardarVenta(this.fv, this.data.id).then(() => {
+        this.crearNotificacion('Venta actualizada correctamente');
         this.dialogRef.close();
       });
     } else {
       this.calcularUtilidadTotal();
-      this.ventas$.guardarVenta(this.fv).then(({ ok, venta }) => {
+      this.ventas$.guardarVenta(this.fv).then(() => {
         this.editarStockProducto(this.fv.producto, this.fv.cantidad);
-        this.ventas$.ventaNueva$.emit(venta);
+        this.crearNotificacion('Venta registrada');
         this.dialogRef.close();
       });
     }
@@ -147,9 +148,10 @@ export class DialogVentaComponent implements OnInit {
     });
     dialog.afterClosed().subscribe((confirma) => {
       if (confirma) {
-        this.ventas$.eliminarVenta(venta.id);
-        this.dialogRef.close();
-        this.ventas$.ventaEliminada$.emit(venta.id);
+        this.ventas$.eliminarVenta(venta.id).then(() => {
+          this.crearNotificacion('Venta eliminada');
+          this.dialogRef.close();
+        });
       }
     });
   }
@@ -203,6 +205,12 @@ export class DialogVentaComponent implements OnInit {
     );
     const producto = this.productos[i];
     producto.stock += -cantVendida;
-    this.productos$.editarProducto(producto);
+    this.productos$.guardarProducto(producto, producto.id);
+  }
+
+  crearNotificacion(mensaje: string) {
+    this._snackBar.open(mensaje, undefined, {
+      duration: 2000,
+    });
   }
 }

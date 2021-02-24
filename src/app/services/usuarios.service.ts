@@ -33,7 +33,6 @@ export class UsuariosService {
     this.auth.getRedirectResult().then((resp) => {
       if (resp.user) {
         this.crearUsuarioEnColeccion(resp);
-        this.crearSesion();
       }
     });
   }
@@ -102,11 +101,12 @@ export class UsuariosService {
 
   cargarSesion() {
     this.usuario = JSON.parse(sessionStorage.getItem('usuario') + '');
+    console.log(this.usuario, 'usuario cargado');
+
     if (this.usuario) {
       console.log(this.usuario);
       this.loggeado = true;
       this.router.navigate(['/']);
-      return;
     }
   }
 
@@ -124,7 +124,7 @@ export class UsuariosService {
   }
 
   crearUsuarioEnColeccion(authResponse: any, nombre: any = null) {
-    // console.log(authResponse);
+    console.log(authResponse);
     this.token = authResponse.user.refreshToken;
     const tipoIngreso: any = authResponse.additionalUserInfo.providerId;
 
@@ -147,20 +147,27 @@ export class UsuariosService {
     this.usuario = usuario;
 
     if (authResponse.additionalUserInfo.isNewUser) {
-      this.usuariosCollection
-        .doc(usuario.uid)
-        .set(usuario)
-        .then(() => {
-          this._snackBar.open(
-            'Usuario registrado, ya puedes iniciar sesión',
-            undefined,
-            {
-              duration: 4000,
+      setTimeout(() => {
+        this.usuariosCollection
+          .doc(usuario.uid)
+          .set(usuario)
+          .then(() => {
+            this._snackBar.open(
+              'Usuario registrado, ya puedes iniciar sesión',
+              undefined,
+              {
+                duration: 4000,
+              }
+            );
+            if (tipoIngreso !== 'password') {
+              this.crearSesion();
+              return;
             }
-          );
-          this.router.navigate(['/login']);
-        })
-        .catch((err) => this.controlError(err));
+          })
+          .catch((err) => this.controlError(err));
+      }, 800);
+    } else {
+      this.crearSesion();
     }
   }
 

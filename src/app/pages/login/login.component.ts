@@ -12,8 +12,8 @@ export class LoginComponent implements OnInit {
 
   constructor(private fb: FormBuilder, private usuarios$: UsuariosService) {
     this.formLogin = this.fb.group({
-      correo: ['admin@ventapp.com', [Validators.required, Validators.email]],
-      pass: ['123456', Validators.required],
+      correo: [null, [Validators.required, Validators.email]],
+      pass: [null, Validators.required],
     });
   }
 

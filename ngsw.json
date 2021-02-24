@@ -1,6 +1,6 @@
 {
   "configVersion": 1,
-  "timestamp": 1613422383249,
+  "timestamp": 1614140016994,
   "index": "https://brayandevm.github.io/VentApp/index.html",
   "assetGroups": [
     {
@@ -11,13 +11,14 @@
         "ignoreVary": true
       },
       "urls": [
+        "https://brayandevm.github.io/VentApp/4.2a83582e459718001233.js",
         "https://brayandevm.github.io/VentApp/favicon.ico",
         "https://brayandevm.github.io/VentApp/index.html",
-        "https://brayandevm.github.io/VentApp/main.881f7ae01d8d603ca276.js",
+        "https://brayandevm.github.io/VentApp/main.1a2c970e67347b637a20.js",
         "https://brayandevm.github.io/VentApp/manifest.webmanifest",
         "https://brayandevm.github.io/VentApp/polyfills.d15628b9ba7248669cd9.js",
-        "https://brayandevm.github.io/VentApp/runtime.7b63b9fd40098a2e8207.js",
-        "https://brayandevm.github.io/VentApp/styles.21ea52e3a02271b661da.css"
+        "https://brayandevm.github.io/VentApp/runtime.0022e3ea26b5a9eaa25a.js",
+        "https://brayandevm.github.io/VentApp/styles.f69f228526c8660d6423.css"
       ],
       "patterns": []
     },
@@ -37,13 +38,19 @@
         "https://brayandevm.github.io/VentApp/assets/icons/icon-512x512.png",
         "https://brayandevm.github.io/VentApp/assets/icons/icon-72x72.png",
         "https://brayandevm.github.io/VentApp/assets/icons/icon-96x96.png",
-        "https://brayandevm.github.io/VentApp/assets/img/no-image.png"
+        "https://brayandevm.github.io/VentApp/assets/img/business-3d-businessman.png",
+        "https://brayandevm.github.io/VentApp/assets/img/clip-web-design.png",
+        "https://brayandevm.github.io/VentApp/assets/img/facebook-logo.png",
+        "https://brayandevm.github.io/VentApp/assets/img/google-logo.png",
+        "https://brayandevm.github.io/VentApp/assets/img/no-image.png",
+        "https://brayandevm.github.io/VentApp/clip-web-design.b7b37e6fac4ace9c3b64.png"
       ],
       "patterns": []
     }
   ],
   "dataGroups": [],
   "hashTable": {
+    "https://brayandevm.github.io/VentApp/4.2a83582e459718001233.js": "4331f0ad03c4b89739ec50616a8fb662c39f177e",
     "https://brayandevm.github.io/VentApp/assets/icons/icon-128x128.png": "dae3b6ed49bdaf4327b92531d4b5b4a5d30c7532",
     "https://brayandevm.github.io/VentApp/assets/icons/icon-144x144.png": "b0bd89982e08f9bd2b642928f5391915b74799a7",
     "https://brayandevm.github.io/VentApp/assets/icons/icon-152x152.png": "7479a9477815dfd9668d60f8b3b2fba709b91310",
@@ -52,14 +59,19 @@
     "https://brayandevm.github.io/VentApp/assets/icons/icon-512x512.png": "559d9c4318b45a1f2b10596bbb4c960fe521dbcc",
     "https://brayandevm.github.io/VentApp/assets/icons/icon-72x72.png": "c457e56089a36952cd67156f9996bc4ce54a5ed9",
     "https://brayandevm.github.io/VentApp/assets/icons/icon-96x96.png": "3914125a4b445bf111c5627875fc190f560daa41",
+    "https://brayandevm.github.io/VentApp/assets/img/business-3d-businessman.png": "ba783e6cecb0e4306df09c474b007999d73abba8",
+    "https://brayandevm.github.io/VentApp/assets/img/clip-web-design.png": "f3c5b716cd432dabfc0c3874e70097faa8dcd05c",
+    "https://brayandevm.github.io/VentApp/assets/img/facebook-logo.png": "b7103d3b6a3b91c93c956595de4320cf8cf6cb71",
+    "https://brayandevm.github.io/VentApp/assets/img/google-logo.png": "69538994180f5ed37df7d0b32667ccd7fd0d599d",
     "https://brayandevm.github.io/VentApp/assets/img/no-image.png": "471b096c9e6a546fb3cd8e5c9f2c4c0a9d8bac59",
+    "https://brayandevm.github.io/VentApp/clip-web-design.b7b37e6fac4ace9c3b64.png": "f3c5b716cd432dabfc0c3874e70097faa8dcd05c",
     "https://brayandevm.github.io/VentApp/favicon.ico": "22f6a4a3bcaafafb0254e0f2fa4ceb89e505e8b2",
-    "https://brayandevm.github.io/VentApp/index.html": "ae0aa94b8c23d48580873e6850b0b630e74282ec",
-    "https://brayandevm.github.io/VentApp/main.881f7ae01d8d603ca276.js": "1b4ff8f72420d93e2f5af92568aff9a132eb73e8",
+    "https://brayandevm.github.io/VentApp/index.html": "d4254fc5adf5b6e333bbc224b2a9d6f582c416b4",
+    "https://brayandevm.github.io/VentApp/main.1a2c970e67347b637a20.js": "5ee8c7cfd5864e1019a49b89317be5497c08ec27",
     "https://brayandevm.github.io/VentApp/manifest.webmanifest": "2d0c6ca21f3e81e5e3c7147cc011d57e6d359459",
     "https://brayandevm.github.io/VentApp/polyfills.d15628b9ba7248669cd9.js": "f888b31e000d9b05c8c3fef19c325d813f2b7e1b",
-    "https://brayandevm.github.io/VentApp/runtime.7b63b9fd40098a2e8207.js": "a9aafcf49f49145093fc831efd9b8e2f6c71bb9c",
-    "https://brayandevm.github.io/VentApp/styles.21ea52e3a02271b661da.css": "ee5a6d56263631def87aab6d6a630e94b480d157"
+    "https://brayandevm.github.io/VentApp/runtime.0022e3ea26b5a9eaa25a.js": "30410e788ff39b833c8f94de6b72d3de42bc4d8b",
+    "https://brayandevm.github.io/VentApp/styles.f69f228526c8660d6423.css": "3ae7bb3bf37c714f9cde1d4acdc644cc31e4f337"
   },
   "navigationUrls": [
     {

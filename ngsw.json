@@ -1,6 +1,6 @@
 {
   "configVersion": 1,
-  "timestamp": 1614143794963,
+  "timestamp": 1614145323808,
   "index": "https://brayandevm.github.io/VentApp/index.html",
   "assetGroups": [
     {
@@ -14,7 +14,7 @@
         "https://brayandevm.github.io/VentApp/4.2a83582e459718001233.js",
         "https://brayandevm.github.io/VentApp/favicon.ico",
         "https://brayandevm.github.io/VentApp/index.html",
-        "https://brayandevm.github.io/VentApp/main.2d6e05ba972ab305b7c6.js",
+        "https://brayandevm.github.io/VentApp/main.98b766cde1d7bdd1cd98.js",
         "https://brayandevm.github.io/VentApp/manifest.webmanifest",
         "https://brayandevm.github.io/VentApp/polyfills.d15628b9ba7248669cd9.js",
         "https://brayandevm.github.io/VentApp/runtime.0022e3ea26b5a9eaa25a.js",
@@ -66,8 +66,8 @@
     "https://brayandevm.github.io/VentApp/assets/img/no-image.png": "471b096c9e6a546fb3cd8e5c9f2c4c0a9d8bac59",
     "https://brayandevm.github.io/VentApp/clip-web-design.b7b37e6fac4ace9c3b64.png": "f3c5b716cd432dabfc0c3874e70097faa8dcd05c",
     "https://brayandevm.github.io/VentApp/favicon.ico": "22f6a4a3bcaafafb0254e0f2fa4ceb89e505e8b2",
-    "https://brayandevm.github.io/VentApp/index.html": "137c4d806298103ab528d0d916ca5469c695a428",
-    "https://brayandevm.github.io/VentApp/main.2d6e05ba972ab305b7c6.js": "24bbccea4b9632844467af252a801bc0556d9b0c",
+    "https://brayandevm.github.io/VentApp/index.html": "5e505b14dbe15f9c05db38fd2bd64e63b5c9ef7e",
+    "https://brayandevm.github.io/VentApp/main.98b766cde1d7bdd1cd98.js": "bcd82b598090f9ddf85c61efabd6c495339e4e2c",
     "https://brayandevm.github.io/VentApp/manifest.webmanifest": "2d0c6ca21f3e81e5e3c7147cc011d57e6d359459",
     "https://brayandevm.github.io/VentApp/polyfills.d15628b9ba7248669cd9.js": "f888b31e000d9b05c8c3fef19c325d813f2b7e1b",
     "https://brayandevm.github.io/VentApp/runtime.0022e3ea26b5a9eaa25a.js": "30410e788ff39b833c8f94de6b72d3de42bc4d8b",

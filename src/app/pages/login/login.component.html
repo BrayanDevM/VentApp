@@ -6,7 +6,7 @@
     <a routerLink="/registro">Registro</a>
   </div>
   <div class="desc">
-    <h1>Iniciar sesión</h1>
+    <h1 class="text-white">Iniciar sesión</h1>
     <p>
       Para permancer conectado, por favor ingresa con tu información personal,
       correo y contraseña.
@@ -53,7 +53,7 @@
       </div>
 
       <!-- FACEBOOK -->
-      <div mat-ripple class="btn-rrss shadow">
+      <div (click)="iniciarSesionFb()" mat-ripple class="btn-rrss shadow">
         <div class="logo">
           <img src="./assets/img/facebook-logo.png" width="32" />
         </div>

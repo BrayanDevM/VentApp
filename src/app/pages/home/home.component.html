@@ -1,37 +1,40 @@
-<main>
-  <div class="page-header header-big">
-    <h1>Inicio</h1>
+<div class="page-content">
+  <div class="page-header">
+    <div class="titulo">
+      <h1>Inicio</h1>
+      <small>Buen día, {{ nombreUsuario }}! </small>
+    </div>
     <app-profile-button></app-profile-button>
   </div>
-  <div class="wrapper">
-    <!-- BOTÓN CREAR NUEVO REGISTRO DE VENTA -->
-    <div class="boton-macro d-flex flex-row align-items-center">
-      <div class="boton-items me-3">
-        <div class="boton-titulo">Agregar nueva venta</div>
-        <p class="boton-desc">
-          Puedes agregar un nuevo registro de venta, este se almacenará en tus
-          ventas y podrás consultar sus detalles.
-        </p>
-      </div>
-      <button (click)="nuevaVenta()" mat-flat-button>
-        <mat-icon>add</mat-icon>
-      </button>
+  <!-- BOTÓN CREAR NUEVO REGISTRO DE VENTA -->
+  <div class="boton-macro d-flex flex-row align-items-center shadow">
+    <div class="boton-items me-3">
+      <div class="boton-titulo">Agregar nueva venta</div>
+      <p class="boton-desc">
+        Puedes agregar un nuevo registro de venta, este se almacenará en tus
+        ventas y podrás consultar sus detalles.
+      </p>
     </div>
+    <button (click)="nuevaVenta()" mat-flat-button color="primary">
+      <mat-icon>add</mat-icon>
+    </button>
+  </div>
 
-    <!-- CONTADORES GENERALES -->
-    <div class="d-flex flex-row justify-content-center mb-2">
-      <app-contador
-        [color]="'#4AC3B5'"
-        [numero]="listaVentas.length"
-        [descripcion]="'Ventas'"
-      ></app-contador>
-      <app-contador
-        [color]="'#1aabff'"
-        [numero]="clientesNumero"
-        [descripcion]="'Clientes'"
-      ></app-contador>
-    </div>
+  <!-- CONTADORES GENERALES -->
+  <div class="d-flex flex-row justify-content-center mb-3">
+    <app-contador
+      [color]="'#4AC3B5'"
+      [numero]="listaVentas.length"
+      [descripcion]="'Ventas'"
+    ></app-contador>
+    <app-contador
+      [color]="'#1aabff'"
+      [numero]="clientesNumero"
+      [descripcion]="'Clientes'"
+    ></app-contador>
+  </div>
 
+  <div class="secciones fadeInUp">
     <!-- SECCIÓN ULTIMAS VENTAS ////////////////////////////////////// -->
     <section class="seccion d-flex flex-row justify-content-between">
       Últimas ventas
@@ -91,4 +94,4 @@
       [data]="listaVentas"
     ></app-chart-donut>
   </div>
-</main>
+</div>

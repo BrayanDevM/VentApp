@@ -90,8 +90,8 @@ export class DialogClienteComponent implements OnInit {
   }
 
   crearNotificacion(mensaje: string) {
-    this._snackBar.open(mensaje, undefined, {
-      duration: 2000,
+    this._snackBar.open(mensaje, 'Cerrar', {
+      panelClass: 'notificacion',
     });
   }
 }

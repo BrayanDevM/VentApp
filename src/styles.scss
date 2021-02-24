@@ -8,11 +8,13 @@
 // Fuentes
 @import url("https://fonts.googleapis.com/css2?family=Montserrat:wght@500;600;700&display=swap");
 @import url("https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Gothic+A1:wght@900&display=swap");
 
 // HTML STYLES ///////////////////////////////////////////////////////////////////////////////////////////////////
 
 html,
-body {
+body,
+main {
   height: 100%;
 }
 body {
@@ -27,7 +29,7 @@ h3,
 h4,
 h5,
 h6 {
-  font-family: "Montserrat", sans-serif;
+  font-family: "Gothic A1", sans-serif;
   margin: 0;
 }
 
@@ -76,7 +78,8 @@ h1 {
 }
 
 .inicio-container .ingreso {
-  background-color: #eae8fe;
+  background-color: #5b3def;
+  color: #fff;
   padding: 3rem 2rem;
   min-height: 35%;
   border-radius: 3rem 3rem 0 0;
@@ -106,7 +109,11 @@ h1 {
 }
 // FIN LOGIN/REGISTRO STYLES ////////////////////////////////////////////////////////////////////////////////////////////
 .login-container {
-  background-color: #eae8fe;
+  display: flex;
+  flex-direction: column;
+  background-color: #5b3def;
+  color: #fff;
+  min-height: 100vh;
 }
 
 .login-container .actions,
@@ -121,6 +128,9 @@ h1 {
   align-items: center;
   justify-content: space-between;
 }
+.login-container .actions a {
+  color: #fff;
+}
 .login-container .actions button {
   margin-left: -10px;
 }
@@ -130,10 +140,12 @@ h1 {
 }
 
 .login-container .login-form {
+  flex: 1;
   padding-top: 3rem;
   background-color: #fff;
   // min-height: 35%;
   border-radius: 3rem 3rem 0 0;
+  color: #171d2a;
 }
 
 .login-container .login-form .forgot-pass {
@@ -142,7 +154,7 @@ h1 {
   margin-top: -10px;
   margin-bottom: 2rem;
 }
-.login-container a {
+.login-container .forgot-pass a {
   color: #202020;
 }
 
@@ -176,10 +188,11 @@ h1 {
 
 // ESTRUCTURE STYLES ///////////////////////////////////////////////////////////////////////////////////////////////////
 
-.pages-container {
-  height: 100%;
-  padding-bottom: calc(64px + 1rem);
-  overflow-y: scroll;
+.page-content {
+  min-height: 100vh;
+  padding-bottom: 70px;
+  display: flex;
+  flex-direction: column;
 }
 
 .page-header {
@@ -188,6 +201,23 @@ h1 {
   flex-direction: row;
   align-items: center;
   justify-content: space-between;
+}
+.page-header.header-alt,
+.page-header.header-alt-tabs {
+  padding: 1.2rem;
+  border-radius: 0 0 2.5rem 2.5rem;
+}
+.page-header.header-alt-tabs {
+  align-items: flex-start;
+  height: 245px;
+  margin-bottom: -4.9rem;
+}
+
+.page-header .titulo small {
+  font-size: 1.1rem;
+  margin-top: -9px;
+  display: block;
+  font-weight: 600;
 }
 
 .page-header .btn-perfil {
@@ -212,22 +242,17 @@ h1 {
   font-size: 1.4rem;
 }
 
-.header-big {
-  padding: 1.2rem 1.2rem 6rem;
-  border-radius: 0 0 3rem 3rem;
-}
-
-.wrapper {
-  padding-left: 1.2rem;
-  padding-right: 1.2rem;
+.secciones {
+  border-radius: 2.5rem 2.5rem 0 0;
+  padding: 1rem 1.5rem;
+  flex: 1;
 }
 
 .seccion {
   height: 64px;
   line-height: 64px;
-  font-family: "Lato", sans-serif;
-  font-size: 1.4rem;
-  font-weight: 600;
+  font-size: 1.2rem;
+  font-weight: 500;
 }
 
 .seccion a {
@@ -296,7 +321,7 @@ h1 {
 .boton-macro {
   border-radius: 2rem;
   padding: 1rem 1.2rem;
-  margin: -4.5rem 1rem 1rem;
+  margin: 1rem 1.2rem;
 }
 
 .boton-macro .boton-titulo {
@@ -356,7 +381,6 @@ h1 {
 .contador-desc {
   margin-top: -8px;
   font-size: 1rem;
-  color: #9c99a8;
 }
 
 /*
@@ -364,13 +388,14 @@ h1 {
 */
 .cliente,
 .producto,
-.venta {
-  border-radius: 1rem;
+.venta,
+.card {
+  border-radius: 1.5rem;
   padding: 1rem 0.8rem;
   margin-bottom: 1.1rem;
 }
 
-.cliente .cliente-img,
+.cliente .cliente-icono,
 .producto .producto-img,
 .venta .venta-icono {
   height: 56px;
@@ -427,19 +452,6 @@ h1 {
   font-size: 0.92rem;
   padding: 0 0.5rem;
   border-radius: 10px;
-}
-
-.stock-ok {
-  color: #4524a8;
-  background-color: hsla(255, 65%, 40%, 0.1);
-}
-.stock-warn {
-  color: #cc800c;
-  background-color: hsla(36, 89%, 42%, 0.1);
-}
-.stock-danger {
-  color: #ff4d35;
-  background-color: hsla(7, 100%, 60%, 0.1);
 }
 
 /*
@@ -513,7 +525,6 @@ h1 {
 }
 .tabs-ventas .nav-pills a .mat-icon {
   transform: scale(1.2);
-  color: #6328fb;
 }
 
 // .tabs-ventas .nav-pills a.active {
@@ -529,7 +540,7 @@ h1 {
 // }
 
 .total-listado {
-  padding: 1.5rem 0;
+  margin-top: 3rem;
 }
 
 .total-listado .total {
@@ -546,6 +557,13 @@ h1 {
 // FIN ESTRUCTURE STYLES ///////////////////////////////////////////////////////////////////////////////////////////////////
 
 // MATERIAL CHANGE STYLES ///////////////////////////////////////////////////////////////////////////////////////////////////
+.mat-snack-bar-handset .mat-snack-bar-container {
+  margin-bottom: 85px !important;
+  border-radius: 3rem;
+  padding: 1.2rem 2rem;
+  font-weight: 600 !important;
+}
+
 .mat-focus-indicator:focus {
   outline: none;
 }
@@ -568,14 +586,17 @@ h1 {
   font-family: "Material Icons Round";
 }
 
+button.mat-button,
+button.mat-flat-button,
 button.mat-stroked-button {
-  background-color: #fff;
-  min-width: 36px;
-  padding: 5px 10px;
-  line-height: 34px;
-  // border: 1px solid currentColor;
-  border: 1px solid #eae9ee;
-  border-radius: 10px;
+  border-radius: 15px;
+  line-height: 40px;
+  padding: 0 20px;
+  font-weight: 700;
+}
+body .mat-dialog-container {
+  border-radius: 2.5rem;
+  padding: 1.5rem;
 }
 
 .mat-dialog-title {
@@ -586,7 +607,7 @@ button.mat-stroked-button {
 // FIN MATERIAL CHANGE STYLES ///////////////////////////////////////////////////////////////////////////////////////////////////
 
 // ANIMACIONES //////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-main .wrapper,
+.wrapper,
 .fadeInUp {
   opacity: 0;
   animation: fadeInUp 0.2s ease-in-out 0s forwards;

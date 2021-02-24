@@ -1,7 +1,11 @@
-<div mat-ripple (click)="editarVenta(venta)" class="card card-body venta">
+<div
+  mat-ripple
+  (click)="editarVenta(venta)"
+  class="card card-body venta shadow"
+>
   <div class="venta-detalles d-flex flex-row align-items-center">
     <div class="venta-icono d-flex align-items-center justify-content-center">
-      <mat-icon color="primary">person</mat-icon>
+      <mat-icon>person</mat-icon>
     </div>
     <div class="descripcion d-flex flex-column">
       <p>{{ venta.cliente }}, {{ venta.cantidad }} {{ venta.producto }}</p>

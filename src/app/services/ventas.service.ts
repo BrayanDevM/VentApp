@@ -3,6 +3,7 @@ import {
   AngularFirestore,
   AngularFirestoreCollection,
 } from '@angular/fire/firestore';
+import { MatSnackBar } from '@angular/material/snack-bar';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { UsuariosService } from './usuarios.service';
@@ -21,7 +22,8 @@ export class VentasService {
 
   constructor(
     private usuarios$: UsuariosService,
-    private db: AngularFirestore
+    private db: AngularFirestore,
+    private _snackBar: MatSnackBar
   ) {
     // declaraciones
     this.usuarioId = this.usuarios$.usuario.uid;
@@ -67,15 +69,16 @@ export class VentasService {
     });
   }
 
-  // NO FUNCIONA AÚN
-  guardarVentasLocales() {
-    if (localStorage.getItem('ventas')) {
-      const ventas: Venta[] = JSON.parse(localStorage.getItem('ventas') + '');
-      ventas.forEach((venta: Venta) => {
-        venta.id = this.db.createId();
-        this.guardarVenta(venta, venta.id);
+  eliminarDocumentoFirestore() {
+    this.ventasColecction.ref.onSnapshot((snap) => {
+      snap.forEach((doc) => {
+        doc.ref.delete();
       });
-    }
+    });
+
+    this._snackBar.open('Registros de ventas eliminados', 'Entendido', {
+      duration: 5000,
+    });
   }
 }
 

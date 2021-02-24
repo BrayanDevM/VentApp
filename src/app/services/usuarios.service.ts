@@ -14,6 +14,7 @@ import { first } from 'rxjs/operators';
 })
 export class UsuariosService {
   usuario!: Usuario;
+  loggeado = false;
   token!: string;
 
   private usuariosCollection: AngularFirestoreCollection<Usuario>;
@@ -78,10 +79,11 @@ export class UsuariosService {
   }
 
   estaLogeado() {
-    return this.usuario ? true : false;
+    return this.loggeado;
   }
 
   crearSesion() {
+    this.loggeado = true;
     sessionStorage.setItem('usuario', JSON.stringify(this.usuario));
     this.router.navigate(['/']);
   }
@@ -90,6 +92,7 @@ export class UsuariosService {
     this.usuario = JSON.parse(sessionStorage.getItem('usuario') + '');
     if (this.usuario) {
       console.log(this.usuario);
+      this.loggeado = true;
       this.router.navigate(['/']);
       return;
     }
@@ -100,6 +103,7 @@ export class UsuariosService {
       .signOut()
       .then(() => {
         console.log('Sesión cerrada');
+        this.loggeado = false;
         sessionStorage.removeItem('usuario');
         this.router.navigate(['/inicio']);
       })

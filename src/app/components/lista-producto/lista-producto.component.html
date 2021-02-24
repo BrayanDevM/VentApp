@@ -1,11 +1,13 @@
-<div mat-ripple (click)="editarProducto(producto)" class="producto">
+<div
+  mat-ripple
+  (click)="editarProducto(producto)"
+  class="producto card card-body shadow"
+>
   <div class="producto-detalles d-flex flex-row align-items-center">
-    <div
-      class="producto-img d-flex align-items-center justify-content-center border"
-    >
+    <div class="producto-img d-flex align-items-center justify-content-center">
       <!-- <mat-icon>person</mat-icon> -->
       <img *ngIf="producto.img !== ''" [src]="producto.img" />
-      <img *ngIf="producto.img === ''" src="assets/img/no-image.png" />
+      <mat-icon>insert_photo</mat-icon>
     </div>
     <div class="d-flex flex-column">
       <div class="descripcion">

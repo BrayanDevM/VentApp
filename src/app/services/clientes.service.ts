@@ -3,6 +3,7 @@ import {
   AngularFirestore,
   AngularFirestoreCollection,
 } from '@angular/fire/firestore';
+import { MatSnackBar } from '@angular/material/snack-bar';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { UsuariosService } from './usuarios.service';
@@ -17,7 +18,8 @@ export class ClientesService {
 
   constructor(
     private usuarios$: UsuariosService,
-    private db: AngularFirestore
+    private db: AngularFirestore,
+    private _snackBar: MatSnackBar
   ) {
     // declaraciones
     this.usuarioId = this.usuarios$.usuario.uid;
@@ -54,7 +56,7 @@ export class ClientesService {
     });
   }
 
-  async eliminarCliente(id: string): Promise<any> {
+  eliminarCliente(id: string): Promise<any> {
     return new Promise(async (resolve, reject) => {
       try {
         const result = await this.clientesColecction.doc(id).delete();
@@ -62,6 +64,18 @@ export class ClientesService {
       } catch (err) {
         reject(err);
       }
+    });
+  }
+
+  eliminarDocumentoFirestore() {
+    this.clientesColecction.ref.onSnapshot((snap) => {
+      snap.forEach((doc) => {
+        doc.ref.delete();
+      });
+    });
+
+    this._snackBar.open('Registros de clientes eliminados', 'Entendido', {
+      duration: 5000,
     });
   }
 }

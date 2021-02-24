@@ -1,14 +1,16 @@
 <button class="btn-perfil" mat-icon-button [matMenuTriggerFor]="menu">
   <img *ngIf="usuarioImg !== ''" [src]="usuarioImg" class="img-perfil" />
-  <div class="noImg">{{ usuarioNombre | inicialNombre }}</div>
+  <div *ngIf="usuarioImg === ''" class="noImg">
+    {{ usuarioNombre | inicialNombre }}
+  </div>
 </button>
 <mat-menu #menu="matMenu">
-  <button mat-menu-item>
+  <button *ngIf="false" mat-menu-item>
     <mat-icon>account_circle</mat-icon>
     <span>Perfil</span>
   </button>
   <button (click)="salir()" mat-menu-item>
     <mat-icon>logout</mat-icon>
-    <span>Salir</span>
+    <span>Cerrar sesión</span>
   </button>
 </mat-menu>

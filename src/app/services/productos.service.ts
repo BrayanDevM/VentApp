@@ -3,6 +3,7 @@ import {
   AngularFirestore,
   AngularFirestoreCollection,
 } from '@angular/fire/firestore';
+import { MatSnackBar } from '@angular/material/snack-bar';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { UsuariosService } from './usuarios.service';
@@ -17,7 +18,8 @@ export class ProductosService {
 
   constructor(
     private usuarios$: UsuariosService,
-    private db: AngularFirestore
+    private db: AngularFirestore,
+    private _snackBar: MatSnackBar
   ) {
     // declaraciones
     this.usuarioId = this.usuarios$.usuario.uid;
@@ -54,7 +56,7 @@ export class ProductosService {
     });
   }
 
-  async eliminarProducto(id: string): Promise<any> {
+  eliminarProducto(id: string): Promise<any> {
     return new Promise(async (resolve, reject) => {
       try {
         const result = await this.productosColecction.doc(id).delete();
@@ -62,6 +64,18 @@ export class ProductosService {
       } catch (err) {
         reject(err);
       }
+    });
+  }
+
+  eliminarDocumentoFirestore() {
+    this.productosColecction.ref.onSnapshot((snap) => {
+      snap.forEach((doc) => {
+        doc.ref.delete();
+      });
+    });
+
+    this._snackBar.open('Registros de productos eliminados', 'Entendido', {
+      duration: 5000,
     });
   }
 }

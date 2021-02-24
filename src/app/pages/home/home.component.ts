@@ -13,6 +13,7 @@ import { Venta, VentasService } from 'src/app/services/ventas.service';
 })
 export class HomeComponent implements OnInit, OnDestroy {
   listaVentas: Venta[] = [];
+  nombreUsuario: string;
 
   ultimasVentas: Venta[] = [];
   clientesNumero = 0;
@@ -26,7 +27,9 @@ export class HomeComponent implements OnInit, OnDestroy {
     private usuarios$: UsuariosService,
     private ventas$: VentasService,
     private clientes$: ClientesService
-  ) {}
+  ) {
+    this.nombreUsuario = this.usuarios$.usuario.nombre.split(' ')[0];
+  }
 
   ngOnInit(): void {
     this.obtenerNumClientes();

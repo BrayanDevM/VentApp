@@ -48,6 +48,9 @@ export class ChartBarComponent implements OnInit, OnChanges {
       ],
       colors: this.color,
       chart: {
+        toolbar: {
+          show: false,
+        },
         height: 220,
         type: 'bar',
       },

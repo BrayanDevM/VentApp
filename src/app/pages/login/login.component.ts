@@ -35,6 +35,9 @@ export class LoginComponent implements OnInit {
   iniciarSesionGoogle() {
     this.usuarios$.loginG();
   }
+  iniciarSesionFb() {
+    this.usuarios$.loginF();
+  }
 
   cerrarSesion() {
     this.usuarios$.cerrarSesion();

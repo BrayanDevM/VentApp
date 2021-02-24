@@ -27,14 +27,13 @@ export class AjustesService {
     this.aplicarTema();
   }
 
-  aplicarTema() {
+  aplicarTema(tema: string | undefined = undefined) {
     this.doc$.body.className = '';
+    tema ? (this.ajustes.tema = tema) : null;
     document.body.classList.add(this.ajustes.tema);
   }
 
   almacenarEnLS() {
-    console.log(this.ajustes);
-
     localStorage.setItem('ajustes', JSON.stringify(this.ajustes));
   }
 

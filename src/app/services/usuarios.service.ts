@@ -8,6 +8,7 @@ import {
 import firebase from 'firebase/app';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { first } from 'rxjs/operators';
+import { AjustesService } from './ajustes.service';
 
 @Injectable({
   providedIn: 'root',
@@ -23,14 +24,18 @@ export class UsuariosService {
     private auth: AngularFireAuth,
     private db: AngularFirestore,
     private router: Router,
-    private _snackBar: MatSnackBar
+    private _snackBar: MatSnackBar,
+    private ajustes$: AjustesService
   ) {
     this.usuariosCollection = this.db.collection<Usuario>('Usuarios');
     this.cargarSesion();
     // Redirección por Google sing
-    // this.auth
-    //   .getRedirectResult()
-    //   .then((result) => console.log(result, 'result redi'));
+    this.auth.getRedirectResult().then((resp) => {
+      if (resp.user) {
+        this.crearUsuarioEnColeccion(resp);
+        this.crearSesion();
+      }
+    });
   }
 
   /**
@@ -49,13 +54,20 @@ export class UsuariosService {
   }
 
   loginG() {
-    this.auth
-      .signInWithPopup(new firebase.auth.GoogleAuthProvider())
-      .then((resp) => {
-        this.crearUsuarioEnColeccion(resp);
-        this.crearSesion();
-      })
-      .catch((err) => this.controlError(err));
+    this.auth.signInWithRedirect(new firebase.auth.GoogleAuthProvider());
+    // .then((resp) => {
+    //   this.crearUsuarioEnColeccion(resp);
+    //   this.crearSesion();
+    // })
+    // .catch((err) => this.controlError(err));
+  }
+
+  loginF() {
+    this.auth.signInWithRedirect(new firebase.auth.FacebookAuthProvider());
+    // .then((resp) => {
+    //   console.log(resp);
+    // })
+    // .catch((err) => this.controlError(err));
   }
 
   loginC(correo: string, pass: string) {
@@ -102,9 +114,10 @@ export class UsuariosService {
     this.auth
       .signOut()
       .then(() => {
-        console.log('Sesión cerrada');
         this.loggeado = false;
         sessionStorage.removeItem('usuario');
+        this.ajustes$.aplicarTema('Claro');
+        this.ajustes$.almacenarEnLS();
         this.router.navigate(['/inicio']);
       })
       .catch((err) => this.controlError(err));
@@ -156,6 +169,15 @@ export class UsuariosService {
       case 'auth/email-already-in-use':
         this._snackBar.open(
           'Ya existe un usuario registrado con ese correo',
+          'Entendido',
+          {
+            duration: 5000,
+          }
+        );
+        break;
+      case 'auth/account-exists-with-different-credential':
+        this._snackBar.open(
+          'Este correo ya se encuentra registrado con otro credencial',
           'Entendido',
           {
             duration: 5000,
